@@ -24,6 +24,11 @@ public class Block : MonoBehaviour
 
     #endregion
 
+    public BlockFace GetFace(int blockFaceID)
+    {
+        return Faces.Where(f => f.ID == blockFaceID).First();
+    }
+
     public void Create()
     {
         // Register faces
