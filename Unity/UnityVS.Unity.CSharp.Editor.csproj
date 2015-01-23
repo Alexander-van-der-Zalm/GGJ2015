@@ -15,6 +15,9 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>4.6.1f1</UnityVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -84,6 +87,15 @@
     </Reference>
     <Reference Include="XInputDotNetPure">
       <HintPath>Assets\Plugins\XInputDotNetPure.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>Assets\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Messaging">
+      <HintPath>Assets\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityVS.VersionSpecific">
+      <HintPath>Assets\UnityVS\Editor\UnityVS.VersionSpecific.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -161,18 +173,11 @@
     <Compile Include="Assets\Code\FrameWork\Third Party\UnityTestTools\UnitTesting\Editor\UnityUnitTest.cs" />
     <Compile Include="Assets\Code\FrameWork\Utility\Editor\EditorPlus.cs" />
     <Compile Include="Assets\Code\FrameWork\Utility\Editor\ReadOnlyAttributeDrawer.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\changelog.txt" />
     <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\LICENSE.txt" />
     <None Include="Assets\Plugins\PlayModePersist\readme.txt" />
-    <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\UnitTesting\Editor\NSubstitute\NSubstitute.dll" />
-    <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\UnitTesting\Editor\NUnit\Libs\Mono.Cecil.dll" />
-    <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\UnitTesting\Editor\NUnit\Libs\Mono.Cecil.Mdb.dll" />
-    <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\UnitTesting\Editor\NUnit\Libs\nunit.core.dll" />
-    <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\UnitTesting\Editor\NUnit\Libs\nunit.core.interfaces.dll" />
-    <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\UnitTesting\Editor\NUnit\Libs\nunit.framework.dll" />
-    <None Include="Assets\Plugins\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Bridge.dll" />
-    <None Include="Assets\Plugins\UnityVS\Editor\SyntaxTree.VisualStudio.Unity.Messaging.dll" />
-    <None Include="Assets\Plugins\UnityVS\Editor\UnityVS.VersionSpecific.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>
