@@ -13,6 +13,17 @@ public class BlockFace : MonoBehaviour
 
     public int ID { get { return id; } set { id = value; } }
 
+    #region ClickEvent
+
+    public void Click()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    #endregion
+
+    #region Gizmos
+
     public void OnDrawGizmosSelected ()
     {
         Gizmos.color = new Color(0.1f, 0.8f, 0.1f, 0.3f);
@@ -24,4 +35,6 @@ public class BlockFace : MonoBehaviour
         Gizmos.color = new Color(0.1f, 0.1f, 0.1f, 0.3f);
         Gizmos.DrawSphere(transform.position, 0.25f);
     }
+
+    #endregion
 }
