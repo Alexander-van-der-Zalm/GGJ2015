@@ -1,18 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 
-
-public class Block : MonoBehaviour 
+public class Block : MonoBehaviour
 {
+    #region Fields
+
     [SerializeField]
     private int id;
+    
+    [HideInInspector]
+    public List<BlockFace> Faces;
+
+    #endregion
+
+    #region Properties
 
     public int ID { get { return id; } set { id = value; } }
 
-    [HideInInspector]
-    public List<BlockFace> Faces;
+    public bool HasUnit { get { return Faces.Where(f => f.HasUnit).Any(); } }
+
+    #endregion
 
     public void Create()
     {
