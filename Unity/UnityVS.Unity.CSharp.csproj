@@ -195,6 +195,7 @@
     <Compile Include="Assets\Code\Game Specific\Blocks\Block.cs" />
     <Compile Include="Assets\Code\Game Specific\Blocks\BlockFace.cs" />
     <Compile Include="Assets\Code\Game Specific\Blocks\BlockManager.cs" />
+    <Compile Include="Assets\Code\Game Specific\Units\BasicUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\changelog.txt" />
