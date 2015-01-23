@@ -2,21 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// Todo
-// (X) ADD
-// (X) Spawn and move
-// (X) Register to lists (blocks & neighbours)
-// (X) Art sauce it up
-// (X) Remove
-// Connected blocks?
 
-// Block
-// Spawn
-// Delete
-
-// BlockManager
-// Create n register
-// Delete n unregister
 
 public class Block : MonoBehaviour 
 {
