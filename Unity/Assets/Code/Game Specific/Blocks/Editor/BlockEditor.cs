@@ -10,6 +10,6 @@ public class BlockEditor : EditorPlus
         base.OnInspectorGUI();
         Block block = target as Block;
         if (GUILayout.Button("Rebuild Face ID's"))
-            block.Create();
+            block.FaceCheck();
     }
 }

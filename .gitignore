@@ -71,3 +71,6 @@ Unity/UnityVS.Unity.CSharp.Editor.csproj
 Unity/Assembly-UnityScript-Editor-vs.unityproj
 *.unityproj
 Unity/Assembly-UnityScript-Editor-vs.unityproj
+Unity/Unity-csharp.sln
+Unity/Unity.sln
+Unity/UnityVS.Unity.CSharp.csproj
