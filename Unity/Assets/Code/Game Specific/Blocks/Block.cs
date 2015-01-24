@@ -55,5 +55,11 @@ public class Block : MonoBehaviour
         // UNSet ID
     }
 
+	public void ChangeBlock(int index){
+		foreach (BlockFace face in Faces) {
+			face.ChangeFace(index);
+		}
+	}
+
 
 }
