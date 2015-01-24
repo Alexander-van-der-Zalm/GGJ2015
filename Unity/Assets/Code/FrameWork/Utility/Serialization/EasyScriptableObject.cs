@@ -41,7 +41,7 @@ public class ScriptableObjectHelper
 
     private static void correctHideFlagsForSaving(ScriptableObject asset)
     {
-        Debug.Log(asset.hideFlags.ToString());
+        //D//ebug.Log(asset.hideFlags.ToString());
         if (asset.hideFlags == HideFlags.DontSave)
             asset.hideFlags = HideFlags.None;
 

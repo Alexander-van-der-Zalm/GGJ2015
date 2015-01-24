@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     protected static T instance;

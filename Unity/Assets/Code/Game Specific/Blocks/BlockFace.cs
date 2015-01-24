@@ -73,8 +73,11 @@ public class BlockFace : MonoBehaviour
             {
                 //SelectionManager Stuff
                 if (Selectionmanager.Instance.SelectedUnit != null)
-					(GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
+                {
+                    (GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
                     Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+                }
+					
             }
         }// Right mouse button
         else if(Input.GetMouseButtonDown(1))

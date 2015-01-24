@@ -23,8 +23,8 @@ using System.IO;
 // Create n register
 // Delete n unregister
 
-[ExecuteInEditMode]
-public class BlockManager : Singleton<BlockManager>, ISerializationCallbackReceiver
+[ExecuteInEditMode,System.Serializable]
+public class BlockManager : Singleton<BlockManager>
 {
     #region Fields
 
@@ -38,7 +38,11 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
 
     [HideInInspector]
     public List<string> LevelNames;
-    
+
+    [SerializeField]
+    private GameObject parent;
+
+
 
     #endregion
 
@@ -70,6 +74,11 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
 
     public static void UnRegister(Block newBlock)
     {
+        if(instance == null)
+        {
+            //Debug.Log("Unregister encountered null");
+            return;
+        }
         Instance.Blocks.Remove(newBlock);
 
         Instance.RedoIDs();
@@ -107,7 +116,7 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
         // Create new block
         GameObject blockGO = GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
         Block block = blockGO.GetComponent<Block>();
-        Register(block);
+        //Register(block);
 
         return block;
     }
@@ -140,29 +149,20 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
     public void LoadBlocks(BlockListSO blockData)
     {
         int count=  Blocks.Count;
-
-        GameObject parent;
-        if (Blocks.Count > 0 && Blocks[0] != null)
-            parent = Blocks[0].transform.parent.gameObject;
-        else
-            parent = null;
+        //Block[] copy = Blocks;
 
         // Delete oldblocks
         for (int i = 0; i < count; i++)
         {
-            if (Blocks[i] != null)
+            if (Blocks[count - i - 1] != null)
                 GameObject.DestroyImmediate(Blocks[count - i - 1].gameObject);
         }
 
-        // Create a new parent
-        if(parent != null)
+        if(parent == null)
         {
-            GameObject.DestroyImmediate(parent);
+            parent = new GameObject();
+            parent.name = "LevelBlocks";
         }
-
-        parent = new GameObject();
-        parent.name = "LevelBlocks";
-            
 
         // Create new blocks list
         Blocks = new List<Block>();
@@ -180,6 +180,8 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
             block.ID = i;
             block.transform.parent = parent.transform;
         }
+
+
     }
 
     public static void SaveLevel()
@@ -212,19 +214,32 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
 
     #endregion
 
-    public void OnAfterDeserialize()
+    public void OnEnable()
     {
-        if(!EditorApplication.isPlaying)
+        if (!EditorApplication.isPlaying)
         {
             Debug.Log("Serialize after playmode");
             LevelNames = FindLevelNames();
             BlockManager.LoadLevel(SelectedLevel);
         }
-        
+
     }
 
-    public void OnBeforeSerialize()
-    {
-        //BlockManager.SaveLevel();
-    }
+
+    //void OnEnable()
+    //{
+    //#if UNITY_EDITOR
+    //        EditorApplication.playmodeStateChanged += StateChange;
+    //#endif
+    //}
+
+    //#if UNITY_EDITOR
+    //void StateChange()
+    //{
+    //    if (!EditorApplication.isPlayingOrWillChangePlaymode && EditorApplication.isPlaying)
+    //    {
+    //        BlockManager.LoadLevel(SelectedLevel);
+    //    }
+    //}
+    //#endif
 }

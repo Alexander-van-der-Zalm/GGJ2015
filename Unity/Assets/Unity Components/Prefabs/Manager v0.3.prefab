@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.23000002, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,7 +42,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cee1c0db74cde44b4471d49e4b85bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitPrefabs: []
+  UnitPrefabs:
+  - {fileID: 0}
   Units: []
 --- !u!114 &11437174
 MonoBehaviour:
@@ -68,6 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlockPrefab: {fileID: 160234, guid: 6787a2fee7ef3bd45aa9414764bde07c, type: 2}
   Blocks: []
+  LevelNames:
+  - Level.asset
 --- !u!114 &11437178
 MonoBehaviour:
   m_ObjectHideFlags: 1

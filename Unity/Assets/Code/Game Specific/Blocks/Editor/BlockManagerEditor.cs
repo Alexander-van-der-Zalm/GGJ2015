@@ -10,7 +10,7 @@ public class BlockManagerEditor : EditorPlus
     public override void OnInspectorGUI()
     {
         BlockManager mgr = target as BlockManager;
-        if (mgr.LevelNames == null)
+        //if (mgr.LevelNames == null)
             mgr.LevelNames = mgr.FindLevelNames();
 
         EditorGUILayout.BeginHorizontal();
@@ -23,8 +23,11 @@ public class BlockManagerEditor : EditorPlus
             BlockManager.LoadLevel(mgr.LevelNames[index]);
             Debug.Log("Assets/Levels" + mgr.LevelNames[index]);
         }
-
-
+        if (GUILayout.Button("Save Level"))
+        {
+            BlockManager.SaveLevel();
+        }
+            
         EditorGUILayout.EndHorizontal();
         
         
