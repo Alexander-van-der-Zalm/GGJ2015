@@ -38,7 +38,7 @@ public class BlockFace : MonoBehaviour
        get
        {
             Vector3 center = transform.parent.transform.position;
-            Vector3 normalDirection = tr.position - center;
+            Vector3 normalDirection = transform.position - center;
             return normalDirection.normalized;
        }
         
@@ -46,16 +46,11 @@ public class BlockFace : MonoBehaviour
 
     #endregion
 
-    public void Start()
-    {
-        tr = transform;
-    }
-
     #region ClickEvent
 
-    public void Click()
+    public void OnMouseDown()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("CLicked " + ID);
     }
 
     #endregion
@@ -67,10 +62,10 @@ public class BlockFace : MonoBehaviour
         Gizmos.color = new Color(0.1f, 0.8f, 0.1f, 0.3f);
 
         // Rotate towards normal
-        Matrix4x4 rotationMatrix = Matrix4x4.TRS(tr.position, Rotation,Vector3.one);
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, Rotation, Vector3.one);
         Gizmos.matrix = rotationMatrix;
 
-        Gizmos.DrawCube(Vector3.zero, new Vector3(.15f,.25f,.15f));
+        Gizmos.DrawCube(Vector3.zero, new Vector3(.15f,.15f,.25f));
     }
 
     public void OnDrawGizmos()

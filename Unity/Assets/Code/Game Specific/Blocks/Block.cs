@@ -32,7 +32,15 @@ public class Block : MonoBehaviour
     public void Create()
     {
         // Register faces
+        Faces = GetComponentsInChildren<BlockFace>().ToList();
+
         // Set ID
+        for (int i = 0; i < Faces.Count; i++)
+        {
+            Faces[i].ID = i;
+            Faces[i].gameObject.name = "Face " + i;
+        }
+        
     }
 
     public void Remove()
