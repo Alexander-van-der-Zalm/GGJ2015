@@ -65,10 +65,10 @@ public class BlockManager : Singleton<BlockManager>
         GameObject blockGO =  GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
         Block newBlock = blockGO.GetComponent<Block>();
 
-        float blockScale = 1f;
+        float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
         // Translate half width * normal?
         blockGO.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
-        Debug.Log(clickedFace.Normal);
+        Debug.Log(clickedFace.Normal + "  pos "+ parentBlock.transform.position);
     }
 
     public static void Remove(int blockID)

@@ -99,7 +99,7 @@ public class BlockFace : MonoBehaviour
         Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, Rotation, Vector3.one);
         Gizmos.matrix = rotationMatrix;
 
-        Gizmos.DrawCube(Vector3.zero, new Vector3(.15f,.15f,.25f));
+        Gizmos.DrawCube(Vector3.zero, new Vector3(.15f,.25f,.15f));
     }
 
     public void OnDrawGizmos()
