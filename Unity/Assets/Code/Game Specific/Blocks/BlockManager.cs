@@ -37,16 +37,37 @@ public class BlockManager : Singleton<BlockManager>
     {
         Instance.Blocks.Add(newBlock);
 
+        Instance.RedoIDs();
+    }
+
+    public static void UnRegister(Block newBlock)
+    {
+        Instance.Blocks.Remove(newBlock);
+
+        Instance.RedoIDs();
+    }
+
+    public void RedoIDs()
+    {
         // Redo ID's for all
         for (int i = 0; i < Instance.Blocks.Count; i++)
         {
             Instance.Blocks[i].ID = i;
         }
-            //newBlock.ID = Instance.Blocks.Count;
     }
 
     public static void Add(int blockID, int clickedFacedID)
     {
+        Block parentBlock = BlockManager.Get(blockID);
+        BlockFace clickedFace = parentBlock.GetFace(clickedFacedID);
+        
+        // Create new block
+        GameObject blockGO =  GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
+        Block newBlock = blockGO.GetComponent<Block>();
+
+        float blockScale = 0.5f;
+        // Translate half width * normal?
+        blockGO.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
 
     }
 
