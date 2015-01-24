@@ -37,6 +37,9 @@ public class BlockManager : Singleton<BlockManager>
     {
         // Written while durped
         Instance.Blocks.Add(newBlock);
+         // Written while durped
+        // Unique ID HOW???
+        newBlock.ID = Instance.Blocks.Count;
     }
 
     public static void Add(int blockID, int clickedFacedID)
