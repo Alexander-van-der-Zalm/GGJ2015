@@ -34,7 +34,7 @@ public class BasicUnit : MonoBehaviour
     public void Start()
     {
         tr = transform;
-        UnitManger.Register(this);
+        UnitManager.Register(this);
     }
 
     //public void OnDestroy()
@@ -42,9 +42,20 @@ public class BasicUnit : MonoBehaviour
     //    UnitManger.UnRegister(this);
     //}
 
-    public void OnMouseDown()
+    public void OnMouseOver()
     {
-        Selectionmanager.SelectionChanged(this);
+        // Left click
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Select
+            Selectionmanager.SelectionChanged(this);
+        }// Right mouse button
+        else if (Input.GetMouseButtonDown(1))
+        {
+            // Delete
+            UnitManager.Delete(this);
+        }
+
     }
 
     public void MoveUnit(int blockID,int blockFaceID)
