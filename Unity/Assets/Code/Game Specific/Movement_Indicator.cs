@@ -9,6 +9,8 @@ public class Movement_Indicator : MonoBehaviour {
 
 	public Material mat;
 
+	public bool reducing = false;
+
 	public GameObject[] faces;
 	public GameObject child;
 
@@ -22,14 +24,25 @@ public class Movement_Indicator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.incSize ();
+		if (!reducing) {
+			this.incSize ();
+		}
 		this.rotate();
 		this.fadeOut ();
-		StartCoroutine (destroy ());
+		StartCoroutine (grow ());
+		if (reducing) {
+			this.redSize();
+			StartCoroutine(destroy());
+		}
 	}
 
 	public void incSize(){
-		newScale += 0.04f;
+		newScale += 0.014f;
+		this.transform.localScale = new Vector3 (newScale, newScale, newScale);
+	}
+
+	public void redSize(){
+		newScale -= 0.014f;
 		this.transform.localScale = new Vector3 (newScale, newScale, newScale);
 	}
 
@@ -39,8 +52,13 @@ public class Movement_Indicator : MonoBehaviour {
 	}
 
 	public void fadeOut(){
-		float tempAlpha = mat.color.a - 0.03f;
+		float tempAlpha = mat.color.a - 0.004f;
 		mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, tempAlpha);
+	}
+
+	IEnumerator grow(){
+		yield return new WaitForSeconds(0.4f);
+		reducing = true;
 	}
 
 	IEnumerator destroy(){
