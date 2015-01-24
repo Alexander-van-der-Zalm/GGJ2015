@@ -11,5 +11,7 @@ public class BlockEditor : EditorPlus
         Block block = target as Block;
         if (GUILayout.Button("Rebuild Face ID's"))
             block.FaceCheck();
+
+        
     }
 }
