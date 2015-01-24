@@ -14,6 +14,8 @@ public class Block : MonoBehaviour
     [HideInInspector]
     public List<BlockFace> Faces;
 
+    public BlockData.BlockType Type;
+
     #endregion
 
     #region Properties

@@ -18,6 +18,9 @@ public class ScriptableObjectHelper
         else
             path += "/" + asset.GetType().Name + ".asset";
 
+        Debug.Log(path);
+
+
         if (unique)
             path = AssetDatabase.GenerateUniqueAssetPath(path);
 
