@@ -51,6 +51,8 @@ public class BlockFace : MonoBehaviour
     public void OnMouseDown()
     {
         Debug.Log("CLicked " + ID);
+        //SelectionManager Stuff
+
     }
 
     #endregion

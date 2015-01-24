@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Selectionmanager : Singleton<BlockManager>  
+public class Selectionmanager : Singleton<Selectionmanager>  
 {
     public BasicUnit SelectedUnit;
     
@@ -9,4 +9,14 @@ public class Selectionmanager : Singleton<BlockManager>
     
 
     // Hotkeys
+
+    internal static void SelectionChanged(BasicUnit basicUnit)
+    {
+        if(Instance.SelectedUnit!=null)
+            Instance.SelectedUnit.MaterialColor = Instance.SelectedUnit.NormalTint;
+        
+        Instance.SelectedUnit = basicUnit;
+        Debug.Log("Clicked");
+        Instance.SelectedUnit.MaterialColor = Instance.SelectedUnit.SelectedTint;
+    }
 }
