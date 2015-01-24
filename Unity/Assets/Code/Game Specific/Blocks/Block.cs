@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-
+[ExecuteInEditMode]
 public class Block : MonoBehaviour
 {
     #region Fields
@@ -13,6 +13,8 @@ public class Block : MonoBehaviour
     
     [HideInInspector]
     public List<BlockFace> Faces;
+
+    public BlockData.BlockType Type;
 
     #endregion
 
@@ -24,11 +26,7 @@ public class Block : MonoBehaviour
 
     #endregion
 
-    public void Start()
-    {
-        // Register to blockmanager
-        BlockManager.Register(this);
-    }
+    
 
     public BlockFace GetFace(int blockFaceID)
     {
@@ -52,7 +50,9 @@ public class Block : MonoBehaviour
     public void Remove()
     {
         // UNRegister faces
+
         // UNSet ID
+
     }
 
 	public void ChangeBlock(int index){
@@ -61,5 +61,15 @@ public class Block : MonoBehaviour
 		}
 	}
 
+    public void OnEnable()
+    {
+        // Register to blockmanager
+        BlockManager.Register(this);
+    }
 
+    public void OnDisable()
+    {
+        Remove();
+        BlockManager.UnRegister(this);
+    }
 }

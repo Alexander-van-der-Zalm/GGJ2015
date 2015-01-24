@@ -11,17 +11,22 @@ public class ScriptableObjectHelper
         return so;
     }
     
-    public static void SaveAssetAutoNaming(ScriptableObject asset, string path = "Assets", bool unique = true)
+    public static string SaveAssetAutoNaming(ScriptableObject asset, string path = "Assets", bool unique = true)
     {
         if (!asset.name.Equals(string.Empty))
             path += "/" + asset.name + ".asset";
         else
             path += "/" + asset.GetType().Name + ".asset";
 
+        Debug.Log(path);
+
+
         if (unique)
             path = AssetDatabase.GenerateUniqueAssetPath(path);
 
         SaveAsset(asset, path);
+
+        return path;
     }
 
     public static void SaveAsset(ScriptableObject asset, string path)
@@ -36,7 +41,7 @@ public class ScriptableObjectHelper
 
     private static void correctHideFlagsForSaving(ScriptableObject asset)
     {
-        Debug.Log(asset.hideFlags.ToString());
+        //D//ebug.Log(asset.hideFlags.ToString());
         if (asset.hideFlags == HideFlags.DontSave)
             asset.hideFlags = HideFlags.None;
 
