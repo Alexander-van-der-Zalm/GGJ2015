@@ -28,7 +28,7 @@ public class Block : MonoBehaviour
     {
         // Register to blockmanager
         BlockManager.Register(this);
-
+        Create();
     }
 
     public BlockFace GetFace(int blockFaceID)
