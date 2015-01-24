@@ -68,3 +68,6 @@ $RECYCLE.BIN/
 *.csproj
 Unity/UnityVS.Unity.CSharp.csproj
 Unity/UnityVS.Unity.CSharp.Editor.csproj
+Unity/Assembly-UnityScript-Editor-vs.unityproj
+*.unityproj
+Unity/Assembly-UnityScript-Editor-vs.unityproj
