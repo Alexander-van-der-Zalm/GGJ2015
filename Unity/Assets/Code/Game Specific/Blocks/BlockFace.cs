@@ -34,7 +34,7 @@ public class BlockFace : MonoBehaviour
     { 
         get 
         {
-            return Quaternion.LookRotation(Normal);
+            return Quaternion.LookRotation(Normal, new Vector3(0,1,0));
         } 
     }
 
@@ -60,13 +60,20 @@ public class BlockFace : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
             {
+                // New block
                 Debug.Log("Create new block");
                 BlockManager.Add(Block.ID, ID);
+            }
+            else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+            {
+                // Create Unit
+                UnitManager.Create(Block.ID, ID);
             }
             else
             {
                 //SelectionManager Stuff
                 if (Selectionmanager.Instance.SelectedUnit != null)
+					(GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
                     Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
             }
         }// Right mouse button
@@ -77,6 +84,7 @@ public class BlockFace : MonoBehaviour
                 Debug.Log("Remove block " + Block.ID);
                 BlockManager.Remove(Block.ID);
             }
+            
         }
 
     }
