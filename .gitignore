@@ -65,3 +65,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 *.csproj
+*.csproj
+Unity/UnityVS.Unity.CSharp.csproj
+Unity/UnityVS.Unity.CSharp.Editor.csproj
