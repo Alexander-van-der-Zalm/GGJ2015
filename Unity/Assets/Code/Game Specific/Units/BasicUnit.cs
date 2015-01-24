@@ -34,13 +34,17 @@ public class BasicUnit : MonoBehaviour
     public void Start()
     {
         tr = transform;
+        UnitManger.Register(this);
     }
+
+    //public void OnDestroy()
+    //{
+    //    UnitManger.UnRegister(this);
+    //}
 
     public void OnMouseDown()
     {
-        Debug.Log("Test");
         Selectionmanager.SelectionChanged(this);
-
     }
 
     public void MoveUnit(int blockID,int blockFaceID)
