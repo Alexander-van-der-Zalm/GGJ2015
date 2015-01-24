@@ -46,8 +46,8 @@ public class Camera_Rotation : MonoBehaviour {
 	}
 
 	private void cameraLook(){
-		Vector3 lookRot =  target.position - this.transform.position;
-		this.transform.rotation = Quaternion.LookRotation (lookRot);
+		//Vector3 lookRot =  target.position - this.transform.position;
+		this.transform.LookAt (target, transform.up);
 	}
 
 	private void cameraMove(){

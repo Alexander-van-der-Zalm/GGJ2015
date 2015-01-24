@@ -57,12 +57,12 @@ public class Movement_Indicator : MonoBehaviour {
 	}
 
 	IEnumerator grow(){
-		yield return new WaitForSeconds(0.4f);
+		yield return new WaitForSeconds(0.25f);
 		reducing = true;
 	}
 
 	IEnumerator destroy(){
-		yield return new WaitForSeconds(0.4f);
+		yield return new WaitForSeconds(0.25f);
 		Destroy (gameObject);
 	}
 }

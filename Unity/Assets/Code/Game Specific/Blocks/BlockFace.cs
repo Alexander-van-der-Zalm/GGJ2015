@@ -17,6 +17,8 @@ public class BlockFace : MonoBehaviour
     [SerializeField]
     private Block block;
 
+	public int TextureId = 0;
+
     public bool HasUnit;
 
     private Transform tr;
@@ -69,6 +71,9 @@ public class BlockFace : MonoBehaviour
                 // Create Unit
                 UnitManager.Create(Block.ID, ID);
             }
+			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)){
+				this.ChangeFace(TextureId++);
+			}
             else
             {
                 //SelectionManager Stuff
@@ -87,7 +92,9 @@ public class BlockFace : MonoBehaviour
                 Debug.Log("Remove block " + Block.ID);
                 BlockManager.Remove(Block.ID);
             }
-            
+			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)){
+				this.block.ChangeBlock(TextureId++);
+			}
         }
 
     }
@@ -103,6 +110,19 @@ public class BlockFace : MonoBehaviour
     //}
 
     #endregion
+
+	#region Materials
+
+	public void ChangeFace(int index){
+		if (index != MaterialManager.Instance.size) {
+			this.renderer.material = MaterialManager.Instance.matIndex [index];
+		} else {
+			this.renderer.material = MaterialManager.Instance.matIndex [0];
+			this.TextureId = 0;
+		}
+	}
+
+	#endregion Materials
 
     #region Gizmos
 
