@@ -40,7 +40,7 @@ public class BlockManager : Singleton<BlockManager>
         // Redo ID's for all
         for (int i = 0; i < Instance.Blocks.Count; i++)
         {
-            Instance.Blocks[i].ID = i; i = i;
+            Instance.Blocks[i].ID = i;
         }
             //newBlock.ID = Instance.Blocks.Count;
     }
