@@ -35,20 +35,46 @@ public class BlockManager : Singleton<BlockManager>
 
     public static void Register(Block newBlock)
     {
-        // Written while durped
         Instance.Blocks.Add(newBlock);
-         // Written while durped
-        // Unique ID HOW???
-        newBlock.ID = Instance.Blocks.Count;
+
+        Instance.RedoIDs();
+    }
+
+    public static void UnRegister(Block newBlock)
+    {
+        Instance.Blocks.Remove(newBlock);
+
+        Instance.RedoIDs();
+    }
+
+    public void RedoIDs()
+    {
+        // Redo ID's for all
+        for (int i = 0; i < Instance.Blocks.Count; i++)
+        {
+            Instance.Blocks[i].ID = i;
+        }
     }
 
     public static void Add(int blockID, int clickedFacedID)
     {
+        Block parentBlock = BlockManager.Get(blockID);
+        BlockFace clickedFace = parentBlock.GetFace(clickedFacedID);
+        
+        // Create new block
+        GameObject blockGO =  GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
+        Block newBlock = blockGO.GetComponent<Block>();
 
+        float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
+        // Translate half width * normal?
+        blockGO.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
+        Debug.Log(clickedFace.Normal + "  pos "+ parentBlock.transform.position);
     }
 
     public static void Remove(int blockID)
     {
-
+        Block block = BlockManager.Get(blockID);
+        UnRegister(block);
+        GameObject.Destroy(block.gameObject);
     }
 }

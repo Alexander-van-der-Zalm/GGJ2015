@@ -28,7 +28,6 @@ public class Block : MonoBehaviour
     {
         // Register to blockmanager
         BlockManager.Register(this);
-        Create();
     }
 
     public BlockFace GetFace(int blockFaceID)
@@ -36,7 +35,7 @@ public class Block : MonoBehaviour
         return Faces.Where(f => f.ID == blockFaceID).First();
     }
 
-    public void Create()
+    public void FaceCheck()
     {
         // Register faces
         Faces = GetComponentsInChildren<BlockFace>().ToList();
@@ -48,10 +47,6 @@ public class Block : MonoBehaviour
             Faces[i].gameObject.name = "Face " + i;
             Faces[i].Block = this;
         }
-        
-
-        // Register to blockmanager
-        BlockManager.Register(this);
     }
 
     public void Remove()
