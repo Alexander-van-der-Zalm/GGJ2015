@@ -35,11 +35,14 @@ public class BlockManager : Singleton<BlockManager>
 
     public static void Register(Block newBlock)
     {
-        // Written while durped
         Instance.Blocks.Add(newBlock);
-         // Written while durped
-        // Unique ID HOW???
-        newBlock.ID = Instance.Blocks.Count;
+
+        // Redo ID's for all
+        for (int i = 0; i < Instance.Blocks.Count; i++)
+        {
+            Instance.Blocks[i].ID = i; i = i;
+        }
+            //newBlock.ID = Instance.Blocks.Count;
     }
 
     public static void Add(int blockID, int clickedFacedID)
