@@ -11,6 +11,11 @@ public class BasicUnit : MonoBehaviour
     public Color SelectedTint;
     public Color NormalTint;
 
+    [SerializeField]
+    private int id;
+
+    public int ID { get { return id; } set { id = value; } }
+
     public Color MaterialColor 
     { 
         get { return GetComponent<MeshFilter>().mesh.colors.First(); }

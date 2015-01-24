@@ -6,7 +6,7 @@ using System.Collections;
 // Captured
 // CapturedState?
 
-[ExecuteInEditMode]
+[ExecuteInEditMode,System.Serializable]
 public class BlockFace : MonoBehaviour
 {
     #region Fields
