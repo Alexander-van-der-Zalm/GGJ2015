@@ -73,6 +73,8 @@ public class BlockManager : Singleton<BlockManager>
 
     public static void Remove(int blockID)
     {
-
+        Block block = BlockManager.Get(blockID);
+        UnRegister(block);
+        GameObject.Destroy(block.gameObject);
     }
 }

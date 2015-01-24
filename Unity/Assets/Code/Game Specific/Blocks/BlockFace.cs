@@ -72,7 +72,11 @@ public class BlockFace : MonoBehaviour
         }// Right mouse button
         else if(Input.GetMouseButtonDown(1))
         {
-            
+            if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
+            {
+                Debug.Log("Remove block " + Block.ID);
+                BlockManager.Remove(Block.ID);
+            }
         }
 
     }
