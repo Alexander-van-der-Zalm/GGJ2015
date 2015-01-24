@@ -24,24 +24,25 @@ using System.IO;
 // Delete n unregister
 
 [ExecuteInEditMode]
-public class BlockManager : Singleton<BlockManager>
+public class BlockManager : Singleton<BlockManager>, ISerializationCallbackReceiver
 {
     #region Fields
 
     public GameObject BlockPrefab;
+    //[HideInInspector]
     public List<Block> Blocks;
 
+    //private string selectedLevel
+
+    public string SelectedLevel { get { return PlayerPrefs.GetString("CurrentLevel"); } set { PlayerPrefs.SetString("CurrentLevel", value); } }
+
     [HideInInspector]
-    public List<string> LevelPaths;
+    public List<string> LevelNames;
+    
 
     #endregion
 
-    public void Start()
-    {
-        LevelPaths = FindLevels();
-    }
-
-    public List<string> FindLevels()
+    public List<string> FindLevelNames()
     {
         string basePath = Application.dataPath + "/Levels";
         string[] files = Directory.GetFiles(basePath).Where(s => s.EndsWith(".asset")).ToArray();
@@ -123,11 +124,14 @@ public class BlockManager : Singleton<BlockManager>
 
     #region Load and Save
 
-    public static void LoadLevel(string pathName)
+    public static void LoadLevel(string levelName)
     {
-        Debug.Log("Load: " + pathName);
+        Debug.Log("Load: " + levelName);
+
+        //Instance.SelectedLevel = levelName;
+
         // Get the asset
-        BlockListSO blockData = (BlockListSO)AssetDatabase.LoadAssetAtPath(pathName, typeof(BlockListSO));
+        BlockListSO blockData = (BlockListSO)AssetDatabase.LoadAssetAtPath("Assets/Levels/"+levelName, typeof(BlockListSO));
 
         // Read asset
         Instance.LoadBlocks(blockData);
@@ -198,8 +202,24 @@ public class BlockManager : Singleton<BlockManager>
             });
         }
 
-        ScriptableObjectHelper.SaveAssetAutoNaming(list, "Assets/Levels");
+        list.name = "Level";
+
+        string path = ScriptableObjectHelper.SaveAssetAutoNaming(list, "Assets/Levels");
+
+        Instance.SelectedLevel = path.Remove(0,("Assets/Levels").Count()+1);
     }
 
     #endregion
+
+    public void OnAfterDeserialize()
+    {
+        Debug.Log("Serialize");
+        LevelNames = FindLevelNames();
+        BlockManager.LoadLevel(SelectedLevel);
+    }
+
+    public void OnBeforeSerialize()
+    {
+        //BlockManager.SaveLevel();
+    }
 }

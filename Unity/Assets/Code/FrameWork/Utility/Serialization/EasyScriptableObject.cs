@@ -11,7 +11,7 @@ public class ScriptableObjectHelper
         return so;
     }
     
-    public static void SaveAssetAutoNaming(ScriptableObject asset, string path = "Assets", bool unique = true)
+    public static string SaveAssetAutoNaming(ScriptableObject asset, string path = "Assets", bool unique = true)
     {
         if (!asset.name.Equals(string.Empty))
             path += "/" + asset.name + ".asset";
@@ -25,6 +25,8 @@ public class ScriptableObjectHelper
             path = AssetDatabase.GenerateUniqueAssetPath(path);
 
         SaveAsset(asset, path);
+
+        return path;
     }
 
     public static void SaveAsset(ScriptableObject asset, string path)
