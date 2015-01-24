@@ -15,6 +15,9 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>GamePlugins:3</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>4.6.0b20</UnityVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -79,6 +82,8 @@
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\SepiaToneEffect.cs" />
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\TwirlEffect.cs" />
     <Compile Include="Assets\Standard Assets\Image Effects (Pro Only)\VortexEffect.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\changelog.txt" />
     <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\LICENSE.txt" />
     <None Include="Assets\Plugins\PlayModePersist\readme.txt" />
@@ -151,7 +156,6 @@
     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\TwirlEffect.shader" />
     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VignettingShader.shader" />
     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VortexEffect.shader" />
-    <None Include="Assets\Plugins\XInputDotNetPure.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

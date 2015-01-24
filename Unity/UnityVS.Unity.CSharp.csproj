@@ -17,7 +17,7 @@
     <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
-    <UnityVersion>4.6.1f1</UnityVersion>
+    <UnityVersion>4.6.0b20</UnityVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -204,6 +204,7 @@
     <Compile Include="Assets\Code\Game Specific\Blocks\Block.cs" />
     <Compile Include="Assets\Code\Game Specific\Blocks\BlockFace.cs" />
     <Compile Include="Assets\Code\Game Specific\Blocks\BlockManager.cs" />
+    <Compile Include="Assets\Code\Game Specific\Camera_Rotation.cs" />
     <Compile Include="Assets\Code\Game Specific\Units\BasicUnit.cs" />
     <Compile Include="Assets\Code\Game Specific\Units\Selectionmanager.cs" />
   </ItemGroup>
