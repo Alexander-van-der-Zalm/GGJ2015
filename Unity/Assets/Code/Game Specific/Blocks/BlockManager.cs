@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using System.IO;
 // Block Prefab
 // 
 
@@ -22,15 +23,36 @@ using UnityEditor;
 // Create n register
 // Delete n unregister
 
+[ExecuteInEditMode]
 public class BlockManager : Singleton<BlockManager>
 {
     #region Fields
 
     public GameObject BlockPrefab;
     public List<Block> Blocks;
-    
+
+    [HideInInspector]
+    public List<string> LevelPaths;
 
     #endregion
+
+    public void Start()
+    {
+        LevelPaths = FindLevels();
+    }
+
+    public List<string> FindLevels()
+    {
+        string basePath = Application.dataPath + "/Levels";
+        string[] files = Directory.GetFiles(basePath).Where(s => s.EndsWith(".asset")).ToArray();
+        for (int i = 0; i < files.Length; i++ )
+        {
+            files[i] = files[i].Remove(0, basePath.Count()+1);
+        }
+        return files.ToList();
+
+        // Filter results
+    }
 
     #region  Get, register, id
     public static Block Get(int ID)
@@ -103,6 +125,7 @@ public class BlockManager : Singleton<BlockManager>
 
     public static void LoadLevel(string pathName)
     {
+        Debug.Log("Load: " + pathName);
         // Get the asset
         BlockListSO blockData = (BlockListSO)AssetDatabase.LoadAssetAtPath(pathName, typeof(BlockListSO));
 
@@ -113,11 +136,28 @@ public class BlockManager : Singleton<BlockManager>
     public void LoadBlocks(BlockListSO blockData)
     {
         int count=  Blocks.Count;
+
+        GameObject parent;
+        if (Blocks.Count > 0)
+            parent = Blocks[0].transform.parent.gameObject;
+        else
+            parent = null;
+
         // Delete oldblocks
         for (int i = 0; i < count; i++)
         {
-            GameObject.Destroy(Blocks[count - i - 1].gameObject);
+            GameObject.DestroyImmediate(Blocks[count - i - 1].gameObject);
         }
+
+        // Create a new parent
+        if(parent != null)
+        {
+            GameObject.DestroyImmediate(parent);
+        }
+
+        parent = new GameObject();
+        parent.name = "LevelBlocks";
+            
 
         // Create new blocks list
         Blocks = new List<Block>();
@@ -131,6 +171,9 @@ public class BlockManager : Singleton<BlockManager>
             block.transform.localRotation = data.Rot;
             block.transform.localScale = data.Scale;
             block.Type = data.Type;
+            block.name = "Block "+i;
+            block.ID = i;
+            block.transform.parent = parent.transform;
         }
     }
 
