@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 // Block Prefab
 // 
 
@@ -70,13 +71,22 @@ public class BlockManager : Singleton<BlockManager>
         BlockFace clickedFace = parentBlock.GetFace(clickedFacedID);
         
         // Create new block
-        GameObject blockGO =  GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
-        Block newBlock = blockGO.GetComponent<Block>();
+        Block newBlock = CreateBlock();
 
         // Project to find length
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
         // Translate length * normal
-        blockGO.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
+        newBlock.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
+    }
+
+    private static Block CreateBlock()
+    {
+        // Create new block
+        GameObject blockGO = GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
+        Block block = blockGO.GetComponent<Block>();
+        Register(block);
+
+        return block;
     }
 
     public static void Remove(int blockID)
@@ -94,9 +104,34 @@ public class BlockManager : Singleton<BlockManager>
     public static void LoadLevel(string pathName)
     {
         // Get the asset
+        BlockListSO blockData = (BlockListSO)AssetDatabase.LoadAssetAtPath(pathName, typeof(BlockListSO));
 
-        // Create blocks
         // Read asset
+        Instance.LoadBlocks(blockData);
+    }
+
+    public void LoadBlocks(BlockListSO blockData)
+    {
+        int count=  Blocks.Count;
+        // Delete oldblocks
+        for (int i = 0; i < count; i++)
+        {
+            GameObject.Destroy(Blocks[count - i - 1].gameObject);
+        }
+
+        // Create new blocks list
+        Blocks = new List<Block>();
+
+        // Create and change blocks
+        for (int i = 0; i < blockData.Blocks.Count; i++)
+        {
+            Block block = CreateBlock();
+            BlockData data = blockData.Blocks[i];
+            block.transform.position = data.Position;
+            block.transform.localRotation = data.Rot;
+            block.transform.localScale = data.Scale;
+            block.Type = data.Type;
+        }
     }
 
     public static void SaveLevel()
