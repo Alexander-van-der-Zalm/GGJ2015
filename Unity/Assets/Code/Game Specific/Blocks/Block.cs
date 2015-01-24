@@ -16,6 +16,8 @@ public class Block : MonoBehaviour
 
     public BlockData.BlockType Type;
 
+    public List<Block> Neighbors;
+
     #endregion
 
     #region Properties
@@ -25,8 +27,6 @@ public class Block : MonoBehaviour
     public bool HasUnit { get { return Faces.Where(f => f.HasUnit).Any(); } }
 
     #endregion
-
-    
 
     public BlockFace GetFace(int blockFaceID)
     {
