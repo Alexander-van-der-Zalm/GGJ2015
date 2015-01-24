@@ -53,13 +53,39 @@ public class BlockFace : MonoBehaviour
 
     #region ClickEvent
 
-    public void OnMouseDown()
+    public void OnMouseOver()
     {
-        Debug.Log("CLicked " + ID);
+        // Left click
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
+            {
+                Debug.Log("Create new block");
+                BlockManager.Add(Block.ID, ID);
+            }
+            else
+            {
+                //SelectionManager Stuff
+                if (Selectionmanager.Instance.SelectedUnit != null)
+                    Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+            }
+        }// Right mouse button
+        else if(Input.GetMouseButtonDown(1))
+        {
+            
+        }
 
-        //SelectionManager Stuff
-        Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID,ID);
     }
+
+
+    //public void OnMouseDown()
+    //{
+    //    Debug.Log("CLicked " + ID);
+
+    //    // LevelBuilder stuff
+        
+        
+    //}
 
     #endregion
 
