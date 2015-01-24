@@ -15,6 +15,9 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>4.6.1f1</UnityVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -198,6 +201,13 @@
     <Compile Include="Assets\Code\FrameWork\Utility\Serialization\SurrogateHandler.cs" />
     <Compile Include="Assets\Code\FrameWork\Utility\Serialization\VectorSurrogates.cs" />
     <Compile Include="Assets\Code\FrameWork\Utility\Singleton.cs" />
+    <Compile Include="Assets\Code\Game Specific\Blocks\Block.cs" />
+    <Compile Include="Assets\Code\Game Specific\Blocks\BlockFace.cs" />
+    <Compile Include="Assets\Code\Game Specific\Blocks\BlockManager.cs" />
+    <Compile Include="Assets\Code\Game Specific\Units\BasicUnit.cs" />
+    <Compile Include="Assets\Code\Game Specific\Units\Selectionmanager.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\changelog.txt" />
     <None Include="Assets\Code\FrameWork\Third Party\UnityTestTools\LICENSE.txt" />
     <None Include="Assets\Plugins\PlayModePersist\readme.txt" />
