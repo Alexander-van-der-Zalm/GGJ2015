@@ -1,72 +1,57 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Exit Games GmbH">
-//   Exit Games GmbH, 2012
-// </copyright>
-// <summary>
-//   The "Particle" demo is a load balanced and Photon Cloud compatible "coding" demo.
-//   The focus is on showing how to use the Photon features without too much "game" code cluttering the view.
-// </summary>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace RhombicDodecahedron.Client.NetworkingTest
+﻿using ExitGames.Client.Photon.LoadBalancing;
+ 
+public class NetworkManager
 {
-    using ExitGames.Client.Photon;
-    using ExitGames.Client.Photon.LoadBalancing;
-    using System.Collections;
-    using Hashtable = ExitGames.Client.Photon.Hashtable;
+    private LoadBalancingClient client;
+ 
+
+    private void OnEventHandler(byte eventCode, object content, PhotonPlayer sender) { Debug.Log("OnEventHandler"); }
     
-    /// <summary>
-    /// Extends Player with some Particle Demo specific properties and methods.
-    /// </summary>
-    /// <remarks>
-    /// Instances of this class are created by GameLogic.CreatePlayer.
-    /// There's a GameLogic.LocalPlayer field, that represents this user's player (in the room).
-    /// 
-    /// This class does not make use of networking directly. It's updated by incoming events but
-    /// the actual sending and receiving is handled in GameLogic.
-    /// 
-    /// The WriteEv* and ReadEv* methods are simple ways to create event-content per player. 
-    /// Only the LocalPlayer per client will actually send data. This is used to update the remote
-    /// clients of position (and color, etc). 
-    /// Receiving clients identify the corresponding Player and call ReadEv* to update that 
-    /// (remote) player.
-    /// Read the remarks in WriteEvMove.
-    /// </remarks>
-    public class GamePlayer : Player
+
+    // this is called when the client loaded and is ready to start   
+    void Start()
     {
-        private int LastUpdateTimestamp { get; set; }
-        //public int UpdateAge { get { return GameLogic.Timestamp - this.LastUpdateTimestamp; } }
+        client = new LoadBalancingClient();
+        client.AppId = "1cff2ce2-292a-4f4c-9cc0-5d26d993d0eb";  // edit this!
+ 
+        // "eu" is the European region's token
+        bool connectInProcess = client.ConnectToRegionMaster("eu");  // can return false for errors
 
-        public GamePlayer(string name, int actorID, bool isLocal, Hashtable actorProperties) : base(name, actorID, isLocal, actorProperties)
-        {
-      
+        bool host = true;
+
+        if (host = true) {
+            peer.OpCreateRoom("Room", 2, customGameProperties, propertiesListedInLobby);
         }
 
-        /// <summary>
-        /// Converts the player info into a string.
-        /// </summary>
-        /// <returns>String showing basic info about this player.</returns>
-        public override string ToString()
-        {
-            return this.ID + "'" + this.Name + "':" + this.GetGroup() + " PlayerProps: " + SupportClass.DictionaryToString(this.CustomProperties);
-        }
-
-  		/// <summary>
-        /// Gets the "Interest Group" this player is in, based on it's position (in this demo).
-        /// </summary>
-        /// <returns>The group id this player is in.</returns>
-        public byte GetGroup()
-        {
-			/*
-            GameRoom pr = this.RoomReference as GameRoom;
-            if (pr != null)
-            {
-                return pr.GetGroup(this.PosX, this.PosY);
-            }
-			*/
-            return 0;
-        }
-
+        PhotonNetwork.OnEventCall += this.OnEventHandler;
     }
+
+    void joinRoom() {
+
+        // join random rooms easily, filtering for specific room properties, if needed
+        Hashtable expectedCustomRoomProperties = new Hashtable();
+        expectedCustomRoomProperties["map"] = 1; // custom props can have any name but the key must be string
+        peer.OpJoinRandomRoom(expectedCustomRoomProperties, (byte)expectedMaxPlayers);
+   
+    } 
+
+    void sendMessage(){
+        byte eventCode = 1; // make up event codes at will
+        Hashtable evData = new Hashtable(); // put your data into a key-value hashtable
+        bool sendReliable = false; // send something reliable if it has to arrive everywhere
+        byte channelId = 0; // for advanced sequencing. can be 0 in most cases
+        peer.OpRaiseEvent(eventCode, evData, sendReliable, channelId);
+    }
+
+    void Update()
+    {
+        client.Service();
+    }
+ 
+    void OnApplicationQuit()
+    {
+        client.Disconnect();
+    }
+
+
 }
