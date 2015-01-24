@@ -7,7 +7,6 @@ public class Camera_Rotation : MonoBehaviour {
 	public float speed = 5.0f;
 	public float mouseSpeedX = 0f;
 	public float mouseSpeedY = 0f;
-	public Transform unit;
 
 	public Vector3 curentPos;
 	public Vector3 targetPos;
@@ -33,10 +32,6 @@ public class Camera_Rotation : MonoBehaviour {
 		this.mouseSpeedX *= 0.95f;
 		this.mouseSpeedY *= 0.95f;
 		this.zoomIn ();
-
-		if(Input.GetMouseButtonDown (0)){
-			this.rotateToUnit(unit);
-		}
 
 		if (slerping) {
 			T = (Time.time - startTime) / journeyTime;	
@@ -71,7 +66,7 @@ public class Camera_Rotation : MonoBehaviour {
 		this.camera.orthographicSize -= Input.GetAxis ("Mouse ScrollWheel");
 	}
 
-	private void rotateToUnit(Transform basic){
+	public void rotateToUnit(Transform basic){
 		startTime = Time.time;
 		curentPos = transform.position - target.position;
 		targetPos = basic.transform.position - target.position;
