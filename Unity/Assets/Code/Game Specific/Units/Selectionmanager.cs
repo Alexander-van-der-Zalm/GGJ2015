@@ -15,6 +15,8 @@ public class Selectionmanager : Singleton<Selectionmanager>
         if(Instance.SelectedUnit!=null)
             Instance.SelectedUnit.MaterialColor = Instance.SelectedUnit.NormalTint;
         
+        //(Camera.main.GetComponent<Camera_Rotation>())
+        
         Instance.SelectedUnit = basicUnit;
 
         Instance.SelectedUnit.MaterialColor = Instance.SelectedUnit.SelectedTint;
