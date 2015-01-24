@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5fb17489779dea04391272842dd538a9
+guid: fa2fc1b689476854595c9fb2e32ae6bb
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -15,7 +15,8 @@ ModelImporter:
     100018: 7
     100020: 8
     100022: 9
-    100024: //RootNode
+    100024: dodecahedron 1
+    100026: //RootNode
     400000: 1
     400002: 10
     400004: 11
@@ -28,7 +29,8 @@ ModelImporter:
     400018: 7
     400020: 8
     400022: 9
-    400024: //RootNode
+    400024: dodecahedron 1
+    400026: //RootNode
     2300000: 1
     2300002: 10
     2300004: 11

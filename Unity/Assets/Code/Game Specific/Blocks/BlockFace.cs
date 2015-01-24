@@ -6,6 +6,7 @@ using System.Collections;
 // Captured
 // CapturedState?
 
+[ExecuteInEditMode]
 public class BlockFace : MonoBehaviour
 {
     #region Fields
@@ -15,15 +16,40 @@ public class BlockFace : MonoBehaviour
 
     public bool HasUnit;
 
+    private Transform tr;
+
     #endregion
 
     #region Properties
 
     public int ID { get { return id; } set { id = value; } }
 
-    public Quaternion Rotation { get { return transform.localRotation; } }
+    // Change this to mesh rotation
+    public Quaternion Rotation 
+    { 
+        get 
+        {
+            return Quaternion.LookRotation(Normal);
+        } 
+    }
+
+    public Vector3 Normal
+    {
+       get
+       {
+            Vector3 center = transform.parent.transform.position;
+            Vector3 normalDirection = tr.position - center;
+            return normalDirection.normalized;
+       }
+        
+    }
 
     #endregion
+
+    public void Start()
+    {
+        tr = transform;
+    }
 
     #region ClickEvent
 
@@ -39,9 +65,11 @@ public class BlockFace : MonoBehaviour
     public void OnDrawGizmosSelected ()
     {
         Gizmos.color = new Color(0.1f, 0.8f, 0.1f, 0.3f);
-        //Matrix4x4 rotationMatrix = Matrix4x4.TRS(Vector3.zero, transform.rotation,Vector3.one);
-        //Gizmos.matrix = rotationMatrix;
-        Gizmos.matrix = transform.localToWorldMatrix;
+
+        // Rotate towards normal
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(tr.position, Rotation,Vector3.one);
+        Gizmos.matrix = rotationMatrix;
+
         Gizmos.DrawCube(Vector3.zero, new Vector3(.15f,.25f,.15f));
     }
 
