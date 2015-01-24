@@ -55,6 +55,12 @@ public class Block : MonoBehaviour
 
     }
 
+	public void ChangeBlock(int index){
+		foreach (BlockFace face in Faces) {
+			face.ChangeFace(index);
+		}
+	}
+
     public void OnEnable()
     {
         // Register to blockmanager
