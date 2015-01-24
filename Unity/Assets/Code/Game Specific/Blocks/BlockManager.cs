@@ -142,7 +142,7 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
         int count=  Blocks.Count;
 
         GameObject parent;
-        if (Blocks.Count > 0)
+        if (Blocks.Count > 0 && Blocks[0] != null)
             parent = Blocks[0].transform.parent.gameObject;
         else
             parent = null;
@@ -150,7 +150,8 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
         // Delete oldblocks
         for (int i = 0; i < count; i++)
         {
-            GameObject.DestroyImmediate(Blocks[count - i - 1].gameObject);
+            if (Blocks[i] != null)
+                GameObject.DestroyImmediate(Blocks[count - i - 1].gameObject);
         }
 
         // Create a new parent
@@ -213,9 +214,13 @@ public class BlockManager : Singleton<BlockManager>, ISerializationCallbackRecei
 
     public void OnAfterDeserialize()
     {
-        Debug.Log("Serialize");
-        LevelNames = FindLevelNames();
-        BlockManager.LoadLevel(SelectedLevel);
+        if(!EditorApplication.isPlaying)
+        {
+            Debug.Log("Serialize after playmode");
+            LevelNames = FindLevelNames();
+            BlockManager.LoadLevel(SelectedLevel);
+        }
+        
     }
 
     public void OnBeforeSerialize()
