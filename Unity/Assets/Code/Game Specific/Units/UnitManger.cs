@@ -35,4 +35,14 @@ public class UnitManger : Singleton<UnitManger>
             Instance.Units[i].ID = i;
         }
     }
+
+    public void Create()
+    {
+
+    }
+
+    public void Delete()
+    {
+
+    }
 }
