@@ -16,7 +16,7 @@ public class Selectionmanager : Singleton<Selectionmanager>
             Instance.SelectedUnit.MaterialColor = Instance.SelectedUnit.NormalTint;
         
         Instance.SelectedUnit = basicUnit;
-        Debug.Log("Clicked");
+
         Instance.SelectedUnit.MaterialColor = Instance.SelectedUnit.SelectedTint;
     }
 }

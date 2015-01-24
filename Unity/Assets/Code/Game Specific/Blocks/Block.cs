@@ -24,6 +24,13 @@ public class Block : MonoBehaviour
 
     #endregion
 
+    public void Start()
+    {
+        // Register to blockmanager
+        BlockManager.Register(this);
+
+    }
+
     public BlockFace GetFace(int blockFaceID)
     {
         return Faces.Where(f => f.ID == blockFaceID).First();
@@ -39,8 +46,12 @@ public class Block : MonoBehaviour
         {
             Faces[i].ID = i;
             Faces[i].gameObject.name = "Face " + i;
+            Faces[i].Block = this;
         }
         
+
+        // Register to blockmanager
+        BlockManager.Register(this);
     }
 
     public void Remove()

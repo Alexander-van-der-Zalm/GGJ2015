@@ -33,6 +33,7 @@ public class BasicUnit : MonoBehaviour
 
     public void OnMouseDown()
     {
+        Debug.Log("Test");
         Selectionmanager.SelectionChanged(this);
 
     }
@@ -41,7 +42,9 @@ public class BasicUnit : MonoBehaviour
     {
         // Update face state both faces
         // Change face
-        CurrentFace.HasUnit = false;
+        if(CurrentFace!=null)
+            CurrentFace.HasUnit = false;
+
         Block bl = BlockManager.Get(blockID);
         CurrentFace = BlockManager.Get(blockID).GetFace(blockFaceID);
         CurrentFace.HasUnit = true;

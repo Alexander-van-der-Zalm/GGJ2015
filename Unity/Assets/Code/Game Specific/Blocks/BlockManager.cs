@@ -26,9 +26,17 @@ public class BlockManager : Singleton<BlockManager>
     public GameObject BlockPrefab;
     public List<Block> Blocks;
 
+
+
     public static Block Get(int ID)
     {
         return Instance.Blocks.First(b => b.ID == ID);
+    }
+
+    public static void Register(Block newBlock)
+    {
+        // Written while durped
+        Instance.Blocks.Add(newBlock);
     }
 
     public static void Add(int blockID, int clickedFacedID)

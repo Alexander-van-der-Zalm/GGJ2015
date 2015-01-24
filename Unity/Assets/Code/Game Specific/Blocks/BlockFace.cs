@@ -14,6 +14,9 @@ public class BlockFace : MonoBehaviour
     [SerializeField]
     private int id;
 
+    [SerializeField]
+    private Block block;
+
     public bool HasUnit;
 
     private Transform tr;
@@ -23,6 +26,8 @@ public class BlockFace : MonoBehaviour
     #region Properties
 
     public int ID { get { return id; } set { id = value; } }
+
+    public Block Block { get { return block; } set { block = value; } }
 
     // Change this to mesh rotation
     public Quaternion Rotation 
@@ -51,8 +56,9 @@ public class BlockFace : MonoBehaviour
     public void OnMouseDown()
     {
         Debug.Log("CLicked " + ID);
-        //SelectionManager Stuff
 
+        //SelectionManager Stuff
+        Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID,ID);
     }
 
     #endregion
