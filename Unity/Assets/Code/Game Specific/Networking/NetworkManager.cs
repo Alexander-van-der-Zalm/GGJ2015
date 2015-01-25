@@ -76,54 +76,48 @@ public class NetworkManager : MonoBehaviour
         // Set Player info
         if(createdRoom)
         { // Player 1
+            Debug.Log("Player1");
             UnitManager.Instance.team = 0;
         }
         else
         { // Player 2
+            Debug.Log("Player2");
             UnitManager.Instance.team = 2;
+            PhotonView.RPC("SetLevelName", PhotonTargets.Others);
         }
-
     }
 
     void OnPhotonRandomJoinFailed()
     {
-        Debug.Log("Can't join random room! Player1");
+        Debug.Log("Can't join random room! Creating a new one - Player1");
         PhotonNetwork.CreateRoom("Game", roomOptions, null);
         // Player 1
-
-        
     }
 
     void OnCreatedRoom ()
     {
-        //// Player 1
-        //// Room creation stuff
-        //createdRoom = true;
+        // Player 1
+        // Room creation stuff
+        createdRoom = true;
 
-        //// Set server info
-        //Debug.Log("OnCreatedRoom");
-
-        //// Load selected level
-        //BlockListSO blocks = BlockManager.Instance.GetLevelData(mgr.SelectedLevel);
-        //GameObject blockPrefab = BlockManager.Instance.BlockPrefab;
-
-        //SendLevelData(blocks, blockPrefab);
-    }
-
-    private void SendLevelData(BlockListSO blocks, GameObject blockPrefab)
-    {
-        PhotonView.RPC("SetLevelData", PhotonTargets.All, blocks, blockPrefab);
-        Debug.Log("Send level data RPC");
+        // Set server info
+        Debug.Log("OnCreatedRoom");       
     }
 
     [RPC]
-    private void SetLevelData(BlockListSO blocks, GameObject blockPrefab)
+    private void RequestLevelName()
     {
-        Debug.Log("Level: " + blocks.name + " - block: " + blockPrefab.name);
+        PhotonView.RPC("SetLevelName", PhotonTargets.All, mgr.SelectedLevel);
+        Debug.Log("Request level data RPC");
+    }
+
+    [RPC]
+    private void SetLevelName(string levelName)
+    {
+        Debug.Log("Load Level RPC: " + levelName);
         
         // ADD some GUI stuff during loading
-        mgr.BlockPrefab = blockPrefab;
-        mgr.LoadBlocks(blocks);
-       
+        //mgr.BlockPrefab = blockPrefab;
+        mgr.loadLevel(levelName);
     }
 }
