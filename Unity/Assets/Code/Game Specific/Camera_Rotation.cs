@@ -35,14 +35,12 @@ public class Camera_Rotation : MonoBehaviour {
 
 		if (slerping) {
 			T = (Time.time - startTime) / journeyTime;	
-			transform.position = Vector3.Slerp (curentPos, endPos,  Mathf.SmoothStep(0.0f, 1.0f, Mathf.SmoothStep(0.0f, 1.0f	, T)));
+			transform.position = Vector3.Slerp (curentPos, endPos,  Mathf.SmoothStep(0.0f, 1.0f, Mathf.SmoothStep(0.0f, 1.0f, T)));
 			this.cameraLook ();
 			if(T > 1){
 				slerping  = false;
 			}
 		}
-
-
 	}
 
 	private void cameraLook(){

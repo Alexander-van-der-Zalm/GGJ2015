@@ -56,13 +56,24 @@ public class UnitManager : Singleton<UnitManager>
 
     public static void Create(int blockID,int blockFaceID,int version = 0)
     {
+        //Instance.CreateUnit(blockID, blockFaceID, version);
+
+        // Do the RPC call
+        (Instance.GetComponent<PhotonView>()).RPC("CreateUnit", PhotonTargets.All, blockID, blockFaceID, version);
+    }
+
+    [RPC]
+    public void CreateUnit(int blockID,int blockFaceID,int version = 0)
+    {
+
         // Translate and rotate
-        Block block = BlockManager.Get(blockID);
+        Block block = bm.get(blockID);
         BlockFace face = block.GetFace(blockFaceID);
         Vector3 position = face.transform.position;
         Quaternion rotation = Quaternion.LookRotation(face.Normal, new Vector3(0, 1, 0));
+        
         // Create
-        Instance.Create(position, rotation, version);
+        Create(position, rotation, version);
     }
 
     public void Create(Vector3 position,Quaternion rotation, int version = 0)
@@ -80,26 +91,38 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region RPC section
+    #region RPC Move section
 
     public static void LocalMoveOrder(FaceBlockID destination, int unitID, FaceBlockID origin)
     {
-        Debug.Log("RPC TIME");
         // Do the RPC call
-        //(Instance.GetComponent<PhotonView>()).RPC("MoveUnit", PhotonTargets.All, destination, unitID, origin);
         (Instance.GetComponent<PhotonView>()).RPC("MoveUnit", PhotonTargets.All, destination.FaceID, destination.BlockID, unitID, origin.FaceID, origin.BlockID);
     }
 
     [RPC]
     public void MoveUnit(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
     {
+	
         FaceBlockID destination = new FaceBlockID() { FaceID = destFaceID, BlockID = destBlockID };
         FaceBlockID origin = new FaceBlockID() { FaceID = originFaceID, BlockID = originBlockID };
 
         BasicUnit unit = get(unitID);
 
         unit.MoveUnit(destination.BlockID, destination.FaceID);
+
+		ColorBlock (destination.BlockID, destination.FaceID);
     }
+
+	public void ColorBlock(int blockID, int blockFaceID){
+
+		Block block = bm.get(blockID);
+		BlockFace face = block.GetFace(blockFaceID);
+
+		if(block.team != Selectionmanager.Instance.SelectedUnit.team && !Selectionmanager.Instance.SelectedUnit.capping){
+			block.StartCapture(Selectionmanager.Instance.SelectedUnit);
+			Selectionmanager.Instance.SelectedUnit.capping = true;
+		}
+	}
 
     //public void MoveUnit(FaceBlockID destination, int unitID, FaceBlockID origin)
     //{
