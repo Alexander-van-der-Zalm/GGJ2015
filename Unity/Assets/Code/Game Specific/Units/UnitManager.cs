@@ -67,7 +67,7 @@ public class UnitManager : Singleton<UnitManager>
     [RPC]
 	public void CreateUnit(int blockID,int blockFaceID,int unitTeam, int version = 0)
     {
-
+        Debug.Log("Creating unit 1");
         // Translate and rotate
         Block block = bm.get(blockID);
 
@@ -81,6 +81,7 @@ public class UnitManager : Singleton<UnitManager>
 
 	public void Create(Vector3 position,Quaternion rotation, int unitTeam, Block block, int version = 0)
     {
+        Debug.Log("Creating unit 2");
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;
         BasicUnit unit = newUnit.GetComponent<BasicUnit>();
 		unit.team = unitTeam;
@@ -107,11 +108,18 @@ public class UnitManager : Singleton<UnitManager>
     [RPC]
     public void MoveUnit(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
     {
-	
         FaceBlockID destination = new FaceBlockID() { FaceID = destFaceID, BlockID = destBlockID };
         FaceBlockID origin = new FaceBlockID() { FaceID = originFaceID, BlockID = originBlockID };
 
         BasicUnit unit = get(unitID);
+
+        // Check if the move is legal
+        BlockFace dest = bm.getFace(destination);
+        BlockFace orig = bm.getFace(origin);
+        if(!dest.neighbors.Where(n => n == orig).Any())
+        {
+            Debug.Log("Illegal Move");
+        }
 
         unit.MoveUnit(destination.BlockID, destination.FaceID);
 

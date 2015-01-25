@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class BasicUnit : MonoBehaviour
 {
-    private BlockFace CurrentFace;
+    public BlockFace CurrentFace;
     private Transform tr;
 
     public Color SelectedTint;
