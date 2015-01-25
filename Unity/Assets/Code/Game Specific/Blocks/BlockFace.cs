@@ -35,6 +35,7 @@ public class BlockFace : MonoBehaviour
 
 	void Start(){
 		colPal = this.GetComponent<Colorpallet> ();
+		setBaseColor ();
 	}
 
     // Change this to mesh rotation
