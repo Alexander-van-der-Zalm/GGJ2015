@@ -15,8 +15,10 @@ public class NetworkManager : MonoBehaviour
     }
     
     private RoomOptions roomOptions;
-
+    private BlockManager mgr;
     private bool createdRoom = false;
+
+    public PhotonView PhotonView { get { return GetComponent<PhotonView>(); } }
 
     #region Start & GUI label
 
@@ -38,6 +40,10 @@ public class NetworkManager : MonoBehaviour
 
     void OnJoinedLobby()
     {
+        // Set mgr
+        mgr = BlockManager.Instance;
+
+        // Join random room
         PhotonNetwork.JoinRandomRoom();
         // Player 2
 
@@ -48,14 +54,20 @@ public class NetworkManager : MonoBehaviour
 
 
     // Client
-    // Join room
-    // Set Player info
-    // Recieve Level info
-    // Send countdown when level recieved
+    // (X) Join room
+    // (X) Set Player info
+    // (X) Recieve Level info
+    // (X) Clear all spawns
+    // (X) Send & Start countdown when level recieved
+
+
 
     // Host
-    // Create room
-    // Set Player info
+    // (X) Create room
+    // (X) Set Player info
+    // (X) Clear all spawns
+    // (X) Send Level info
+    // (X) Start countdown when level recieved
 
     void OnJoinedRoom()
     {
@@ -63,12 +75,12 @@ public class NetworkManager : MonoBehaviour
 
         // Set Player info
         if(createdRoom)
-        {
-            //UnitManager.Instance.
+        { // Player 1
+            UnitManager.Instance.team = 0;
         }
         else
-        {
-
+        { // Player 2
+            UnitManager.Instance.team = 2;
         }
 
     }
@@ -84,12 +96,34 @@ public class NetworkManager : MonoBehaviour
 
     void OnCreatedRoom ()
     {
-        // Player 1
-        // Room creation stuff
-        createdRoom = true;
+        //// Player 1
+        //// Room creation stuff
+        //createdRoom = true;
 
-        // Set server info
-        Debug.Log("OnCreatedRoom");
-        // 
+        //// Set server info
+        //Debug.Log("OnCreatedRoom");
+
+        //// Load selected level
+        //BlockListSO blocks = BlockManager.Instance.GetLevelData(mgr.SelectedLevel);
+        //GameObject blockPrefab = BlockManager.Instance.BlockPrefab;
+
+        //SendLevelData(blocks, blockPrefab);
+    }
+
+    private void SendLevelData(BlockListSO blocks, GameObject blockPrefab)
+    {
+        PhotonView.RPC("SetLevelData", PhotonTargets.All, blocks, blockPrefab);
+        Debug.Log("Send level data RPC");
+    }
+
+    [RPC]
+    private void SetLevelData(BlockListSO blocks, GameObject blockPrefab)
+    {
+        Debug.Log("Level: " + blocks.name + " - block: " + blockPrefab.name);
+        
+        // ADD some GUI stuff during loading
+        mgr.BlockPrefab = blockPrefab;
+        mgr.LoadBlocks(blocks);
+       
     }
 }

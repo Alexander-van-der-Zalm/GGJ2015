@@ -10,16 +10,18 @@ public class BlockManagerEditor : EditorPlus
     public override void OnInspectorGUI()
     {
         BlockManager mgr = target as BlockManager;
-        //if (mgr.LevelNames == null)
-            mgr.LevelNames = mgr.FindLevelNames();
+        
+        mgr.LevelNames = mgr.FindLevelNames();
 
         EditorGUILayout.BeginHorizontal();
+
         int index = EditorPrefs.GetInt("Level", 0);
         index = EditorGUILayout.Popup(index, mgr.LevelNames.ToArray());
         EditorPrefs.SetInt("Level", index);
 
         if (GUILayout.Button("Load Level"))
         {
+            Debug.Log("Load GUI");
             BlockManager.LoadLevel(mgr.LevelNames[index]);
             Debug.Log("Assets/Levels" + mgr.LevelNames[index]);
         }

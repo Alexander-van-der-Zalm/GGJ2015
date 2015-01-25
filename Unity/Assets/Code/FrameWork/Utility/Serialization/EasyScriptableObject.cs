@@ -20,13 +20,12 @@ public class ScriptableObjectHelper
         else
             path += "/" + asset.GetType().Name + ".asset";
 
-        Debug.Log(path);
-
-
         if (unique)
             path = AssetDatabase.GenerateUniqueAssetPath(path);
 
         SaveAsset(asset, path);
+
+        Debug.Log("Saved at " + path);
 
         return path;
     }
