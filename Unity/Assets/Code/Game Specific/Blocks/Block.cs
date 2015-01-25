@@ -6,6 +6,8 @@ using System.Linq;
 [ExecuteInEditMode]
 public class Block : MonoBehaviour
 {
+	public WinningConditionManager winManager;
+
     #region Fields
 
     [SerializeField]
@@ -13,6 +15,8 @@ public class Block : MonoBehaviour
     
     [HideInInspector]
     public List<BlockFace> Faces;
+
+	public PhotonView PhotonView { get { return GetComponent<PhotonView>(); } }
 
     public BlockData.BlockType Type;
 
@@ -25,6 +29,9 @@ public class Block : MonoBehaviour
     public int ColorTypeID { get { return colorTypeID; } set { colorTypeID = value; } }
 
 	public bool occupied = false;
+
+	public bool isOwned = false;
+
 
 	public int team = 1;
 
@@ -50,6 +57,7 @@ public class Block : MonoBehaviour
 		if (this.Type == BlockData.BlockType.Unit) {
 			this.RespawnUnit();
 		}
+		winManager = GetComponent<WinningConditionManager> ();
 	}
 	
 	public BlockFace GetFace(int blockFaceID)
@@ -111,6 +119,8 @@ public class Block : MonoBehaviour
 			}
 			if(possesion == -possesionCap){
 				team = basic.team;
+				PhotonView.RPC("CheckWinningConditions", PhotonTargets.Others);
+				// RPC call check for winning conditions
 				if(BlockData.BlockType.Unit == Type){
 					this.creature.team = team;
 				}
@@ -138,10 +148,16 @@ public class Block : MonoBehaviour
 		}
 	}
 
+	[RPC]
+	public void checkWinningConditions() {
+		winManager.checkWinningConditions ();
+	}
+
 	public void ChangeTeam(int from, int to, float slerpCount){
 		foreach (BlockFace face in Faces) {
 			face.ChangeTeam (from, to, slerpCount);
 		}
+		isOwned = true;
 	}
 
 	public void setBaseCol(){
