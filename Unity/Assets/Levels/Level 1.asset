@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b0acf064797e8242a75a0513565cd0e, type: 3}
-  m_Name: Level
+  m_Name: Level 1
   m_EditorClassIdentifier: 
   Blocks:
   - Scale: {x: 1, y: 1, z: 1}
@@ -262,25 +262,25 @@ MonoBehaviour:
     Position: {x: 2, y: 0, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 2
-    SpawnFaceID: 9
+    SpawnFaceID: 0
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: -2, y: -2.98023224e-08, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 2
-    SpawnFaceID: 3
+    SpawnFaceID: 6
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: 0, y: -2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 2
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: 0, y: 2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 3
+    SpawnFaceID: 2
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: 0, y: 1.5, z: -.49999994}
