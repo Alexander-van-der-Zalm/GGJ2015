@@ -150,6 +150,12 @@ public class Block : MonoBehaviour
 		}
 	}
 
+	public void setTeamCol(int i){
+		foreach (BlockFace face in Faces) {
+			face.setTeamCol(i);
+		}
+	}
+
     public void OnEnable()
     {
         // Register to blockmanager

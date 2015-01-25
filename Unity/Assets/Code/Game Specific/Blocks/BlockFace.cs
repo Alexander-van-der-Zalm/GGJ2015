@@ -82,16 +82,28 @@ public class BlockFace : MonoBehaviour
 			{
 				// Create Unit
 				this.block.Type = BlockData.BlockType.Normal;
+				this.block.ColorTypeID = 0;
+				this.block.setBaseCol();
 			}
 			else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.RightAlt))
 			{
 				// Create Unit
+
 				this.block.Type = BlockData.BlockType.Unit;
+				this.block.ColorTypeID = 3;
+				this.block.setBaseCol();
 			}
 			else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.RightAlt))
 			{
 				// Create Unit
 				this.block.Type = BlockData.BlockType.player;
+				if(this.block.team == 0){
+					this.block.team = 2;
+					this.block.setTeamCol(2);
+				}else{
+					this.block.team = 0;
+					this.block.setTeamCol(0);
+				}
 			}
 			else if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.RightAlt))
 			{
@@ -126,7 +138,7 @@ public class BlockFace : MonoBehaviour
                 BlockManager.Remove(Block.ID);
             }
 			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)){
-				if(this.block.ColorTypeID < colPal.neutralCol.Length-1){
+				if(this.block.ColorTypeID < colPal.neutralCol.Length-2){
 					this.block.ColorTypeID++;
 				}else{
 					this.block.ColorTypeID = 0;
@@ -175,6 +187,11 @@ public class BlockFace : MonoBehaviour
 
 	public void setBaseColor(){
 		gameObject.renderer.material.color = colPal.neutralCol[block.ColorTypeID];
+	}
+
+	public void setTeamCol(int i){
+		if(i == 0)gameObject.renderer.material.color = colPal.teamOneCol;
+		if(i == 2)gameObject.renderer.material.color = colPal.teamTwoCol;
 	}
 
 	#endregion Materials
