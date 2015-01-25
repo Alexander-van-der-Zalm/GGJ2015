@@ -256,31 +256,31 @@ MonoBehaviour:
     Position: {x: -2.98023224e-08, y: 0, z: -2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 9
+    SpawnFaceID: 10
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: 2, y: 0, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
-    Type: 1
+    Type: 2
     SpawnFaceID: 9
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: -2, y: -2.98023224e-08, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
-    Type: 1
+    Type: 2
     SpawnFaceID: 9
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: 0, y: -2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 1
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: 0, y: 2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 2
     ColorTypeID: 3
   - Scale: {x: 1, y: 1, z: 1}
     Position: {x: 0, y: 1.5, z: -.49999994}
