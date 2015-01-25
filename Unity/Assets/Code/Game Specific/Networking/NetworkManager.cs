@@ -13,7 +13,9 @@ public class NetworkManager : MonoBehaviour
         
         // Waiting for other player
     }
-    
+
+    public bool OfflineMode = false;
+
     private RoomOptions roomOptions;
     private BlockManager mgr;
     private bool createdRoom = false;
@@ -44,7 +46,8 @@ public class NetworkManager : MonoBehaviour
         mgr = BlockManager.Instance;
 
         // Join random room
-        PhotonNetwork.JoinRandomRoom();
+        if (!OfflineMode)
+            PhotonNetwork.JoinRandomRoom();
         // Player 2
 
         // 
@@ -83,7 +86,7 @@ public class NetworkManager : MonoBehaviour
         { // Player 2
             Debug.Log("Player2");
             UnitManager.Instance.team = 2;
-            PhotonView.RPC("SetLevelName", PhotonTargets.Others);
+            PhotonView.RPC("RequestLevelName", PhotonTargets.Others);
         }
     }
 
