@@ -172,15 +172,17 @@ public class BlockManager : Singleton<BlockManager>
     {
         int count = Blocks.Count;
 
-        // Delete current children
-        var children = new List<GameObject>();
-        foreach (Transform child in transform)
-            children.Add(child.gameObject);
-        children.ForEach(child => DestroyImmediate(child));
+        //// Delete current children
+        //var children = new List<GameObject>();
+        //foreach (Transform child in transform)
+        //    children.Add(child.gameObject);
+        //children.ForEach(child => DestroyImmediate(child));
   
 
-        // Create new blocks list
-        Blocks = new List<Block>();
+        //// Create new blocks list
+        //Blocks = new List<Block>();
+
+        ClearBlocks();
 
         // Create and change blocks
         for (int i = 0; i < blockData.Blocks.Count; i++)
@@ -193,10 +195,23 @@ public class BlockManager : Singleton<BlockManager>
             block.Type = data.Type;
             block.name = "Block "+i;
             block.ID = i;
+            block.ColorTypeID = data.ColorTypeID;
             block.transform.parent = transform;
         }
 
 
+    }
+
+    public void ClearBlocks()
+    {
+        // Delete current children
+        var children = new List<GameObject>();
+        foreach (Transform child in transform)
+            children.Add(child.gameObject);
+        children.ForEach(child => DestroyImmediate(child));
+
+        // Create new blocks list
+        Blocks = new List<Block>();
     }
 
     public static void SaveLevel()
@@ -216,7 +231,8 @@ public class BlockManager : Singleton<BlockManager>
                 Position = Blocks[i].transform.position,
                 Scale = Blocks[i].transform.localScale, 
                 Rot = Blocks[i].transform.localRotation, 
-                Type = Blocks[i].Type 
+                Type = Blocks[i].Type,
+                ColorTypeID = Blocks[i].ColorTypeID
             });
         }
 

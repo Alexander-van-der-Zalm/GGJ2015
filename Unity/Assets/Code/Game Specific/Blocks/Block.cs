@@ -18,6 +18,12 @@ public class Block : MonoBehaviour
 
     public List<Block> Neighbors;
 
+    [SerializeField]
+    private int colorTypeID;
+
+    public int ColorTypeID { get { return colorTypeID; } set { colorTypeID = value; } }
+
+
     #endregion
 
     #region Properties
