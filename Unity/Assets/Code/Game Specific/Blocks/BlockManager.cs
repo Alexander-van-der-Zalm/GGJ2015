@@ -138,7 +138,7 @@ public class BlockManager : Singleton<BlockManager>
         // Create new block
         GameObject blockGO = GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
         Block block = blockGO.GetComponent<Block>();
-        //Register(block);
+        block.transform.parent = Instance.transform;
 
         return block;
     }
@@ -177,7 +177,6 @@ public class BlockManager : Singleton<BlockManager>
         //foreach (Transform child in transform)
         //    children.Add(child.gameObject);
         //children.ForEach(child => DestroyImmediate(child));
-  
 
         //// Create new blocks list
         //Blocks = new List<Block>();
@@ -198,8 +197,6 @@ public class BlockManager : Singleton<BlockManager>
             block.ColorTypeID = data.ColorTypeID;
             block.transform.parent = transform;
         }
-
-
     }
 
     public void ClearBlocks()
