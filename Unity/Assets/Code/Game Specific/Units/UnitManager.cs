@@ -65,8 +65,7 @@ public class UnitManager : Singleton<UnitManager>
     [RPC]
     public void CreateUnit(int blockID,int blockFaceID,int version = 0)
     {
-        Debug.Log("RPC woop");
-        
+
         // Translate and rotate
         Block block = bm.get(blockID);
         BlockFace face = block.GetFace(blockFaceID);
@@ -103,13 +102,27 @@ public class UnitManager : Singleton<UnitManager>
     [RPC]
     public void MoveUnit(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
     {
+	
         FaceBlockID destination = new FaceBlockID() { FaceID = destFaceID, BlockID = destBlockID };
         FaceBlockID origin = new FaceBlockID() { FaceID = originFaceID, BlockID = originBlockID };
 
         BasicUnit unit = get(unitID);
 
         unit.MoveUnit(destination.BlockID, destination.FaceID);
+
+		ColorBlock (destination.BlockID, destination.FaceID);
     }
+
+	public void ColorBlock(int blockID, int blockFaceID){
+
+		Block block = bm.get(blockID);
+		BlockFace face = block.GetFace(blockFaceID);
+
+		if(block.team != Selectionmanager.Instance.SelectedUnit.team && !Selectionmanager.Instance.SelectedUnit.capping){
+			block.StartCapture(Selectionmanager.Instance.SelectedUnit);
+			Selectionmanager.Instance.SelectedUnit.capping = true;
+		}
+	}
 
     //public void MoveUnit(FaceBlockID destination, int unitID, FaceBlockID origin)
     //{
