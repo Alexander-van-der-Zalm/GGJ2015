@@ -9,202 +9,271 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b0acf064797e8242a75a0513565cd0e, type: 3}
-  m_Name: Level 6
+  m_Name: World 1 - Shuriken
   m_EditorClassIdentifier: 
   Blocks:
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: -.5, y: 0, z: .49999994}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.999999881, y: -.5, z: -1.5}
+    Position: {x: -.5, y: .49999997, z: -2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.499999911, y: -1, z: -1.5}
+    Position: {x: 3, y: 0, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.499999911, y: -1.5, z: -1}
+    Position: {x: -3, y: -2.98023224e-08, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.999999881, y: -1.5, z: -.5}
+    Position: {x: -2, y: -2.98023224e-08, z: -1}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -1.49999988, y: -1, z: -.5}
+    Position: {x: -2.5, y: -2.98023224e-08, z: -.49999997}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -1.49999988, y: -.5, z: -1}
+    Position: {x: -2.5, y: -2.98023224e-08, z: .49999997}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.999999881, y: -2.98023224e-08, z: -2}
+    Position: {x: -2, y: -2.98023224e-08, z: 1}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.499999911, y: -.5, z: -2}
+    Position: {x: 2, y: 0, z: -.999999881}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: -1, z: -2}
+    Position: {x: 2.5, y: 0, z: -.49999994}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.499999911, y: -2.98023224e-08, z: -2.5}
+    Position: {x: 2.5, y: 0, z: .5}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: -.5, z: -2.5}
+    Position: {x: 2, y: 0, z: 1}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.499999911, y: -2, z: -.5}
+    Position: {x: -1.5, y: -2.98023224e-08, z: .49999997}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: -2, z: -1}
+    Position: {x: -1.5, y: -2.98023224e-08, z: -.49999997}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.999999881, y: -2, z: -2.98023224e-08}
+    Position: {x: 1.5, y: 0, z: -.49999994}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -.499999911, y: -2.5, z: -2.98023224e-08}
+    Position: {x: 1.5, y: 0, z: .5}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: -2.5, z: -.5}
+    Position: {x: -1, y: -2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: -3, z: -2.98023224e-08}
+    Position: {x: 1, y: -2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -1.99999988, y: -.5, z: -.5}
+    Position: {x: 0, y: -3, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -1.99999988, y: -2.98023224e-08, z: -1}
+    Position: {x: -.49999997, y: -2.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -1.99999988, y: -1, z: -2.98023224e-08}
+    Position: {x: .49999997, y: -2.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -2.5, y: -1.49011612e-07, z: -.5}
+    Position: {x: .49999997, y: -1.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -2.5, y: -.5, z: -1.49011612e-07}
+    Position: {x: -.49999997, y: -1.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: -2.98023224e-08, z: -3}
+    Position: {x: 0, y: 3, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -3, y: -2.98023224e-08, z: -1.49011612e-07}
+    Position: {x: .49999997, y: 2.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: .49999994, z: -3.5}
+    Position: {x: -1, y: 2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: .5, y: -2.98023224e-08, z: -3.5}
+    Position: {x: -.49999997, y: 2.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 5.96046448e-08, y: -3.5, z: .49999994}
+    Position: {x: 1, y: 2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: .5, y: -3.5, z: -2.98023224e-08}
+    Position: {x: .49999997, y: 1.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -3.5, y: -2.98023224e-08, z: .499999821}
+    Position: {x: -.49999997, y: 1.5, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -3.5, y: .49999994, z: -1.49011612e-07}
+    Position: {x: 0, y: 1, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1, y: .49999994, z: -3.5}
+    Position: {x: 0, y: -1, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: .5, y: .999999881, z: -3.5}
+    Position: {x: -1, y: -2.98023224e-08, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1.5, y: .49999994, z: -3}
+    Position: {x: 1, y: 0, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: .5, y: 1.49999988, z: -3}
+    Position: {x: .49999997, y: 0, z: .49999997}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1.5, y: .999999881, z: -2.5}
+    Position: {x: .49999994, y: .49999997, z: -2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1, y: 1.49999988, z: -2.5}
+    Position: {x: 0, y: .49999997, z: .49999997}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -3.5, y: .999999881, z: .499999821}
+    Position: {x: 0, y: -.49999997, z: .49999997}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -3.5, y: .49999994, z: .999999762}
+    Position: {x: -.49999997, y: -.49999997, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: .5, y: -3.5, z: .999999881}
+    Position: {x: .49999997, y: -.49999997, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1, y: -3.5, z: .49999994}
+    Position: {x: -2.98023224e-08, y: 0, z: -2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -3, y: .49999994, z: 1.49999976}
+    Position: {x: 2, y: 0, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -3, y: 1.49999988, z: .499999821}
+    Position: {x: -2, y: -2.98023224e-08, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -2.5, y: 1.49999988, z: .999999762}
+    Position: {x: 0, y: -2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: -2.5, y: .999999881, z: 1.49999976}
+    Position: {x: 0, y: 2, z: 2.98023224e-08}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1.5, y: -3, z: .49999994}
+    Position: {x: 0, y: 1.5, z: -.49999994}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: .5, y: -3, z: 1.49999988}
+    Position: {x: -.49999997, y: 2, z: -.49999994}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1.5, y: -2.5, z: .999999881}
+    Position: {x: 0, y: 2.5, z: -.49999994}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
   - Scale: {x: 1, y: 1, z: 1}
-    Position: {x: 1, y: -2.5, z: 1.49999988}
+    Position: {x: .49999997, y: 2, z: -.49999994}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 0
+    ColorTypeID: 0
+  - Scale: {x: 1, y: 1, z: 1}
+    Position: {x: -.49999997, y: -2, z: -.49999994}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Type: 0
+    ColorTypeID: 0
+  - Scale: {x: 1, y: 1, z: 1}
+    Position: {x: 0, y: -2.5, z: -.49999994}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Type: 0
+    ColorTypeID: 0
+  - Scale: {x: 1, y: 1, z: 1}
+    Position: {x: .49999997, y: -2, z: -.49999994}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Type: 0
+    ColorTypeID: 0
+  - Scale: {x: 1, y: 1, z: 1}
+    Position: {x: 0, y: -1.5, z: -.49999994}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Type: 0
+    ColorTypeID: 0
