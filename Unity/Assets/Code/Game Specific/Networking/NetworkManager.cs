@@ -25,10 +25,13 @@ public class NetworkManager : MonoBehaviour
     #region Start & GUI label
 
     // Use this for initialization
-	void Start () 
+	void OnEnable () 
     {
-        PhotonNetwork.ConnectUsingSettings("0.1");
-        roomOptions = new RoomOptions() { maxPlayers = 2, isVisible = true, isOpen = true };
+        if (!OfflineMode)
+        {
+            PhotonNetwork.ConnectUsingSettings("0.1");
+            roomOptions = new RoomOptions() { maxPlayers = 2, isVisible = true, isOpen = true };
+        }
 	}
 
     void OnGUI()
@@ -47,7 +50,10 @@ public class NetworkManager : MonoBehaviour
 
         // Join random room
         if (!OfflineMode)
+        {
             PhotonNetwork.JoinRandomRoom();
+        }
+            
         // Player 2
 
         // 

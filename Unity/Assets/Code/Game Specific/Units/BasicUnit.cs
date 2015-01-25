@@ -89,7 +89,8 @@ public class BasicUnit : MonoBehaviour
 		CurrentFace = bl.GetFace (blockFaceID);
 		CurrentFace.HasUnit = true;
 
-		anim.SetBool ("Jump", true); 
+        if (anim != null)
+		    anim.SetBool ("Jump", true); 
 
 		//transform.LookAt(CurrentFace.Normal);
 
@@ -116,8 +117,11 @@ public class BasicUnit : MonoBehaviour
 		// Rotate
 	}
 	
-	void FixedUpdate(){
-		anim.SetBool ("Jump", false);
+	void FixedUpdate()
+    {
+		if(anim != null)
+            anim.SetBool("Jump", false);
+        
 		float step = 0.5f * Time.deltaTime;
 
 
