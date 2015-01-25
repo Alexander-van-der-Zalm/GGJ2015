@@ -1,80 +1,82 @@
 fileFormatVersion: 2
-guid: 00aeb45102396994cba6b4a7cb9122cc
+guid: ac0d66dd948352b4195a52381a6a7b77
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: beak
-    100002: body
-    100004: Core
-    100006: crest
-    100008: Feet
-    100010: GeoSphere001
-    100012: Head
-    100014: joint1
-    100016: Knee
-    100018: LeftShoulder
-    100020: LeftWing
-    100022: Middle
-    100024: //RootNode
-    100026: owl left foot
-    100028: owl left foot001
-    100030: owl leg left
-    100032: owl leg left001
-    100034: owl_head
-    100036: RightShoulder
-    100038: RightWing
-    100040: scroll tube
-    100042: Shoulder
-    100044: Toes
-    100046: unit_owl
-    400000: beak
-    400002: body
-    400004: Core
-    400006: crest
-    400008: Feet
-    400010: GeoSphere001
-    400012: Head
-    400014: joint1
-    400016: Knee
-    400018: LeftShoulder
-    400020: LeftWing
-    400022: Middle
-    400024: //RootNode
-    400026: owl left foot
-    400028: owl left foot001
-    400030: owl leg left
-    400032: owl leg left001
-    400034: owl_head
-    400036: RightShoulder
-    400038: RightWing
-    400040: scroll tube
-    400042: Shoulder
-    400044: Toes
-    400046: unit_owl
-    4300000: scroll tube
-    4300002: body
-    4300004: crest
-    4300006: owl_head
-    4300008: beak
-    4300010: owl leg left
-    4300012: owl left foot
-    4300014: owl left foot001
-    4300016: owl leg left001
-    4300018: GeoSphere001
-    7400000: Idle
-    7400002: Idle_two
+    100000: arm left
+    100002: arm right
+    100004: barrel
+    100006: bellyplate
+    100008: Cheste
+    100010: Core
+    100012: Feet
+    100014: foot left
+    100016: foot right
+    100018: //RootNode
+    100020: frog
+    100022: hand left
+    100024: hand right
+    100026: Head
+    100028: Hip
+    100030: Knee
+    100032: LeftElbow
+    100034: LeftHand
+    100036: LeftShoulder
+    100038: Middle
+    100040: pSphere1
+    100042: RightShoulder
+    100044: Shoulder
+    100046: unit_frog
+    400000: arm left
+    400002: arm right
+    400004: barrel
+    400006: bellyplate
+    400008: Cheste
+    400010: Core
+    400012: Feet
+    400014: foot left
+    400016: foot right
+    400018: //RootNode
+    400020: frog
+    400022: hand left
+    400024: hand right
+    400026: Head
+    400028: Hip
+    400030: Knee
+    400032: LeftElbow
+    400034: LeftHand
+    400036: LeftShoulder
+    400038: Middle
+    400040: pSphere1
+    400042: RightShoulder
+    400044: Shoulder
+    400046: unit_frog
+    2300000: barrel
+    2300002: pSphere1
+    3300000: barrel
+    3300002: pSphere1
+    4300000: foot left
+    4300002: hand right
+    4300004: hand left
+    4300006: arm left
+    4300008: bellyplate
+    4300010: arm right
+    4300012: foot right
+    4300014: frog
+    4300016: barrel
+    4300018: pSphere1
+    7400000: Take 001
+    7400002: Take 0010
     7400004: Take 0011
     9500000: //RootNode
-    13700000: beak
-    13700002: body
-    13700004: crest
-    13700006: GeoSphere001
-    13700008: owl left foot
-    13700010: owl left foot001
-    13700012: owl leg left
-    13700014: owl leg left001
-    13700016: owl_head
-    13700018: scroll tube
+    13700000: arm left
+    13700002: arm right
+    13700004: bellyplate
+    13700006: foot left
+    13700008: foot right
+    13700010: frog
+    13700012: hand left
+    13700014: hand right
   materials:
     importMaterials: 1
     materialName: 0
@@ -92,16 +94,16 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Take 001
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 1.10000002
+      lastFrame: 2
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -119,54 +121,54 @@ ModelImporter:
         weight: 1
       - path: Core
         weight: 1
-      - path: Core/Knee
+      - path: Core/Hip
         weight: 1
-      - path: Core/Knee/Feet
+      - path: Core/Hip/Knee
         weight: 1
-      - path: Core/Knee/Feet/Toes
-        weight: 1
-      - path: Core/Knee/Feet/Toes/joint1
+      - path: Core/Hip/Knee/Feet
         weight: 1
       - path: Core/Middle
         weight: 1
-      - path: Core/Middle/Shoulder
+      - path: Core/Middle/Cheste
         weight: 1
-      - path: Core/Middle/Shoulder/Head
+      - path: Core/Middle/Cheste/Shoulder
         weight: 1
-      - path: Core/Middle/Shoulder/LeftShoulder
+      - path: Core/Middle/Cheste/Shoulder/Head
         weight: 1
-      - path: Core/Middle/Shoulder/LeftShoulder/LeftWing
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder
         weight: 1
-      - path: Core/Middle/Shoulder/RightShoulder
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow
         weight: 1
-      - path: Core/Middle/Shoulder/RightShoulder/RightWing
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow/LeftHand
         weight: 1
-      - path: unit_owl
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder
         weight: 1
-      - path: unit_owl/beak
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder/barrel
         weight: 1
-      - path: unit_owl/body
+      - path: pSphere1
         weight: 1
-      - path: unit_owl/crest
+      - path: unit_frog
         weight: 1
-      - path: unit_owl/GeoSphere001
+      - path: unit_frog/arm left
         weight: 1
-      - path: unit_owl/owl left foot
+      - path: unit_frog/arm right
         weight: 1
-      - path: unit_owl/owl left foot001
+      - path: unit_frog/bellyplate
         weight: 1
-      - path: unit_owl/owl leg left
+      - path: unit_frog/foot left
         weight: 1
-      - path: unit_owl/owl leg left001
+      - path: unit_frog/foot right
         weight: 1
-      - path: unit_owl/owl_head
+      - path: unit_frog/frog
         weight: 1
-      - path: unit_owl/scroll tube
+      - path: unit_frog/hand left
+        weight: 1
+      - path: unit_frog/hand right
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Idle_two
+      name: Take 0010
       takeName: Take 001
       firstFrame: 30
       lastFrame: 78
@@ -179,7 +181,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -193,49 +195,49 @@ ModelImporter:
         weight: 1
       - path: Core
         weight: 1
-      - path: Core/Knee
+      - path: Core/Hip
         weight: 1
-      - path: Core/Knee/Feet
+      - path: Core/Hip/Knee
         weight: 1
-      - path: Core/Knee/Feet/Toes
-        weight: 1
-      - path: Core/Knee/Feet/Toes/joint1
+      - path: Core/Hip/Knee/Feet
         weight: 1
       - path: Core/Middle
         weight: 1
-      - path: Core/Middle/Shoulder
+      - path: Core/Middle/Cheste
         weight: 1
-      - path: Core/Middle/Shoulder/Head
+      - path: Core/Middle/Cheste/Shoulder
         weight: 1
-      - path: Core/Middle/Shoulder/LeftShoulder
+      - path: Core/Middle/Cheste/Shoulder/Head
         weight: 1
-      - path: Core/Middle/Shoulder/LeftShoulder/LeftWing
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder
         weight: 1
-      - path: Core/Middle/Shoulder/RightShoulder
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow
         weight: 1
-      - path: Core/Middle/Shoulder/RightShoulder/RightWing
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow/LeftHand
         weight: 1
-      - path: unit_owl
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder
         weight: 1
-      - path: unit_owl/beak
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder/barrel
         weight: 1
-      - path: unit_owl/body
+      - path: pSphere1
         weight: 1
-      - path: unit_owl/crest
+      - path: unit_frog
         weight: 1
-      - path: unit_owl/GeoSphere001
+      - path: unit_frog/arm left
         weight: 1
-      - path: unit_owl/owl left foot
+      - path: unit_frog/arm right
         weight: 1
-      - path: unit_owl/owl left foot001
+      - path: unit_frog/bellyplate
         weight: 1
-      - path: unit_owl/owl leg left
+      - path: unit_frog/foot left
         weight: 1
-      - path: unit_owl/owl leg left001
+      - path: unit_frog/foot right
         weight: 1
-      - path: unit_owl/owl_head
+      - path: unit_frog/frog
         weight: 1
-      - path: unit_owl/scroll tube
+      - path: unit_frog/hand left
+        weight: 1
+      - path: unit_frog/hand right
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -253,7 +255,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -267,49 +269,49 @@ ModelImporter:
         weight: 1
       - path: Core
         weight: 1
-      - path: Core/Knee
+      - path: Core/Hip
         weight: 1
-      - path: Core/Knee/Feet
+      - path: Core/Hip/Knee
         weight: 1
-      - path: Core/Knee/Feet/Toes
-        weight: 1
-      - path: Core/Knee/Feet/Toes/joint1
+      - path: Core/Hip/Knee/Feet
         weight: 1
       - path: Core/Middle
         weight: 1
-      - path: Core/Middle/Shoulder
+      - path: Core/Middle/Cheste
         weight: 1
-      - path: Core/Middle/Shoulder/Head
+      - path: Core/Middle/Cheste/Shoulder
         weight: 1
-      - path: Core/Middle/Shoulder/LeftShoulder
+      - path: Core/Middle/Cheste/Shoulder/Head
         weight: 1
-      - path: Core/Middle/Shoulder/LeftShoulder/LeftWing
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder
         weight: 1
-      - path: Core/Middle/Shoulder/RightShoulder
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow
         weight: 1
-      - path: Core/Middle/Shoulder/RightShoulder/RightWing
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow/LeftHand
         weight: 1
-      - path: unit_owl
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder
         weight: 1
-      - path: unit_owl/beak
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder/barrel
         weight: 1
-      - path: unit_owl/body
+      - path: pSphere1
         weight: 1
-      - path: unit_owl/crest
+      - path: unit_frog
         weight: 1
-      - path: unit_owl/GeoSphere001
+      - path: unit_frog/arm left
         weight: 1
-      - path: unit_owl/owl left foot
+      - path: unit_frog/arm right
         weight: 1
-      - path: unit_owl/owl left foot001
+      - path: unit_frog/bellyplate
         weight: 1
-      - path: unit_owl/owl leg left
+      - path: unit_frog/foot left
         weight: 1
-      - path: unit_owl/owl leg left001
+      - path: unit_frog/foot right
         weight: 1
-      - path: unit_owl/owl_head
+      - path: unit_frog/frog
         weight: 1
-      - path: unit_owl/scroll tube
+      - path: unit_frog/hand left
+        weight: 1
+      - path: unit_frog/hand right
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -333,7 +335,7 @@ ModelImporter:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 2
+    tangentImportMode: 1
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -346,7 +348,7 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: Core
+    rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   additionalBone: 0
