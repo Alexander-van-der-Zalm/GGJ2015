@@ -140,9 +140,22 @@ public class BlockManager : Singleton<BlockManager>
         // Project to find length
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
         // Translate length * normal
-        newBlock.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
+        Vector3 roundMe = parentBlock.transform.position + clickedFace.Normal * blockScale;
+        //newBlock.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
+        //Vector3 roundMe = 
+        roundMe *=2;
 
+        Vector3 rounded = new Vector3(Mathf.Round(roundMe.x), Mathf.Round(roundMe.y), Mathf.Round(roundMe.z));
+        // Round the numbers
+        newBlock.transform.position = rounded*0.5f;
+
+        // Redo ID's
         Instance.RedoID();
+
+        // Redo Neighbors for faces and blocks
+        List<BlockFace> neighborFaces = Block.FindBlockNeighborFaces(Instance.Blocks, newBlock.ID);
+        Debug.Log(neighborFaces.Count);
+        Block.SetFaceNeighbors(neighborFaces);
     }
 
     private void RedoID()
@@ -161,6 +174,12 @@ public class BlockManager : Singleton<BlockManager>
         Block block = blockGO.GetComponent<Block>();
         block.transform.parent = Instance.transform;
 
+        // Find all neighbor faces
+
+
+        // Recalculate neighbors
+        //block.FindNeighbors()
+
         return block;
     }
 
@@ -178,6 +197,12 @@ public class BlockManager : Singleton<BlockManager>
 
     public void loadLevel(string levelName)
     {
+        
+        if(!LevelNames.Contains(levelName))
+        {
+            Debug.Log("Level does not exist: " + levelName);
+            return;
+        }
         Debug.Log("Load: " + levelName);
         Instance.SelectedLevel = levelName;
 

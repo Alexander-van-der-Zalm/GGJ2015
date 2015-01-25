@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 // Face Info?
 // Has Unit
@@ -16,6 +17,8 @@ public class BlockFace : MonoBehaviour
 
     [SerializeField]
     private Block block;
+
+    public List<BlockFace> neighbors;
 
 	public int TextureId = 0;
 

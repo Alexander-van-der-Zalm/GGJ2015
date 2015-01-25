@@ -69,6 +69,9 @@ public class Block : MonoBehaviour
             Faces[i].gameObject.name = "Face " + i;
             Faces[i].Block = this;
         }
+
+        //// Set Neighbors
+        //FindNeighbors();
     }
 
     public void Remove()
@@ -175,4 +178,94 @@ public class Block : MonoBehaviour
 			creature.team = team;
 		}
 	}
+
+    #region Neighbor
+
+    public static void SetFaceNeighbors(List<BlockFace> input)
+    {
+        for (int i = 0; i < input.Count; i++)
+        {
+            BlockFace current = input[i];
+            float minDistance = float.MaxValue;
+            current.neighbors = new List<BlockFace>();
+
+            // Find mindistance
+            for (int j = 0; j < input.Count; j++)
+            {
+                if (j == i)
+                    continue;
+                BlockFace other = input[j];
+                float dist = Vector3.Magnitude(current.transform.position - other.transform.position);
+
+                if(dist < minDistance)
+                {
+                    minDistance = dist;
+                }
+            }
+
+            // Add if mindistace
+            for (int j = 0; j < input.Count; j++)
+            {
+                if (j == i)
+                    continue;
+                BlockFace other = input[j];
+                float dist = Vector3.Magnitude(current.transform.position - other.transform.position);
+
+                if(dist <= minDistance)
+                {
+                    current.neighbors.Add(other);
+                }
+            }
+        }
+    }
+
+    public static List<BlockFace> FindBlockNeighborFaces(List<Block> input, int centerBlockIndex)
+    {
+        List<BlockFace> output = new List<BlockFace>();
+
+        // Setting all the neighbors for all of the input
+        for (int i = 0; i < input.Count; i++)
+        {
+            Block current = input[i];
+            float minDistance = float.MaxValue;
+            current.Neighbors = new List<Block>();
+
+            // Find mindistance
+            for (int j = 0; j < input.Count; j++)
+            {
+                if (j == i)
+                    continue;
+                Block other = input[j];
+                float dist = Vector3.Magnitude(current.transform.position - other.transform.position);
+
+                if (dist < minDistance)
+                    minDistance = dist;
+            }
+
+            // Add if mindistace
+            for (int j = 0; j < input.Count; j++)
+            {
+                if (j == i)
+                    continue;
+                Block other = input[j];
+                float dist = Vector3.Magnitude(current.transform.position - other.transform.position);
+
+                if (dist <= minDistance)
+                    current.Neighbors.Add(other);
+            }
+        }
+
+        // For the center block add all the neighbor faces to the output
+        Block center = input[centerBlockIndex];
+        output.AddRange(center.Faces);
+
+        for (int i = 0; i < center.Neighbors.Count; i++)
+        {
+            output.AddRange(center.Neighbors[i].Faces);
+        }
+
+        return output;
+    }
+
+    #endregion
 }
