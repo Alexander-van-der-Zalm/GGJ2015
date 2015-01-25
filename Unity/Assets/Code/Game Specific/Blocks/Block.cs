@@ -43,7 +43,7 @@ public class Block : MonoBehaviour
     #endregion
 
 	void Start(){
-
+		setBaseColor();
 	}
 
     public BlockFace GetFace(int blockFaceID)
@@ -120,6 +120,12 @@ public class Block : MonoBehaviour
 	public void ChangeTeam(int from, int to, float slerpCount){
 		foreach (BlockFace face in Faces) {
 			face.ChangeTeam (from, to, slerpCount);
+		}
+	}
+
+	public void setBaseColor(){
+		foreach (BlockFace face in Faces) {
+			face.setBaseColor();
 		}
 	}
 

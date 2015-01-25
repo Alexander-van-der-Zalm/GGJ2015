@@ -6,6 +6,6 @@ public class Face_Ping : MonoBehaviour {
 	public GameObject prefab;
 
 	public void ping(Transform location){
-		GameObject.Instantiate(prefab, location.position, Quaternion.identity);
+		//GameObject.Instantiate(prefab, location.position, Quaternion.identity);
 	}
 }
