@@ -85,13 +85,16 @@ public class BasicUnit : MonoBehaviour
             CurrentFace.HasUnit = false; 
         // Change to destination and walk
 
+		Block bl = BlockManager.Get (blockID);
+		CurrentFace = bl.GetFace (blockFaceID);
+		CurrentFace.HasUnit = true;
 
 		anim.SetBool ("Jump", true); 
 
 		//transform.LookAt(CurrentFace.Normal);
 
 		//this.transform.Rotate (Vector3.right, 90);
-
+	/*
 		Vector3 a = CurrentFace.transform.position - transform.position;
 		Vector3 b = CurrentFace.Normal;
 		float ang = Vector3.Angle (a, b);
@@ -101,13 +104,14 @@ public class BasicUnit : MonoBehaviour
 		Vector3 x = CurrentFace.transform.position + b;
 
 		Vector3 final = x*c;
-
+*/
 		//Vector3 u = CurrentFace.transform.position - transform.position;
-
-		//Vector3 b = (CurrentFace.transform.position - transform.position)-((((CurrentFace.transform.position - transform.position)*CurrentFace.Normal)/CurrentFace.Normal.magnitude)*CurrentFace.Normal);
+		Vector3 normal = CurrentFace.Normal;
+		Vector3 u = (CurrentFace.transform.position - transform.position);
+		Vector3 b = u - (Vector3.Dot( u , normal ) / normal.magnitude ) * normal ;
 		//transform.rotation = Quaternion.LookRotation (transform.position-final, CurrentFace.Normal);
 
-		transform.rotation = Quaternion.LookRotation (transform.position-final, CurrentFace.Normal);
+		transform.rotation = Quaternion.LookRotation (b, CurrentFace.Normal);
 		
 		// Rotate
 	}
