@@ -1,54 +1,80 @@
 fileFormatVersion: 2
-guid: f6ac13d9484423546ab6794f54ae7eef
+guid: 00aeb45102396994cba6b4a7cb9122cc
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: beads
-    100002: //RootNode
-    100004: body
-    100006: Chest
-    100008: Core
-    100010: FrontLegs
+    100000: beak
+    100002: body
+    100004: Core
+    100006: crest
+    100008: Feet
+    100010: GeoSphere001
     100012: Head
-    100014: head
-    100016: HindLegs
-    100018: Hip
-    100020: horns
+    100014: joint1
+    100016: Knee
+    100018: LeftShoulder
+    100020: LeftWing
     100022: Middle
-    100024: Neck
-    100026: Shoulder
-    100028: tail
-    100030: unit_bison
-    400000: beads
-    400002: //RootNode
-    400004: body
-    400006: Chest
-    400008: Core
-    400010: FrontLegs
+    100024: //RootNode
+    100026: owl left foot
+    100028: owl left foot001
+    100030: owl leg left
+    100032: owl leg left001
+    100034: owl_head
+    100036: RightShoulder
+    100038: RightWing
+    100040: scroll tube
+    100042: Shoulder
+    100044: Toes
+    100046: unit_owl
+    400000: beak
+    400002: body
+    400004: Core
+    400006: crest
+    400008: Feet
+    400010: GeoSphere001
     400012: Head
-    400014: head
-    400016: HindLegs
-    400018: Hip
-    400020: horns
+    400014: joint1
+    400016: Knee
+    400018: LeftShoulder
+    400020: LeftWing
     400022: Middle
-    400024: Neck
-    400026: Shoulder
-    400028: tail
-    400030: unit_bison
-    4300000: tail
-    4300002: beads
-    4300004: body
-    4300006: head
-    4300008: horns
+    400024: //RootNode
+    400026: owl left foot
+    400028: owl left foot001
+    400030: owl leg left
+    400032: owl leg left001
+    400034: owl_head
+    400036: RightShoulder
+    400038: RightWing
+    400040: scroll tube
+    400042: Shoulder
+    400044: Toes
+    400046: unit_owl
+    4300000: scroll tube
+    4300002: body
+    4300004: crest
+    4300006: owl_head
+    4300008: beak
+    4300010: owl leg left
+    4300012: owl left foot
+    4300014: owl left foot001
+    4300016: owl leg left001
+    4300018: GeoSphere001
     7400000: Idle
-    7400002: Idle_2
-    7400004: Jumping
+    7400002: Idle_two
+    7400004: Take 0011
     9500000: //RootNode
-    13700000: beads
+    13700000: beak
     13700002: body
-    13700004: head
-    13700006: horns
-    13700008: tail
+    13700004: crest
+    13700006: GeoSphere001
+    13700008: owl left foot
+    13700010: owl left foot001
+    13700012: owl leg left
+    13700014: owl leg left001
+    13700016: owl_head
+    13700018: scroll tube
   materials:
     importMaterials: 1
     materialName: 0
@@ -75,7 +101,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -93,38 +119,54 @@ ModelImporter:
         weight: 1
       - path: Core
         weight: 1
-      - path: Core/Hip
+      - path: Core/Knee
         weight: 1
-      - path: Core/Hip/HindLegs
+      - path: Core/Knee/Feet
+        weight: 1
+      - path: Core/Knee/Feet/Toes
+        weight: 1
+      - path: Core/Knee/Feet/Toes/joint1
         weight: 1
       - path: Core/Middle
         weight: 1
-      - path: Core/Middle/Chest
+      - path: Core/Middle/Shoulder
         weight: 1
-      - path: Core/Middle/Chest/Neck
+      - path: Core/Middle/Shoulder/Head
         weight: 1
-      - path: Core/Middle/Chest/Neck/Head
+      - path: Core/Middle/Shoulder/LeftShoulder
         weight: 1
-      - path: Core/Middle/Chest/Shoulder
+      - path: Core/Middle/Shoulder/LeftShoulder/LeftWing
         weight: 1
-      - path: Core/Middle/Chest/Shoulder/FrontLegs
+      - path: Core/Middle/Shoulder/RightShoulder
         weight: 1
-      - path: unit_bison
+      - path: Core/Middle/Shoulder/RightShoulder/RightWing
         weight: 1
-      - path: unit_bison/beads
+      - path: unit_owl
         weight: 1
-      - path: unit_bison/body
+      - path: unit_owl/beak
         weight: 1
-      - path: unit_bison/head
+      - path: unit_owl/body
         weight: 1
-      - path: unit_bison/horns
+      - path: unit_owl/crest
         weight: 1
-      - path: unit_bison/tail
+      - path: unit_owl/GeoSphere001
+        weight: 1
+      - path: unit_owl/owl left foot
+        weight: 1
+      - path: unit_owl/owl left foot001
+        weight: 1
+      - path: unit_owl/owl leg left
+        weight: 1
+      - path: unit_owl/owl leg left001
+        weight: 1
+      - path: unit_owl/owl_head
+        weight: 1
+      - path: unit_owl/scroll tube
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Idle_2
+      name: Idle_two
       takeName: Take 001
       firstFrame: 30
       lastFrame: 78
@@ -151,38 +193,54 @@ ModelImporter:
         weight: 1
       - path: Core
         weight: 1
-      - path: Core/Hip
+      - path: Core/Knee
         weight: 1
-      - path: Core/Hip/HindLegs
+      - path: Core/Knee/Feet
+        weight: 1
+      - path: Core/Knee/Feet/Toes
+        weight: 1
+      - path: Core/Knee/Feet/Toes/joint1
         weight: 1
       - path: Core/Middle
         weight: 1
-      - path: Core/Middle/Chest
+      - path: Core/Middle/Shoulder
         weight: 1
-      - path: Core/Middle/Chest/Neck
+      - path: Core/Middle/Shoulder/Head
         weight: 1
-      - path: Core/Middle/Chest/Neck/Head
+      - path: Core/Middle/Shoulder/LeftShoulder
         weight: 1
-      - path: Core/Middle/Chest/Shoulder
+      - path: Core/Middle/Shoulder/LeftShoulder/LeftWing
         weight: 1
-      - path: Core/Middle/Chest/Shoulder/FrontLegs
+      - path: Core/Middle/Shoulder/RightShoulder
         weight: 1
-      - path: unit_bison
+      - path: Core/Middle/Shoulder/RightShoulder/RightWing
         weight: 1
-      - path: unit_bison/beads
+      - path: unit_owl
         weight: 1
-      - path: unit_bison/body
+      - path: unit_owl/beak
         weight: 1
-      - path: unit_bison/head
+      - path: unit_owl/body
         weight: 1
-      - path: unit_bison/horns
+      - path: unit_owl/crest
         weight: 1
-      - path: unit_bison/tail
+      - path: unit_owl/GeoSphere001
+        weight: 1
+      - path: unit_owl/owl left foot
+        weight: 1
+      - path: unit_owl/owl left foot001
+        weight: 1
+      - path: unit_owl/owl leg left
+        weight: 1
+      - path: unit_owl/owl leg left001
+        weight: 1
+      - path: unit_owl/owl_head
+        weight: 1
+      - path: unit_owl/scroll tube
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Jumping
+      name: Take 0011
       takeName: Take 001
       firstFrame: 80
       lastFrame: 104
@@ -209,33 +267,49 @@ ModelImporter:
         weight: 1
       - path: Core
         weight: 1
-      - path: Core/Hip
+      - path: Core/Knee
         weight: 1
-      - path: Core/Hip/HindLegs
+      - path: Core/Knee/Feet
+        weight: 1
+      - path: Core/Knee/Feet/Toes
+        weight: 1
+      - path: Core/Knee/Feet/Toes/joint1
         weight: 1
       - path: Core/Middle
         weight: 1
-      - path: Core/Middle/Chest
+      - path: Core/Middle/Shoulder
         weight: 1
-      - path: Core/Middle/Chest/Neck
+      - path: Core/Middle/Shoulder/Head
         weight: 1
-      - path: Core/Middle/Chest/Neck/Head
+      - path: Core/Middle/Shoulder/LeftShoulder
         weight: 1
-      - path: Core/Middle/Chest/Shoulder
+      - path: Core/Middle/Shoulder/LeftShoulder/LeftWing
         weight: 1
-      - path: Core/Middle/Chest/Shoulder/FrontLegs
+      - path: Core/Middle/Shoulder/RightShoulder
         weight: 1
-      - path: unit_bison
+      - path: Core/Middle/Shoulder/RightShoulder/RightWing
         weight: 1
-      - path: unit_bison/beads
+      - path: unit_owl
         weight: 1
-      - path: unit_bison/body
+      - path: unit_owl/beak
         weight: 1
-      - path: unit_bison/head
+      - path: unit_owl/body
         weight: 1
-      - path: unit_bison/horns
+      - path: unit_owl/crest
         weight: 1
-      - path: unit_bison/tail
+      - path: unit_owl/GeoSphere001
+        weight: 1
+      - path: unit_owl/owl left foot
+        weight: 1
+      - path: unit_owl/owl left foot001
+        weight: 1
+      - path: unit_owl/owl leg left
+        weight: 1
+      - path: unit_owl/owl leg left001
+        weight: 1
+      - path: unit_owl/owl_head
+        weight: 1
+      - path: unit_owl/scroll tube
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -256,9 +330,9 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
   tangentSpace:
-    normalSmoothAngle: 0
+    normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0

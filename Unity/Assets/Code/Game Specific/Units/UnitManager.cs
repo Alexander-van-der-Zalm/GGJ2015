@@ -85,6 +85,7 @@ public class UnitManager : Singleton<UnitManager>
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;
         BasicUnit unit = newUnit.GetComponent<BasicUnit>();
 		unit.team = unitTeam;
+	
 		block.creature = unit;
         Register(unit);
     }

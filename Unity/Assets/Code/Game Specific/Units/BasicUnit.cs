@@ -13,7 +13,11 @@ public class BasicUnit : MonoBehaviour
 
 	public int team;
 
+	public int CreatureType;
+
 	public bool capping = false;
+
+	public Animator anim;
 
     [SerializeField]
     private int id;
@@ -37,6 +41,8 @@ public class BasicUnit : MonoBehaviour
 
     public void OnEnable()
     {
+
+		anim = gameObject.GetComponentInChildren<Animator> ();
         tr = transform;
         UnitManager.Register(this);
     }
@@ -67,24 +73,57 @@ public class BasicUnit : MonoBehaviour
            // UnitManager.Delete(this);
         }
 
+
+
     }
 
     public void MoveUnit(int blockID,int blockFaceID)
     {
         // Update face state both faces
-        // Change face
+        // Change face  
         if(CurrentFace!=null)
-            CurrentFace.HasUnit = false;
-
-        Block bl = BlockManager.Get(blockID);
-        CurrentFace = bl.GetFace(blockFaceID);
-        CurrentFace.HasUnit = true;
-
-         // Translate (TELEPORT HACK)
+            CurrentFace.HasUnit = false; 
         // Change to destination and walk
 
-        tr.position = CurrentFace.transform.position;
-        // Rotate
-        tr.rotation = CurrentFace.Rotation;
-    }
+		Block bl = BlockManager.Get (blockID);
+		CurrentFace = bl.GetFace (blockFaceID);
+		CurrentFace.HasUnit = true;
+
+		anim.SetBool ("Jump", true); 
+
+		//transform.LookAt(CurrentFace.Normal);
+
+		//this.transform.Rotate (Vector3.right, 90);
+	/*
+		Vector3 a = CurrentFace.transform.position - transform.position;
+		Vector3 b = CurrentFace.Normal;
+		float ang = Vector3.Angle (a, b);
+		float c = Vector3.Dot (a, b);
+		float d = c/Mathf.Cos(ang);
+
+		Vector3 x = CurrentFace.transform.position + b;
+
+		Vector3 final = x*c;
+*/
+		//Vector3 u = CurrentFace.transform.position - transform.position;
+		Vector3 normal = CurrentFace.Normal;
+		Vector3 u = (CurrentFace.transform.position - transform.position);
+		Vector3 b = u - (Vector3.Dot( u , normal ) / normal.magnitude ) * normal ;
+		//transform.rotation = Quaternion.LookRotation (transform.position-final, CurrentFace.Normal);
+
+		transform.rotation = Quaternion.LookRotation (b, CurrentFace.Normal);
+		
+		// Rotate
+	}
+	
+	void FixedUpdate(){
+		anim.SetBool ("Jump", false);
+		float step = 0.5f * Time.deltaTime;
+
+
+		if (CurrentFace != null) {
+			transform.position = Vector3.MoveTowards (gameObject.transform.position, CurrentFace.transform.position, step);
+		}
+	}
+
 }
