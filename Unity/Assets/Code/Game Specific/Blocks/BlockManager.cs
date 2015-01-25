@@ -35,7 +35,7 @@ public class BlockManager : Singleton<BlockManager>
     [SerializeField]
     private string selectedLevel;
 
-    public string SelectedLevel { get { selectedLevel = PlayerPrefs.GetString("CurrentLevel"); return selectedLevel; } set { selectedLevel = value; PlayerPrefs.SetString("CurrentLevel", selectedLevel); } }
+    public string SelectedLevel { get { selectedLevel = PlayerPrefs.GetString("CurrentLevel"); return selectedLevel; } set { selectedLevel = value; PlayerPrefs.SetString("CurrentLevel", value); } }
 
     [HideInInspector]
     public List<string> LevelNames;
@@ -158,29 +158,22 @@ public class BlockManager : Singleton<BlockManager>
     public static void LoadLevel(string levelName)
     {
         Debug.Log("Load: " + levelName);
-
-        //Instance.SelectedLevel = levelName;
-
+        Instance.SelectedLevel = levelName;
+        
         // Get the asset
-        BlockListSO blockData = (BlockListSO)AssetDatabase.LoadAssetAtPath("Assets/Levels/"+levelName, typeof(BlockListSO));
+        BlockListSO blockData = Instance.GetLevelData(levelName);
 
         // Read asset
         Instance.LoadBlocks(blockData);
     }
 
+    public BlockListSO GetLevelData(string levelName)
+    {
+        return (BlockListSO)AssetDatabase.LoadAssetAtPath("Assets/Levels/" + levelName, typeof(BlockListSO));
+    }
+
     public void LoadBlocks(BlockListSO blockData)
     {
-        int count = Blocks.Count;
-
-        //// Delete current children
-        //var children = new List<GameObject>();
-        //foreach (Transform child in transform)
-        //    children.Add(child.gameObject);
-        //children.ForEach(child => DestroyImmediate(child));
-
-        //// Create new blocks list
-        //Blocks = new List<Block>();
-
         ClearBlocks();
 
         // Create and change blocks
