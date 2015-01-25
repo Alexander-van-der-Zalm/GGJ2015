@@ -13,7 +13,11 @@ public class BasicUnit : MonoBehaviour
 
 	public int team;
 
+	public int CreatureType;
+
 	public bool capping = false;
+
+	public Animator anim;
 
     [SerializeField]
     private int id;
@@ -37,6 +41,8 @@ public class BasicUnit : MonoBehaviour
 
     public void Start()
     {
+
+		anim = gameObject.GetComponentInChildren<Animator> ();
         tr = transform;
         UnitManager.Register(this);
     }
@@ -82,9 +88,28 @@ public class BasicUnit : MonoBehaviour
 
          // Translate (TELEPORT HACK)
         // Change to destination and walk
+		transform.LookAt (CurrentFace.transform);
 
-        tr.position = CurrentFace.transform.position;
-        // Rotate
-        tr.rotation = CurrentFace.Rotation;
-    }
+		Vector3 newForward = transform.forward;
+
+		anim.SetBool ("Jump", true);
+
+		transform.LookAt(CurrentFace.Normal);
+
+		this.transform.Rotate (Vector3.right, 90);
+
+		
+		// Rotate
+	}
+	
+	void FixedUpdate(){
+		anim.SetBool ("Jump", false);
+
+		float step = 0.5f * Time.deltaTime;
+
+
+
+		transform.position = Vector3.MoveTowards(gameObject.transform.position, CurrentFace.transform.position, step);
+	}
+
 }
