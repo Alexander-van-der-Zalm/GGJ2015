@@ -8,6 +8,8 @@ public class UnitManager : Singleton<UnitManager>
     public List<GameObject> UnitPrefabs;
     public List<BasicUnit> Units;
 
+	public int team = 1;
+
     public BlockManager bm;
 
     #region Get, reg & unreg & id's
@@ -54,33 +56,35 @@ public class UnitManager : Singleton<UnitManager>
 
     #region Create n delete
 
-    public static void Create(int blockID,int blockFaceID,int version = 0)
+    public static void Create(int blockID,int blockFaceID, int unitTeam,int version = 0)
     {
         //Instance.CreateUnit(blockID, blockFaceID, version);
 
         // Do the RPC call
-        (Instance.GetComponent<PhotonView>()).RPC("CreateUnit", PhotonTargets.All, blockID, blockFaceID, version);
+        (Instance.GetComponent<PhotonView>()).RPC("CreateUnit", PhotonTargets.All, blockID, blockFaceID, unitTeam, version);
     }
 
     [RPC]
-    public void CreateUnit(int blockID,int blockFaceID,int version = 0)
+	public void CreateUnit(int blockID,int blockFaceID,int unitTeam, int version = 0)
     {
-        Debug.Log("RPC woop");
-        
+
         // Translate and rotate
         Block block = bm.get(blockID);
+
         BlockFace face = block.GetFace(blockFaceID);
         Vector3 position = face.transform.position;
         Quaternion rotation = Quaternion.LookRotation(face.Normal, new Vector3(0, 1, 0));
         
         // Create
-        Create(position, rotation, version);
+        Create(position, rotation, version, block);
     }
 
-    public void Create(Vector3 position,Quaternion rotation, int version = 0)
+	public void Create(Vector3 position,Quaternion rotation, int unitTeam, Block block, int version = 0)
     {
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;
         BasicUnit unit = newUnit.GetComponent<BasicUnit>();
+		unit.team = unitTeam;
+		block.creature = unit;
         Register(unit);
     }
 
@@ -103,13 +107,27 @@ public class UnitManager : Singleton<UnitManager>
     [RPC]
     public void MoveUnit(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
     {
+	
         FaceBlockID destination = new FaceBlockID() { FaceID = destFaceID, BlockID = destBlockID };
         FaceBlockID origin = new FaceBlockID() { FaceID = originFaceID, BlockID = originBlockID };
 
         BasicUnit unit = get(unitID);
 
         unit.MoveUnit(destination.BlockID, destination.FaceID);
+
+		ColorBlock (destination.BlockID, destination.FaceID);
     }
+
+	public void ColorBlock(int blockID, int blockFaceID){
+
+		Block block = bm.get(blockID);
+		BlockFace face = block.GetFace(blockFaceID);
+
+		if(block.team != Selectionmanager.Instance.SelectedUnit.team && !Selectionmanager.Instance.SelectedUnit.capping){
+			block.StartCapture(Selectionmanager.Instance.SelectedUnit);
+			Selectionmanager.Instance.SelectedUnit.capping = true;
+		}
+	}
 
     //public void MoveUnit(FaceBlockID destination, int unitID, FaceBlockID origin)
     //{

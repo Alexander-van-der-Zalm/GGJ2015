@@ -16,6 +16,8 @@ public class Block : MonoBehaviour
 
     public BlockData.BlockType Type;
 
+	public int SpawnFaceID;
+
     public List<Block> Neighbors;
     [SerializeField]
     private int colorTypeID;
@@ -32,6 +34,8 @@ public class Block : MonoBehaviour
 
 	public int possesionCap = 10;
 
+	public BasicUnit creature;
+
     #endregion
 
     #region Properties
@@ -42,7 +46,13 @@ public class Block : MonoBehaviour
 
     #endregion
 
-    public BlockFace GetFace(int blockFaceID)
+	void Start(){
+		if (this.Type == BlockData.BlockType.Unit) {
+			this.RespawnUnit();
+		}
+	}
+	
+	public BlockFace GetFace(int blockFaceID)
     {
         return Faces.Where(f => f.ID == blockFaceID).First();
     }
@@ -69,6 +79,12 @@ public class Block : MonoBehaviour
 
     }
 
+	void Update(){
+		if (Input.GetKey (KeyCode.P)) {
+			this.RespawnUnit ();
+		}
+	}
+
 	public void ChangeBlock(int index){
 		foreach (BlockFace face in Faces) {
 			face.ChangeFace(index);
@@ -82,6 +98,9 @@ public class Block : MonoBehaviour
 	IEnumerator CaptureTick(BasicUnit basic){
 		if (possesion == 0) {
 			team = 1;
+			if(BlockData.BlockType.Unit == Type){
+				this.creature.team = team;
+			}
 		}
 		if (basic.team < team) {
 			possesion -= 1;
@@ -92,6 +111,9 @@ public class Block : MonoBehaviour
 			}
 			if(possesion == -possesionCap){
 				team = basic.team;
+				if(BlockData.BlockType.Unit == Type){
+					this.creature.team = team;
+				}
 				basic.capping = false;
 			}
 			yield return new WaitForSeconds(possesionTime);
@@ -106,6 +128,9 @@ public class Block : MonoBehaviour
 			}
 			if (possesion == possesionCap) {
 				team = basic.team;
+				if(BlockData.BlockType.Unit == Type){
+					this.creature.team = team;
+				}
 				basic.capping = false;
 			}
 			yield return new WaitForSeconds (possesionTime);
@@ -116,6 +141,12 @@ public class Block : MonoBehaviour
 	public void ChangeTeam(int from, int to, float slerpCount){
 		foreach (BlockFace face in Faces) {
 			face.ChangeTeam (from, to, slerpCount);
+		}
+	}
+
+	public void setBaseCol(){
+		foreach (BlockFace face in Faces) {
+			face.setBaseColor();
 		}
 	}
 
@@ -130,4 +161,11 @@ public class Block : MonoBehaviour
         Remove();
         BlockManager.UnRegister(this);
     }
+
+	public void RespawnUnit(){
+		if (Type == BlockData.BlockType.Unit) {
+			UnitManager.Create (ID, SpawnFaceID, team);
+			creature.team = team;
+		}
+	}
 }

@@ -192,6 +192,7 @@ public class BlockManager : Singleton<BlockManager>
             block.transform.localRotation = data.Rot;
             block.transform.localScale = data.Scale;
             block.Type = data.Type;
+			block.SpawnFaceID = data.SpawnFaceID;
             block.name = "Block "+i;
             block.ID = i;
             block.ColorTypeID = data.ColorTypeID;
@@ -229,7 +230,8 @@ public class BlockManager : Singleton<BlockManager>
                 Scale = Blocks[i].transform.localScale, 
                 Rot = Blocks[i].transform.localRotation, 
                 Type = Blocks[i].Type,
-                ColorTypeID = Blocks[i].ColorTypeID
+                ColorTypeID = Blocks[i].ColorTypeID,
+				SpawnFaceID = Blocks[i].SpawnFaceID
             });
         }
 

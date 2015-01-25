@@ -64,7 +64,7 @@ public class NetworkManager : MonoBehaviour
         // Set Player info
         if(createdRoom)
         {
-            /UnitManager.Instance.
+            //UnitManager.Instance.
         }
         else
         {
