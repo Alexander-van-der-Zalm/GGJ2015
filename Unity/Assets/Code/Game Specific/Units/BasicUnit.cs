@@ -35,17 +35,17 @@ public class BasicUnit : MonoBehaviour
         }
     }
 
-    public void Start()
+    public void OnEnable()
     {
         tr = transform;
         UnitManager.Register(this);
     }
 
 
-    //public void OnDestroy()
-    //{
-    //    UnitManger.UnRegister(this);
-    //}
+    public void OnDestroy()
+    {
+        UnitManager.UnRegister(this);
+    }
 
     public void OnMouseOver()
     {
