@@ -176,6 +176,18 @@ public class BlockManager : Singleton<BlockManager>
 
     #region Load and Save
 
+    public void loadLevel(string levelName)
+    {
+        Debug.Log("Load: " + levelName);
+        Instance.SelectedLevel = levelName;
+
+        // Get the asset
+        BlockListSO blockData = GetLevelData(levelName);
+
+        // Read asset
+        LoadBlocks(blockData);
+    }
+
     public static void LoadLevel(string levelName)
     {
         Debug.Log("Load: " + levelName);
