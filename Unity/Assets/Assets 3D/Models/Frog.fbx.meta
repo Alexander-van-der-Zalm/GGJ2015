@@ -1,0 +1,355 @@
+fileFormatVersion: 2
+guid: ac0d66dd948352b4195a52381a6a7b77
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: arm left
+    100002: arm right
+    100004: barrel
+    100006: bellyplate
+    100008: Cheste
+    100010: Core
+    100012: Feet
+    100014: foot left
+    100016: foot right
+    100018: //RootNode
+    100020: frog
+    100022: hand left
+    100024: hand right
+    100026: Head
+    100028: Hip
+    100030: Knee
+    100032: LeftElbow
+    100034: LeftHand
+    100036: LeftShoulder
+    100038: Middle
+    100040: pSphere1
+    100042: RightShoulder
+    100044: Shoulder
+    100046: unit_frog
+    400000: arm left
+    400002: arm right
+    400004: barrel
+    400006: bellyplate
+    400008: Cheste
+    400010: Core
+    400012: Feet
+    400014: foot left
+    400016: foot right
+    400018: //RootNode
+    400020: frog
+    400022: hand left
+    400024: hand right
+    400026: Head
+    400028: Hip
+    400030: Knee
+    400032: LeftElbow
+    400034: LeftHand
+    400036: LeftShoulder
+    400038: Middle
+    400040: pSphere1
+    400042: RightShoulder
+    400044: Shoulder
+    400046: unit_frog
+    2300000: barrel
+    2300002: pSphere1
+    3300000: barrel
+    3300002: pSphere1
+    4300000: foot left
+    4300002: hand right
+    4300004: hand left
+    4300006: arm left
+    4300008: bellyplate
+    4300010: arm right
+    4300012: foot right
+    4300014: frog
+    4300016: barrel
+    4300018: pSphere1
+    7400000: Take 001
+    7400002: Take 0010
+    7400004: Take 0011
+    9500000: //RootNode
+    13700000: arm left
+    13700002: arm right
+    13700004: bellyplate
+    13700006: foot left
+    13700008: foot right
+    13700010: frog
+    13700012: hand left
+    13700014: hand right
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 2
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Core
+        weight: 1
+      - path: Core/Hip
+        weight: 1
+      - path: Core/Hip/Knee
+        weight: 1
+      - path: Core/Hip/Knee/Feet
+        weight: 1
+      - path: Core/Middle
+        weight: 1
+      - path: Core/Middle/Cheste
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/Head
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow/LeftHand
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder/barrel
+        weight: 1
+      - path: pSphere1
+        weight: 1
+      - path: unit_frog
+        weight: 1
+      - path: unit_frog/arm left
+        weight: 1
+      - path: unit_frog/arm right
+        weight: 1
+      - path: unit_frog/bellyplate
+        weight: 1
+      - path: unit_frog/foot left
+        weight: 1
+      - path: unit_frog/foot right
+        weight: 1
+      - path: unit_frog/frog
+        weight: 1
+      - path: unit_frog/hand left
+        weight: 1
+      - path: unit_frog/hand right
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0010
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 78
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Core
+        weight: 1
+      - path: Core/Hip
+        weight: 1
+      - path: Core/Hip/Knee
+        weight: 1
+      - path: Core/Hip/Knee/Feet
+        weight: 1
+      - path: Core/Middle
+        weight: 1
+      - path: Core/Middle/Cheste
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/Head
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow/LeftHand
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder/barrel
+        weight: 1
+      - path: pSphere1
+        weight: 1
+      - path: unit_frog
+        weight: 1
+      - path: unit_frog/arm left
+        weight: 1
+      - path: unit_frog/arm right
+        weight: 1
+      - path: unit_frog/bellyplate
+        weight: 1
+      - path: unit_frog/foot left
+        weight: 1
+      - path: unit_frog/foot right
+        weight: 1
+      - path: unit_frog/frog
+        weight: 1
+      - path: unit_frog/hand left
+        weight: 1
+      - path: unit_frog/hand right
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0011
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 104
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Core
+        weight: 1
+      - path: Core/Hip
+        weight: 1
+      - path: Core/Hip/Knee
+        weight: 1
+      - path: Core/Hip/Knee/Feet
+        weight: 1
+      - path: Core/Middle
+        weight: 1
+      - path: Core/Middle/Cheste
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/Head
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/LeftShoulder/LeftElbow/LeftHand
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder
+        weight: 1
+      - path: Core/Middle/Cheste/Shoulder/RightShoulder/barrel
+        weight: 1
+      - path: pSphere1
+        weight: 1
+      - path: unit_frog
+        weight: 1
+      - path: unit_frog/arm left
+        weight: 1
+      - path: unit_frog/arm right
+        weight: 1
+      - path: unit_frog/bellyplate
+        weight: 1
+      - path: unit_frog/foot left
+        weight: 1
+      - path: unit_frog/foot right
+        weight: 1
+      - path: unit_frog/frog
+        weight: 1
+      - path: unit_frog/hand left
+        weight: 1
+      - path: unit_frog/hand right
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
