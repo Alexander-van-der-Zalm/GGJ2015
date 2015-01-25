@@ -13,4 +13,5 @@ public class BlockData
     public Vector3 Scale,Position;
     public Quaternion Rot;
     public BlockType Type;
+    public int ColorTypeID;
 }

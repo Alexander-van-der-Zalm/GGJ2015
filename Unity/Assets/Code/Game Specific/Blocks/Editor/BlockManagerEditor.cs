@@ -27,6 +27,10 @@ public class BlockManagerEditor : EditorPlus
         {
             BlockManager.SaveLevel();
         }
+        if (GUILayout.Button("Clear"))
+        {
+            BlockManager.Instance.ClearBlocks();
+        }
             
         EditorGUILayout.EndHorizontal();
         

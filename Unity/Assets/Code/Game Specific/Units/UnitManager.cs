@@ -65,6 +65,17 @@ public class UnitManager : Singleton<UnitManager>
         Instance.Create(position, rotation, version);
     }
 
+    public void CreateUnit(int blockID,int blockFaceID,int version = 0)
+    {
+        // Translate and rotate
+        Block block = BlockManager.Get(blockID);
+        BlockFace face = block.GetFace(blockFaceID);
+        Vector3 position = face.transform.position;
+        Quaternion rotation = Quaternion.LookRotation(face.Normal, new Vector3(0, 1, 0));
+        // Create
+        Instance.Create(position, rotation, version);
+    }
+
     public void Create(Vector3 position,Quaternion rotation, int version = 0)
     {
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;

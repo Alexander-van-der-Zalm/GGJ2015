@@ -17,6 +17,10 @@ public class Block : MonoBehaviour
     public BlockData.BlockType Type;
 
     public List<Block> Neighbors;
+    [SerializeField]
+    private int colorTypeID;
+
+    public int ColorTypeID { get { return colorTypeID; } set { colorTypeID = value; } }
 
 	public bool occupied = false;
 
