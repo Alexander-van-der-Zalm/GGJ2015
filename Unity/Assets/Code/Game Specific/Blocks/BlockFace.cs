@@ -154,6 +154,10 @@ public class BlockFace : MonoBehaviour
 		}
 	}
 
+	public void setBaseColor(){
+		gameObject.renderer.material.color = colPal.neutralCol;
+	}
+
 	#endregion Materials
 
     #region Gizmos
