@@ -18,6 +18,16 @@ public class Block : MonoBehaviour
 
     public List<Block> Neighbors;
 
+	public bool occupied = false;
+
+	public int team = 1;
+
+	public int possesion = 0;
+
+	public float possesionTime = 0.2f;
+
+	public int possesionCap = 10;
+
     #endregion
 
     #region Properties
@@ -27,6 +37,10 @@ public class Block : MonoBehaviour
     public bool HasUnit { get { return Faces.Where(f => f.HasUnit).Any(); } }
 
     #endregion
+
+	void Start(){
+
+	}
 
     public BlockFace GetFace(int blockFaceID)
     {
@@ -58,6 +72,50 @@ public class Block : MonoBehaviour
 	public void ChangeBlock(int index){
 		foreach (BlockFace face in Faces) {
 			face.ChangeFace(index);
+		}
+	}
+
+	public void StartCapture(BasicUnit basic){
+		StartCoroutine(CaptureTick(basic));
+	}
+
+	IEnumerator CaptureTick(BasicUnit basic){
+		if (possesion == 0) {
+			team = 1;
+		}
+		if (basic.team < team) {
+			possesion -= 1;
+			if(team == 1){
+				ChangeTeam(basic.team, team, (float)Mathf.Abs(possesion)/10);
+			}else if(team == 2){
+				ChangeTeam(team, 1, (float)Mathf.Abs(possesion)/10);
+			}
+			if(possesion == -possesionCap){
+				team = basic.team;
+				basic.capping = false;
+			}
+			yield return new WaitForSeconds(possesionTime);
+			StartCoroutine(CaptureTick(basic));
+		}
+		if (basic.team > team) {
+			possesion += 1;
+			if(team == 1){
+				ChangeTeam(basic.team, team, (float)Mathf.Abs(possesion)/10);
+			}else if(team == 0){
+				ChangeTeam(team, 1, (float)Mathf.Abs(possesion)/10);
+			}
+			if (possesion == possesionCap) {
+				team = basic.team;
+				basic.capping = false;
+			}
+			yield return new WaitForSeconds (possesionTime);
+			StartCoroutine (CaptureTick (basic));
+		}
+	}
+
+	public void ChangeTeam(int from, int to, float slerpCount){
+		foreach (BlockFace face in Faces) {
+			face.ChangeTeam (from, to, slerpCount);
 		}
 	}
 
