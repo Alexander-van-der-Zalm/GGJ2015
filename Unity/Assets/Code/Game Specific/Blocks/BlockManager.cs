@@ -177,7 +177,6 @@ public class BlockManager : Singleton<BlockManager>
         //foreach (Transform child in transform)
         //    children.Add(child.gameObject);
         //children.ForEach(child => DestroyImmediate(child));
-  
 
         //// Create new blocks list
         //Blocks = new List<Block>();
@@ -198,8 +197,6 @@ public class BlockManager : Singleton<BlockManager>
             block.ColorTypeID = data.ColorTypeID;
             block.transform.parent = transform;
         }
-
-
     }
 
     public void ClearBlocks()
