@@ -41,6 +41,7 @@ public class BasicUnit : MonoBehaviour
         UnitManager.Register(this);
     }
 
+
     //public void OnDestroy()
     //{
     //    UnitManger.UnRegister(this);
@@ -51,13 +52,19 @@ public class BasicUnit : MonoBehaviour
         // Left click
         if (Input.GetMouseButtonDown(0))
         {
+			if(this.team == UnitManager.Instance.team){
+				Debug.Log("This.team");
+				Debug.Log(this.team);
+				Debug.Log("Unitmanager");
+				Debug.Log(UnitManager.Instance.team);
             // Select
-            Selectionmanager.SelectionChanged(this);
+            	Selectionmanager.SelectionChanged(this);
+			}
         }// Right mouse button
         else if (Input.GetMouseButtonDown(1))
         {
             // Delete
-            UnitManager.Delete(this);
+           // UnitManager.Delete(this);
         }
 
     }
@@ -75,6 +82,7 @@ public class BasicUnit : MonoBehaviour
 
          // Translate (TELEPORT HACK)
         // Change to destination and walk
+
         tr.position = CurrentFace.transform.position;
         // Rotate
         tr.rotation = CurrentFace.Rotation;

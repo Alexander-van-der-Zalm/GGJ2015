@@ -71,6 +71,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedTint: {r: 0, g: 0, b: 0, a: 0}
   NormalTint: {r: 0, g: 0, b: 0, a: 0}
+  team: 0
+  capping: 0
   id: 0
 --- !u!135 &13553222
 SphereCollider:
@@ -82,7 +84,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .100000001
+  m_Radius: .75
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
