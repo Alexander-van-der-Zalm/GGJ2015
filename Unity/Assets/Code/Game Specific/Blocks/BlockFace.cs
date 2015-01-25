@@ -21,6 +21,8 @@ public class BlockFace : MonoBehaviour
 
     public bool HasUnit;
 
+	public Colorpallet colPal;
+
     private Transform tr;
 
     #endregion
@@ -30,6 +32,10 @@ public class BlockFace : MonoBehaviour
     public int ID { get { return id; } set { id = value; } }
 
     public Block Block { get { return block; } set { block = value; } }
+
+	void Start(){
+		colPal = this.GetComponent<Colorpallet> ();
+	}
 
     // Change this to mesh rotation
     public Quaternion Rotation 
@@ -82,8 +88,19 @@ public class BlockFace : MonoBehaviour
                     // Reimplement FacePing 
                     (GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
 
-                    UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
+					if(!Selectionmanager.Instance.SelectedUnit.capping){
+						UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
+
+					}
+					if(block.team != Selectionmanager.Instance.SelectedUnit.team && !Selectionmanager.Instance.SelectedUnit.capping){
+						block.StartCapture(Selectionmanager.Instance.SelectedUnit);
+						Selectionmanager.Instance.SelectedUnit.capping = true;
+					}
+
+
+                    //UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
                     //Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+
                 }
 					
             }
@@ -122,6 +139,18 @@ public class BlockFace : MonoBehaviour
 		} else {
 			this.renderer.material = MaterialManager.Instance.matIndex [0];
 			this.TextureId = 0;
+		}
+	}
+
+	public void ChangeTeam(int to, int from, float slerpCount){
+		if (to == 0 && from == 1) {
+			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol, colPal.teamOneCol, slerpCount);
+		} else if (to == 2 && from == 1) {
+			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol, colPal.teamTwoCol, slerpCount);
+		} else if (to == 1 && from == 2) {
+			gameObject.renderer.material.color = Color.Lerp (colPal.teamTwoCol, colPal.neutralCol, slerpCount);
+		} else if (to == 1 && from == 0) {
+			gameObject.renderer.material.color = Color.Lerp (colPal.teamOneCol, colPal.neutralCol, slerpCount);
 		}
 	}
 

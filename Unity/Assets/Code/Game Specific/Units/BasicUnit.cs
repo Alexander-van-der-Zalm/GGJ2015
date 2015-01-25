@@ -11,6 +11,10 @@ public class BasicUnit : MonoBehaviour
     public Color SelectedTint;
     public Color NormalTint;
 
+	public int team;
+
+	public bool capping = false;
+
     [SerializeField]
     private int id;
 
