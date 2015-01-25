@@ -39,7 +39,7 @@ public class BasicUnit : MonoBehaviour
         }
     }
 
-    public void Start()
+    public void OnEnable()
     {
 
 		anim = gameObject.GetComponentInChildren<Animator> ();
@@ -48,10 +48,10 @@ public class BasicUnit : MonoBehaviour
     }
 
 
-    //public void OnDestroy()
-    //{
-    //    UnitManger.UnRegister(this);
-    //}
+    public void OnDestroy()
+    {
+        UnitManager.UnRegister(this);
+    }
 
     public void OnMouseOver()
     {

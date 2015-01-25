@@ -35,4 +35,7 @@ MonoBehaviour:
   - TaggedPlayer
   - MoveUnit
   - CreateUnit
+  - SetLevelData
+  - SetLevelName
+  - RequestLevelName
   DisableAutoOpenWizard: 0

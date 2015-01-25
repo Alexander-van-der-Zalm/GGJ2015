@@ -158,6 +158,7 @@ public class Block : MonoBehaviour
 
     public void OnEnable()
     {
+        //Debug.Log("Enable register");
         // Register to blockmanager
         BlockManager.Register(this);
     }

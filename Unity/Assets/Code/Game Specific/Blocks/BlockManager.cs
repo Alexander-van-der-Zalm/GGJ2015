@@ -32,10 +32,31 @@ public class BlockManager : Singleton<BlockManager>
     //[HideInInspector]
     public List<Block> Blocks;
 
+    public bool LoadLevelOnReload = false;
+
     [SerializeField]
     private string selectedLevel;
 
-    public string SelectedLevel { get { selectedLevel = PlayerPrefs.GetString("CurrentLevel"); return selectedLevel; } set { selectedLevel = value; PlayerPrefs.SetString("CurrentLevel", selectedLevel); } }
+    private string sla = "CurrentLevel";
+
+    public string SelectedLevel 
+    { 
+        get 
+        {
+            selectedLevel = PlayerPrefs.GetString(sla); 
+            return selectedLevel; 
+        } 
+        set 
+        { 
+            selectedLevel = value;
+            PlayerPrefs.SetString(sla, value); 
+            
+            // Set index
+            LevelNames = FindLevelNames();
+            int index = LevelNames.FindIndex(v => v == value);
+            EditorPrefs.SetInt("Level", index);
+        } 
+    }
 
     [HideInInspector]
     public List<string> LevelNames;
@@ -155,34 +176,39 @@ public class BlockManager : Singleton<BlockManager>
 
     #region Load and Save
 
+    public void loadLevel(string levelName)
+    {
+        Debug.Log("Load: " + levelName);
+        Instance.SelectedLevel = levelName;
+
+        // Get the asset
+        BlockListSO blockData = GetLevelData(levelName);
+
+        // Read asset
+        LoadBlocks(blockData);
+    }
+
     public static void LoadLevel(string levelName)
     {
         Debug.Log("Load: " + levelName);
-
-        //Instance.SelectedLevel = levelName;
-
+        Instance.SelectedLevel = levelName;
+        
         // Get the asset
-        BlockListSO blockData = (BlockListSO)AssetDatabase.LoadAssetAtPath("Assets/Levels/"+levelName, typeof(BlockListSO));
+        BlockListSO blockData = Instance.GetLevelData(levelName);
 
         // Read asset
         Instance.LoadBlocks(blockData);
     }
 
+    public BlockListSO GetLevelData(string levelName)
+    {
+        return (BlockListSO)AssetDatabase.LoadAssetAtPath("Assets/Levels/" + levelName, typeof(BlockListSO));
+    }
+
     public void LoadBlocks(BlockListSO blockData)
     {
-        int count = Blocks.Count;
-
-        //// Delete current children
-        //var children = new List<GameObject>();
-        //foreach (Transform child in transform)
-        //    children.Add(child.gameObject);
-        //children.ForEach(child => DestroyImmediate(child));
-
-        //// Create new blocks list
-        //Blocks = new List<Block>();
-
         ClearBlocks();
-
+        Debug.Log("Clear Blocks");
         // Create and change blocks
         for (int i = 0; i < blockData.Blocks.Count; i++)
         {
@@ -239,6 +265,8 @@ public class BlockManager : Singleton<BlockManager>
 
         string path = ScriptableObjectHelper.SaveAssetAutoNaming(list, "Assets/Levels");
 
+        Debug.Log("SaveBlocks " + SelectedLevel);
+
         Instance.SelectedLevel = path.Remove(0,("Assets/Levels").Count()+1);
     }
 
@@ -256,10 +284,10 @@ public class BlockManager : Singleton<BlockManager>
 
     public void OnEnable()
     {
-        if (!EditorApplication.isPlaying)
+        if (LoadLevelOnReload && !EditorApplication.isPlaying)
         {
-            Debug.Log("Serialize after playmode");
-            LevelNames = FindLevelNames();
+            //LevelNames = FindLevelNames();
+            Debug.Log("Enable " + SelectedLevel);
             BlockManager.LoadLevel(SelectedLevel);
         }
 
