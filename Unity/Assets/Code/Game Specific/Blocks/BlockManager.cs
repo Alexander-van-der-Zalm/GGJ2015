@@ -138,7 +138,7 @@ public class BlockManager : Singleton<BlockManager>
         // Create new block
         GameObject blockGO = GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
         Block block = blockGO.GetComponent<Block>();
-        //Register(block);
+        block.transform.parent = Instance.transform;
 
         return block;
     }

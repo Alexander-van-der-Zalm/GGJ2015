@@ -65,6 +65,8 @@ public class UnitManager : Singleton<UnitManager>
     [RPC]
     public void CreateUnit(int blockID,int blockFaceID,int version = 0)
     {
+        Debug.Log("RPC woop");
+        
         // Translate and rotate
         Block block = bm.get(blockID);
         BlockFace face = block.GetFace(blockFaceID);
