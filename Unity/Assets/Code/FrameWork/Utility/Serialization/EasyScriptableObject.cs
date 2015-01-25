@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+
 
 public class ScriptableObjectHelper
 {
@@ -160,3 +162,4 @@ public interface IInitSO
 {
     void Init(HideFlags newHideFlag = HideFlags.None);
 }
+#endif

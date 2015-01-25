@@ -60,9 +60,15 @@ public class BlockManager : Singleton<BlockManager>
     }
 
     #region  Get, register, id
+
+    public Block get(int ID)
+    {
+        return Blocks.First(b => b.ID == ID);
+    }
+
     public static Block Get(int ID)
     {
-        return Instance.Blocks.First(b => b.ID == ID);
+        return Instance.get(ID);
     }
 
     public static void Register(Block newBlock)
@@ -214,6 +220,16 @@ public class BlockManager : Singleton<BlockManager>
 
     #endregion
 
+    public BlockFace getFace(UnitManager.FaceBlockID ids)
+    {
+        return Get(ids.BlockID).GetComponent<Block>().GetFace(ids.FaceID);
+    }
+
+    internal static BlockFace GetFace(UnitManager.FaceBlockID ids)
+    {
+        return Instance.getFace(ids);
+    }
+
     public void OnEnable()
     {
         if (!EditorApplication.isPlaying)
@@ -242,4 +258,5 @@ public class BlockManager : Singleton<BlockManager>
     //    }
     //}
     //#endif
+
 }

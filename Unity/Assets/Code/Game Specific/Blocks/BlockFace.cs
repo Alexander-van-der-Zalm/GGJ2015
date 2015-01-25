@@ -79,8 +79,11 @@ public class BlockFace : MonoBehaviour
                 //SelectionManager Stuff
                 if (Selectionmanager.Instance.SelectedUnit != null)
                 {
-                    (GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
-                    Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+                    // Reimplement FacePing 
+                    //(GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
+
+                    UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
+                    //Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
                 }
 					
             }
