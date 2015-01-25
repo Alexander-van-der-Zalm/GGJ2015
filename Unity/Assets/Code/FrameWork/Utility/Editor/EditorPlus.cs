@@ -173,9 +173,9 @@ public class EditorPlus:Editor
             case "System.String":
                 returnvalue = EditorGUILayout.TextField(label, (string)value, options);
                 break;
-            case "AI_AgentParameter":
-                returnvalue = AI_AgentBlackBoardAccessParameterDrawer.CustomDraw(label,(AI_AgentParameter)value);
-                break;
+            //case "AI_AgentParameter":
+            //    returnvalue = AI_AgentBlackBoardAccessParameterDrawer.CustomDraw(label,(AI_AgentParameter)value);
+            //    break;
             default:
                 EditorGUILayout.LabelField(label, value.ToString() + " - undefined", options);
                 Debug.Log("EditorPlus.EditorField does not contain definition for " + value.GetType().ToString());

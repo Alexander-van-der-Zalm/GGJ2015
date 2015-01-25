@@ -70,7 +70,7 @@ public class BasicUnit : MonoBehaviour
             CurrentFace.HasUnit = false;
 
         Block bl = BlockManager.Get(blockID);
-        CurrentFace = BlockManager.Get(blockID).GetFace(blockFaceID);
+        CurrentFace = bl.GetFace(blockFaceID);
         CurrentFace.HasUnit = true;
 
          // Translate (TELEPORT HACK)

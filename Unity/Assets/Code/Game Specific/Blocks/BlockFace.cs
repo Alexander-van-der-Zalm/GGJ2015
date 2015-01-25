@@ -85,14 +85,22 @@ public class BlockFace : MonoBehaviour
                 //SelectionManager Stuff
                 if (Selectionmanager.Instance.SelectedUnit != null)
                 {
+                    // Reimplement FacePing 
                     (GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
+
 					if(!Selectionmanager.Instance.SelectedUnit.capping){
-                    	Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+						UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
+
 					}
 					if(block.team != Selectionmanager.Instance.SelectedUnit.team && !Selectionmanager.Instance.SelectedUnit.capping){
 						block.StartCapture(Selectionmanager.Instance.SelectedUnit);
 						Selectionmanager.Instance.SelectedUnit.capping = true;
 					}
+
+
+                    //UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
+                    //Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+
                 }
 					
             }
