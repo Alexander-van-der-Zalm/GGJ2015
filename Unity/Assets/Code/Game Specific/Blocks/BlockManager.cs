@@ -32,10 +32,31 @@ public class BlockManager : Singleton<BlockManager>
     //[HideInInspector]
     public List<Block> Blocks;
 
+    public bool LoadLevelOnReload = false;
+
     [SerializeField]
     private string selectedLevel;
 
-    public string SelectedLevel { get { selectedLevel = PlayerPrefs.GetString("CurrentLevel"); return selectedLevel; } set { selectedLevel = value; PlayerPrefs.SetString("CurrentLevel", value); } }
+    private string sla = "CurrentLevel";
+
+    public string SelectedLevel 
+    { 
+        get 
+        {
+            selectedLevel = PlayerPrefs.GetString(sla); 
+            return selectedLevel; 
+        } 
+        set 
+        { 
+            selectedLevel = value;
+            PlayerPrefs.SetString(sla, value); 
+            
+            // Set index
+            LevelNames = FindLevelNames();
+            int index = LevelNames.FindIndex(v => v == value);
+            EditorPrefs.SetInt("Level", index);
+        } 
+    }
 
     [HideInInspector]
     public List<string> LevelNames;
@@ -175,7 +196,7 @@ public class BlockManager : Singleton<BlockManager>
     public void LoadBlocks(BlockListSO blockData)
     {
         ClearBlocks();
-
+        Debug.Log("Clear Blocks");
         // Create and change blocks
         for (int i = 0; i < blockData.Blocks.Count; i++)
         {
@@ -232,6 +253,8 @@ public class BlockManager : Singleton<BlockManager>
 
         string path = ScriptableObjectHelper.SaveAssetAutoNaming(list, "Assets/Levels");
 
+        Debug.Log("SaveBlocks " + SelectedLevel);
+
         Instance.SelectedLevel = path.Remove(0,("Assets/Levels").Count()+1);
     }
 
@@ -249,10 +272,10 @@ public class BlockManager : Singleton<BlockManager>
 
     public void OnEnable()
     {
-        if (!EditorApplication.isPlaying)
+        if (LoadLevelOnReload && !EditorApplication.isPlaying)
         {
-            Debug.Log("Serialize after playmode");
-            LevelNames = FindLevelNames();
+            //LevelNames = FindLevelNames();
+            Debug.Log("Enable " + SelectedLevel);
             BlockManager.LoadLevel(SelectedLevel);
         }
 
