@@ -32,17 +32,13 @@ public class BlockManager : Singleton<BlockManager>
     //[HideInInspector]
     public List<Block> Blocks;
 
-    //private string selectedLevel
+    [SerializeField]
+    private string selectedLevel;
 
-    public string SelectedLevel { get { return PlayerPrefs.GetString("CurrentLevel"); } set { PlayerPrefs.SetString("CurrentLevel", value); } }
+    public string SelectedLevel { get { selectedLevel = PlayerPrefs.GetString("CurrentLevel"); return selectedLevel; } set { selectedLevel = value; PlayerPrefs.SetString("CurrentLevel", selectedLevel); } }
 
     [HideInInspector]
     public List<string> LevelNames;
-
-    [SerializeField]
-    private GameObject parent;
-
-
 
     #endregion
 
@@ -63,7 +59,14 @@ public class BlockManager : Singleton<BlockManager>
 
     public Block get(int ID)
     {
-        return Blocks.First(b => b.ID == ID);
+        //Debug.Log(ID);
+        return Blocks[ID];
+        //for (int i = 0; i < Blocks.Count; i++)
+        //    if (Blocks[i].ID == ID)
+        //        return Blocks[i];
+        //return null;
+        
+        //return Blocks.First(b => b.ID == ID);
     }
 
     public static Block Get(int ID)
@@ -73,9 +76,11 @@ public class BlockManager : Singleton<BlockManager>
 
     public static void Register(Block newBlock)
     {
-        Instance.Blocks.Add(newBlock);
-
-        Instance.RedoIDs();
+        if (!Instance.Blocks.Contains(newBlock))
+        {
+            Instance.Blocks.Add(newBlock);
+            Instance.RedoID();
+        }
     }
 
     public static void UnRegister(Block newBlock)
@@ -87,17 +92,17 @@ public class BlockManager : Singleton<BlockManager>
         }
         Instance.Blocks.Remove(newBlock);
 
-        Instance.RedoIDs();
+        Instance.RedoID();
     }
 
-    public void RedoIDs()
-    {
-        // Redo ID's for all
-        for (int i = 0; i < Instance.Blocks.Count; i++)
-        {
-            Instance.Blocks[i].ID = i;
-        }
-    }
+    //public void RedoIDs()
+    //{
+    //    // Redo ID's for all
+    //    for (int i = 0; i < Instance.Blocks.Count; i++)
+    //    {
+    //        Instance.Blocks[i].ID = i;
+    //    }
+    //}
 
     #endregion
 
@@ -115,6 +120,17 @@ public class BlockManager : Singleton<BlockManager>
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
         // Translate length * normal
         newBlock.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
+
+        Instance.RedoID();
+    }
+
+    private void RedoID()
+    {
+        for (int i = 0; i < Blocks.Count; i++)
+        {
+            Blocks[i].name = "Block " + i;
+            Blocks[i].ID = i;
+        }
     }
 
     private static Block CreateBlock()
@@ -154,21 +170,14 @@ public class BlockManager : Singleton<BlockManager>
 
     public void LoadBlocks(BlockListSO blockData)
     {
-        int count=  Blocks.Count;
-        //Block[] copy = Blocks;
+        int count = Blocks.Count;
 
-        // Delete oldblocks
-        for (int i = 0; i < count; i++)
-        {
-            if (Blocks[count - i - 1] != null)
-                GameObject.DestroyImmediate(Blocks[count - i - 1].gameObject);
-        }
-
-        if(parent == null)
-        {
-            parent = new GameObject();
-            parent.name = "LevelBlocks";
-        }
+        // Delete current children
+        var children = new List<GameObject>();
+        foreach (Transform child in transform)
+            children.Add(child.gameObject);
+        children.ForEach(child => DestroyImmediate(child));
+  
 
         // Create new blocks list
         Blocks = new List<Block>();
@@ -184,7 +193,7 @@ public class BlockManager : Singleton<BlockManager>
             block.Type = data.Type;
             block.name = "Block "+i;
             block.ID = i;
-            block.transform.parent = parent.transform;
+            block.transform.parent = transform;
         }
 
 
