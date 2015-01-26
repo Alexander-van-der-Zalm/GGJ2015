@@ -87,11 +87,11 @@ public class Block : MonoBehaviour
 		}
 	}
 
-	public void ChangeBlock(int index){
-		foreach (BlockFace face in Faces) {
-			face.ChangeFace(index);
-		}
-	}
+    //public void ChangeBlock(int index){
+    //    foreach (BlockFace face in Faces) {
+    //        face.ChangeFace(index);
+    //    }
+    //}
 
 	public void StartCapture(BasicUnit basic){
 		StartCoroutine(CaptureTick(basic));
@@ -142,7 +142,7 @@ public class Block : MonoBehaviour
 
 	public void ChangeTeam(int from, int to, float slerpCount){
 		foreach (BlockFace face in Faces) {
-			face.ChangeTeam (from, to, slerpCount);
+			face.ChangeTeamColor (from, to, slerpCount);
 		}
 	}
 

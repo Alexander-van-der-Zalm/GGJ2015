@@ -7,14 +7,21 @@ public class Colorpallet : MonoBehaviour {
 	public Color teamOneCol;
 	public Color teamTwoCol;
 
+    private Mesh mesh;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Start()
+    {
+        mesh = GetComponent<MeshFilter>().mesh;
+    }
+
+    public void SetVertexColor(Color color)
+    {
+        int count = mesh.vertexCount;
+        Color[] newColors = new Color[count];
+        for(int i = 0; i < count;i++)
+        {
+            newColors[i] = color;
+        }
+        mesh.colors = newColors;
+    }
 }

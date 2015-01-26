@@ -64,7 +64,7 @@ public class BlockManager : Singleton<BlockManager>
         } 
     }
 
-    
+    public bool DrawGizmos = false;
 
     #endregion
 
@@ -306,7 +306,7 @@ public class BlockManager : Singleton<BlockManager>
     {
         // Delete current children
         var children = new List<GameObject>();
-        foreach (Transform child in transform)
+        foreach (Transform child in levelParent.transform)
             children.Add(child.gameObject);
         children.ForEach(child => DestroyImmediate(child));
 

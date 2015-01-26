@@ -163,71 +163,59 @@ public class BlockFace : MonoBehaviour
 
     }
 
-
-    //public void OnMouseDown()
-    //{
-    //    Debug.Log("CLicked " + ID);
-
-    //    // LevelBuilder stuff
-        
-        
-    //}
-
     #endregion
 
-	#region Materials
+	#region Changing colors
 
-	public void ChangeFace(int index){
-		if (index != MaterialManager.Instance.size) {
-			this.renderer.material = MaterialManager.Instance.matIndex [index];
-		} else {
-			this.renderer.material = MaterialManager.Instance.matIndex [0];
-			this.TextureId = 0;
-		}
-	}
-
-	public void ChangeTeam(int to, int from, float slerpCount){
-		if (to == 0 && from == 1) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamOneCol, slerpCount);
-		} else if (to == 2 && from == 1) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamTwoCol, slerpCount);
-		} else if (to == 1 && from == 2) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.teamTwoCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount);
-		} else if (to == 1 && from == 0) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.teamOneCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount);
-		}
+	public void ChangeTeamColor(int to, int from, float slerpCount)
+    {
+		if (to == 0 && from == 1) 
+			SetColor(Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamOneCol, slerpCount));
+		 else if (to == 2 && from == 1) 
+			SetColor(Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamTwoCol, slerpCount));
+		else if (to == 1 && from == 2) 
+			SetColor(Color.Lerp (colPal.teamTwoCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount));
+		else if (to == 1 && from == 0) 
+			SetColor(Color.Lerp (colPal.teamOneCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount));
 	}
 
 	public void setBaseColor()
     {
-		gameObject.renderer.material.color = colPal.neutralCol[parentBlock.ColorTypeID];
+        SetColor(colPal.neutralCol[parentBlock.ColorTypeID]);
 	}
 
-	public void setTeamCol(int i){
-		if(i == 0)gameObject.renderer.material.color = colPal.teamOneCol;
-		if(i == 2)gameObject.renderer.material.color = colPal.teamTwoCol;
+    private void SetColor(Color newColor)
+    {
+        // Sets all the colors of the vertices
+        colPal.SetVertexColor(newColor);
+    }
+
+	public void setTeamCol(int i)
+    {
+        if (i == 0) SetColor(colPal.teamOneCol);
+		if (i == 2) SetColor(colPal.teamTwoCol);
 	}
 
 	#endregion Materials
 
     #region Gizmos
 
-    public void OnDrawGizmosSelected ()
-    {
-        Gizmos.color = new Color(0.1f, 0.8f, 0.1f, 0.3f);
+    //public void OnDrawGizmosSelected ()
+    //{
+    //    Gizmos.color = new Color(0.1f, 0.8f, 0.1f, 0.3f);
 
-        // Rotate towards normal
-        Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, Rotation, Vector3.one);
-        Gizmos.matrix = rotationMatrix;
+    //    // Rotate towards normal
+    //    Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, Rotation, Vector3.one);
+    //    Gizmos.matrix = rotationMatrix;
 
-        Gizmos.DrawCube(Vector3.zero, new Vector3(.15f,.25f,.15f));
-    }
+    //    Gizmos.DrawCube(Vector3.zero, new Vector3(.15f,.25f,.15f));
+    //}
 
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(0.1f, 0.1f, 0.1f, 0.3f);
-        Gizmos.DrawSphere(transform.position, .15f);
-    }
+    //public void OnDrawGizmos()
+    //{
+    //    Gizmos.color = new Color(0.1f, 0.1f, 0.1f, 0.3f);
+    //    Gizmos.DrawSphere(transform.position, .15f);
+    //}
 
     #endregion
 }

@@ -16,16 +16,24 @@ public class UnitManager : Singleton<UnitManager>
 
     private GameManagement management;
     private GameObject unitParent;
-    private BlockManager bm { get { return management.BlockMgr; } }
+    private BlockManager bm 
+    { 
+        get 
+        { 
+            if(management == null)
+                management = FindObjectOfType<GameManagement>();
+            return management.BlockMgr;
+        } 
+    }
 
     #endregion
 
     #region Start
 
-    void Start()
+    void Awake()
     {
         management = FindObjectOfType<GameManagement>();
-
+        Debug.Log(management.gameObject.name);
         // Set an empty game object to parent all the blocks too
         unitParent = GameObject.Find("Units");
         if (unitParent == null)
