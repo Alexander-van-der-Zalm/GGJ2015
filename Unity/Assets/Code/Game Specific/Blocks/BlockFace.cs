@@ -40,6 +40,7 @@ public class BlockFace : MonoBehaviour
 	void Start()
     {
 		colPal = GetComponent<Colorpallet> ();
+        parentBlock = transform.parent.GetComponent<Block>();
 		setBaseColor ();
 	}
 
@@ -83,24 +84,23 @@ public class BlockFace : MonoBehaviour
                 // Create Unit
                 UnitManager.Create(Block.ID, ID, 1);
             }
-			else if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.RightAlt))
+			else if (Input.GetKey(KeyCode.Q))
 			{
-				// Create Unit
+				// Set Normal 
 				this.parentBlock.Type = BlockData.BlockType.Normal;
 				this.parentBlock.ColorTypeID = 0;
 				this.parentBlock.setBaseCol();
 			}
-			else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.RightAlt))
+			else if (Input.GetKey(KeyCode.W))
 			{
-				// Create Unit
-
+				// Set Neutral Spawn
 				this.parentBlock.Type = BlockData.BlockType.Unit;
 				this.parentBlock.ColorTypeID = 3;
 				this.parentBlock.setBaseCol();
 			}
-			else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.RightAlt))
+			else if (Input.GetKey(KeyCode.E))
 			{
-				// Create Unit
+				// Set Team Spawn
 				this.parentBlock.Type = BlockData.BlockType.player;
 				if(this.parentBlock.team == 0){
 					this.parentBlock.team = 2;
@@ -110,9 +110,9 @@ public class BlockFace : MonoBehaviour
 					this.parentBlock.setTeamCol(0);
 				}
 			}
-			else if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.RightAlt))
+			else if (Input.GetKey(KeyCode.R))
 			{
-				// Create Unit
+				//Set Spawn face
 				this.parentBlock.SpawnFaceID = this.ID;
 			}
 			else

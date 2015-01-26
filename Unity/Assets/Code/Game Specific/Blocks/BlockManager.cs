@@ -32,13 +32,13 @@ public class BlockManager : Singleton<BlockManager>
 
     public GameObject BlockPrefab;
     
-    [HideInInspector]
+    //[HideInInspector]
     public List<Block> Blocks;
 
     [HideInInspector]
     public List<string> LevelNames;
 
-    private GameObject levelParent;
+    public GameObject levelParent;
 
     [SerializeField]
     private string selectedLevel;
@@ -68,7 +68,7 @@ public class BlockManager : Singleton<BlockManager>
 
     #endregion
 
-    public void Start()
+    public void Awake()
     {
         Blocks = new List<Block>();
 
@@ -281,7 +281,7 @@ public class BlockManager : Singleton<BlockManager>
             block.name = "Block "+i;
             block.ID = i;
             block.ColorTypeID = data.ColorTypeID;
-            block.transform.parent = transform;
+            block.transform.parent = levelParent.transform;
 
             // Grid snap positions
             GridSnap(block.transform);

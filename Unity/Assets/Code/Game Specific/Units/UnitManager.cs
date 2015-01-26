@@ -27,10 +27,10 @@ public class UnitManager : Singleton<UnitManager>
         management = FindObjectOfType<GameManagement>();
 
         // Set an empty game object to parent all the blocks too
-        unitParent = GameObject.Find("Level");
+        unitParent = GameObject.Find("Unit");
         if (unitParent == null)
         {
-            unitParent = new GameObject("Level");
+            unitParent = new GameObject("Unit");
         }
     }
 
@@ -95,7 +95,6 @@ public class UnitManager : Singleton<UnitManager>
     [RPC]
 	public void CreateUnit(int blockID,int blockFaceID,int unitTeam, int version = 0)
     {
-        Debug.Log("Creating unit 1");
         // Translate and rotate
         Block block = bm.get(blockID);
 
@@ -104,19 +103,16 @@ public class UnitManager : Singleton<UnitManager>
         Quaternion rotation = Quaternion.LookRotation(face.Normal, new Vector3(0, 1, 0));
         
         // Create
-        Create(position, rotation, version, block);
-    }
-
-	public void Create(Vector3 position,Quaternion rotation, int unitTeam, Block block, int version = 0)
-    {
-        Debug.Log("Creating unit 2");
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;
         BasicUnit unit = newUnit.GetComponent<BasicUnit>();
-		unit.team = unitTeam;
+        unit.team = unitTeam;
+        unit.CurrentFace = face;
         unit.transform.parent = unitParent.transform;
 
-		block.creature = unit;
+        block.creature = unit;
         Register(unit);
+
+        //Create(position, rotation, version, block);
     }
 
     public static void Delete(BasicUnit unit)

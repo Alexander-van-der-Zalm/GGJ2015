@@ -436,7 +436,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -456,7 +456,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -476,7 +476,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -496,7 +496,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -516,7 +516,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -536,7 +536,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -556,7 +556,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -576,7 +576,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -596,7 +596,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -616,7 +616,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -636,7 +636,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -656,7 +656,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 43da3275cd08d41429f56675d70c58df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1114,7 +1114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 11
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1130,7 +1131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 10
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1146,7 +1148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 9
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1162,7 +1165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 8
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1178,7 +1182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 7
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1194,7 +1199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 6
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1210,7 +1216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 5
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1226,7 +1233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 4
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1242,7 +1250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 3
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1258,7 +1267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1274,7 +1284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1308,7 +1319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  block: {fileID: 11400048}
+  parentBlock: {fileID: 0}
+  neighbors: []
   TextureId: 0
   HasUnit: 0
   colPal: {fileID: 0}
@@ -1338,6 +1350,7 @@ MonoBehaviour:
   - {fileID: 11400024}
   - {fileID: 11400022}
   Type: 0
+  SpawnFaceID: 0
   Neighbors: []
   colorTypeID: 0
   occupied: 0
@@ -1345,6 +1358,7 @@ MonoBehaviour:
   possesion: 0
   possesionTime: .200000003
   possesionCap: 10
+  creature: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
