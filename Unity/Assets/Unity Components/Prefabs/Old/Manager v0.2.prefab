@@ -53,8 +53,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721e40e715074ab4a862eb29b8c7b453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadLevelOnReload: 0
   BlockPrefab: {fileID: 160234, guid: 6787a2fee7ef3bd45aa9414764bde07c, type: 2}
   Blocks: []
+  selectedLevel: 
+  LevelNames: []
 --- !u!114 &11460580
 MonoBehaviour:
   m_ObjectHideFlags: 1

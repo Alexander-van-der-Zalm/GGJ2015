@@ -521,6 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3dcdeeea87fc146b18af29e0d63703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentFace: {fileID: 0}
   SelectedTint: {r: 0, g: 0, b: 0, a: 0}
   NormalTint: {r: 0, g: 0, b: 0, a: 0}
   team: 0

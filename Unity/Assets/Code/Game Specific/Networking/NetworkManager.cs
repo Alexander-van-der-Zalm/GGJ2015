@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(PhotonView))]
 public class NetworkManager : MonoBehaviour 
 {
     [System.Serializable]
@@ -20,9 +21,14 @@ public class NetworkManager : MonoBehaviour
     private BlockManager mgr;
     private bool createdRoom = false;
 
-    public PhotonView PhotonView { get { return GetComponent<PhotonView>(); } }
+    private PhotonView photonView;
 
     #region Start & GUI label
+
+    void Start()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
 
     // Use this for initialization
 	void OnEnable () 
@@ -30,7 +36,12 @@ public class NetworkManager : MonoBehaviour
         if (!OfflineMode)
         {
             PhotonNetwork.ConnectUsingSettings("0.1");
+            Debug.Log("Connecting");
             roomOptions = new RoomOptions() { maxPlayers = 2, isVisible = true, isOpen = true };
+        }
+        else
+        {
+            PhotonNetwork.offlineMode = true;
         }
 	}
 
@@ -49,10 +60,7 @@ public class NetworkManager : MonoBehaviour
         mgr = BlockManager.Instance;
 
         // Join random room
-        if (!OfflineMode)
-        {
-            PhotonNetwork.JoinRandomRoom();
-        }
+        PhotonNetwork.JoinRandomRoom();
             
         // Player 2
 
@@ -92,7 +100,7 @@ public class NetworkManager : MonoBehaviour
         { // Player 2
             Debug.Log("Player2");
             UnitManager.Instance.team = 2;
-            PhotonView.RPC("RequestLevelName", PhotonTargets.Others);
+            photonView.RPC("RequestLevelName", PhotonTargets.Others);
         }
     }
 
@@ -116,7 +124,7 @@ public class NetworkManager : MonoBehaviour
     [RPC]
     private void RequestLevelName()
     {
-        PhotonView.RPC("SetLevelName", PhotonTargets.All, mgr.SelectedLevel);
+        photonView.RPC("SetLevelName", PhotonTargets.All, mgr.SelectedLevel);
         Debug.Log("Request level data RPC");
     }
 

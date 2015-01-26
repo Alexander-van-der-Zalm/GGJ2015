@@ -3,14 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class UnitManager : Singleton<UnitManager> 
+public class UnitManager : Singleton<UnitManager>
 {
+    #region Fields
+
+    public int team = 1;
+    
     public List<GameObject> UnitPrefabs;
+
+    [HideInInspector]
     public List<BasicUnit> Units;
 
-	public int team = 1;
+    private GameManagement management;
+    private GameObject unitParent;
+    private BlockManager bm { get { return management.BlockMgr; } }
 
-    public BlockManager bm;
+    #endregion
+
+    #region Start
+
+    void Start()
+    {
+        management = FindObjectOfType<GameManagement>();
+
+        // Set an empty game object to parent all the blocks too
+        unitParent = GameObject.Find("Level");
+        if (unitParent == null)
+        {
+            unitParent = new GameObject("Level");
+        }
+    }
+
+    #endregion
 
     #region Get, reg & unreg & id's
 
@@ -58,10 +82,14 @@ public class UnitManager : Singleton<UnitManager>
 
     public static void Create(int blockID,int blockFaceID, int unitTeam,int version = 0)
     {
-        //Instance.CreateUnit(blockID, blockFaceID, version);
-
-        // Do the RPC call
-        (Instance.GetComponent<PhotonView>()).RPC("CreateUnit", PhotonTargets.All, blockID, blockFaceID, unitTeam, version);
+        if (PhotonNetwork.offlineMode)
+        {
+            Instance.CreateUnit(blockID, blockFaceID, unitTeam, version);
+        }
+        else
+        {// Do the RPC call
+            (Instance.GetComponent<PhotonView>()).RPC("CreateUnit", PhotonTargets.All, blockID, blockFaceID, unitTeam, version);
+        }
     }
 
     [RPC]
@@ -85,7 +113,8 @@ public class UnitManager : Singleton<UnitManager>
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;
         BasicUnit unit = newUnit.GetComponent<BasicUnit>();
 		unit.team = unitTeam;
-	
+        unit.transform.parent = unitParent.transform;
+
 		block.creature = unit;
         Register(unit);
     }
@@ -102,8 +131,15 @@ public class UnitManager : Singleton<UnitManager>
 
     public static void LocalMoveOrder(FaceBlockID destination, int unitID, FaceBlockID origin)
     {
-        // Do the RPC call
-        (Instance.GetComponent<PhotonView>()).RPC("MoveUnit", PhotonTargets.All, destination.FaceID, destination.BlockID, unitID, origin.FaceID, origin.BlockID);
+        if (PhotonNetwork.offlineMode)
+        {
+            Instance.MoveUnit(destination.FaceID, destination.BlockID, unitID, origin.FaceID, origin.BlockID);
+        }
+        else
+        {
+            // Do the RPC call
+            (Instance.GetComponent<PhotonView>()).RPC("MoveUnit", PhotonTargets.All, destination.FaceID, destination.BlockID, unitID, origin.FaceID, origin.BlockID);
+        }
     }
 
     [RPC]
@@ -117,9 +153,12 @@ public class UnitManager : Singleton<UnitManager>
         // Check if the move is legal
         BlockFace dest = bm.getFace(destination);
         BlockFace orig = bm.getFace(origin);
+        Debug.Log("Move");
+
         if(!dest.neighbors.Where(n => n == orig).Any())
         {
             Debug.Log("Illegal Move");
+            return;
         }
 
         unit.MoveUnit(destination.BlockID, destination.FaceID);
@@ -132,9 +171,9 @@ public class UnitManager : Singleton<UnitManager>
 		Block block = bm.get(blockID);
 		BlockFace face = block.GetFace(blockFaceID);
 
-		if(block.team != Selectionmanager.Instance.SelectedUnit.team && !Selectionmanager.Instance.SelectedUnit.capping){
-			block.StartCapture(Selectionmanager.Instance.SelectedUnit);
-			Selectionmanager.Instance.SelectedUnit.capping = true;
+		if(block.team != SelectionManager.Instance.SelectedUnit.team && !SelectionManager.Instance.SelectedUnit.capping){
+			block.StartCapture(SelectionManager.Instance.SelectedUnit);
+			SelectionManager.Instance.SelectedUnit.capping = true;
 		}
 	}
 

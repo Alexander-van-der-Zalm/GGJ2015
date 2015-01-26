@@ -64,7 +64,7 @@ public class BasicUnit : MonoBehaviour
 				Debug.Log("Unitmanager");
 				Debug.Log(UnitManager.Instance.team);
             // Select
-            	Selectionmanager.SelectionChanged(this);
+            	SelectionManager.SelectionChanged(this);
 			}
         }// Right mouse button
         else if (Input.GetMouseButtonDown(1))

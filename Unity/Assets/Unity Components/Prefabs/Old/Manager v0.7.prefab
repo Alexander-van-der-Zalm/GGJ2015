@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df12594170e9804b88de0111a58820e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OfflineMode: 0
 --- !u!114 &11410754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,10 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cee1c0db74cde44b4471d49e4b85bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 1
   UnitPrefabs:
   - {fileID: 153222, guid: 287634b22ffe06c4bb0e708115608a60, type: 2}
   Units: []
-  bm: {fileID: 0}
 --- !u!114 &11410756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721e40e715074ab4a862eb29b8c7b453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadLevelOnReload: 0
   BlockPrefab: {fileID: 173246, guid: bbaad95a2fd976143a7690c16d4ff169, type: 2}
   Blocks:
   - {fileID: 0}
@@ -229,11 +231,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  selectedLevel: 
   LevelNames:
   - Level 1.asset
   - Level 2.asset
   - Level.asset
-  parent: {fileID: 0}
 --- !u!114 &11410760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,6 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7ff26e83676bb40814810a3690e105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redTeam: {fileID: 0}
+  blueTeam: {fileID: 0}
+  neutral: {fileID: 0}
   matIndex:
   - {fileID: 2100000, guid: 93cc9b230d0452f4eac6eed542c336c1, type: 2}
   - {fileID: 2100000, guid: a0e209e8c93a1f74ea0c6f4e022de2cf, type: 2}

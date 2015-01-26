@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[ExecuteInEditMode]
 public class Block : MonoBehaviour
 {
     #region Fields
@@ -159,6 +158,8 @@ public class Block : MonoBehaviour
 		}
 	}
 
+    #region Enable & disable
+
     public void OnEnable()
     {
         //Debug.Log("Enable register");
@@ -172,7 +173,9 @@ public class Block : MonoBehaviour
         BlockManager.UnRegister(this);
     }
 
-	public void RespawnUnit(){
+    #endregion
+
+    public void RespawnUnit(){
 		if (Type == BlockData.BlockType.Unit) {
 			UnitManager.Create (ID, SpawnFaceID, team);
 			creature.team = team;

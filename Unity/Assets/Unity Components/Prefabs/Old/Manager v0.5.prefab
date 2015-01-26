@@ -1,88 +1,131 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &137178
+--- !u!1 &101580
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 437178}
-  - 114: {fileID: 11437178}
-  - 114: {fileID: 11437176}
-  - 114: {fileID: 11437174}
-  - 114: {fileID: 11437172}
+  - 4: {fileID: 401580}
+  - 114: {fileID: 11401578}
+  - 114: {fileID: 11401576}
+  - 114: {fileID: 11401574}
+  - 114: {fileID: 11401572}
+  - 114: {fileID: 11401580}
+  - 114: {fileID: 11451736}
   m_Layer: 0
-  m_Name: Manager v0.3
+  m_Name: Manager v0.5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &437178
+--- !u!4 &401580
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137178}
+  m_GameObject: {fileID: 101580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11437172
+--- !u!114 &11401572
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137178}
+  m_GameObject: {fileID: 101580}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7cee1c0db74cde44b4471d49e4b85bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 1
   UnitPrefabs:
-  - {fileID: 0}
+  - {fileID: 153222, guid: 287634b22ffe06c4bb0e708115608a60, type: 2}
   Units: []
---- !u!114 &11437174
+--- !u!114 &11401574
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137178}
+  m_GameObject: {fileID: 101580}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 507d684e40b67eb4d82f2d62a782df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11437176
+--- !u!114 &11401576
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137178}
+  m_GameObject: {fileID: 101580}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 721e40e715074ab4a862eb29b8c7b453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockPrefab: {fileID: 160234, guid: 6787a2fee7ef3bd45aa9414764bde07c, type: 2}
+  LoadLevelOnReload: 0
+  BlockPrefab: {fileID: 173246, guid: bbaad95a2fd976143a7690c16d4ff169, type: 2}
   Blocks: []
+  selectedLevel: 
   LevelNames:
+  - Level 1.asset
   - Level.asset
---- !u!114 &11437178
+--- !u!114 &11401578
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137178}
+  m_GameObject: {fileID: 101580}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2bc35b7a21af934c94aa92750844a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedUnit: {fileID: 0}
+--- !u!114 &11401580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 0}
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &11451736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df12594170e9804b88de0111a58820e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OfflineMode: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -92,6 +135,6 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 137178}
+  m_RootGameObject: {fileID: 101580}
   m_IsPrefabParent: 1
   m_IsExploded: 1

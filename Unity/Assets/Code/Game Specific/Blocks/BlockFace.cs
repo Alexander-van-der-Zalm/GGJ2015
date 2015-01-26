@@ -7,7 +7,7 @@ using System.Collections.Generic;
 // Captured
 // CapturedState?
 
-[ExecuteInEditMode,System.Serializable]
+[System.Serializable]
 public class BlockFace : MonoBehaviour
 {
     #region Fields
@@ -15,9 +15,10 @@ public class BlockFace : MonoBehaviour
     [SerializeField]
     private int id;
 
-    [SerializeField]
-    private Block block;
+    [SerializeField,HideInInspector]
+    private Block parentBlock;
 
+    [HideInInspector]
     public List<BlockFace> neighbors;
 
 	public int TextureId = 0;
@@ -34,10 +35,11 @@ public class BlockFace : MonoBehaviour
 
     public int ID { get { return id; } set { id = value; } }
 
-    public Block Block { get { return block; } set { block = value; } }
+    public Block Block { get { return parentBlock; } set { parentBlock = value; } }
 
-	void Start(){
-		colPal = this.GetComponent<Colorpallet> ();
+	void Start()
+    {
+		colPal = GetComponent<Colorpallet> ();
 		setBaseColor ();
 	}
 
@@ -84,50 +86,54 @@ public class BlockFace : MonoBehaviour
 			else if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.RightAlt))
 			{
 				// Create Unit
-				this.block.Type = BlockData.BlockType.Normal;
-				this.block.ColorTypeID = 0;
-				this.block.setBaseCol();
+				this.parentBlock.Type = BlockData.BlockType.Normal;
+				this.parentBlock.ColorTypeID = 0;
+				this.parentBlock.setBaseCol();
 			}
 			else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.RightAlt))
 			{
 				// Create Unit
 
-				this.block.Type = BlockData.BlockType.Unit;
-				this.block.ColorTypeID = 3;
-				this.block.setBaseCol();
+				this.parentBlock.Type = BlockData.BlockType.Unit;
+				this.parentBlock.ColorTypeID = 3;
+				this.parentBlock.setBaseCol();
 			}
 			else if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.RightAlt))
 			{
 				// Create Unit
-				this.block.Type = BlockData.BlockType.player;
-				if(this.block.team == 0){
-					this.block.team = 2;
-					this.block.setTeamCol(2);
+				this.parentBlock.Type = BlockData.BlockType.player;
+				if(this.parentBlock.team == 0){
+					this.parentBlock.team = 2;
+					this.parentBlock.setTeamCol(2);
 				}else{
-					this.block.team = 0;
-					this.block.setTeamCol(0);
+					this.parentBlock.team = 0;
+					this.parentBlock.setTeamCol(0);
 				}
 			}
 			else if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.RightAlt))
 			{
 				// Create Unit
-				this.block.SpawnFaceID = this.ID;
+				this.parentBlock.SpawnFaceID = this.ID;
 			}
 			else
 			{
 				//SelectionManager Stuff
-                if (Selectionmanager.Instance.SelectedUnit != null)
+                if (SelectionManager.Instance.SelectedUnit != null)
                 {
                     // Reimplement FacePing 
                    // (GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
 
-                    BasicUnit unit = Selectionmanager.Instance.SelectedUnit;
+                    BasicUnit unit = SelectionManager.Instance.SelectedUnit;
                     if (!unit.capping)
                     {
 						// Pass along the destination, the origin and the unitID
                         UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, 
-                        Selectionmanager.Instance.SelectedUnit.ID,
-                        new UnitManager.FaceBlockID() { FaceID = unit.CurrentFace.ID, BlockID = unit.CurrentFace.Block.ID });
+                        SelectionManager.Instance.SelectedUnit.ID,
+                        new UnitManager.FaceBlockID() 
+                        { 
+                            FaceID = (unit.CurrentFace != null) ? unit.CurrentFace.ID : ID,
+                            BlockID = (unit.CurrentFace != null) ? unit.CurrentFace.Block.ID : Block.ID
+                        });
 					}
 
                     //UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
@@ -145,13 +151,13 @@ public class BlockFace : MonoBehaviour
                 BlockManager.Remove(Block.ID);
             }
 			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)){
-				if(this.block.ColorTypeID < colPal.neutralCol.Length-2){
-					this.block.ColorTypeID++;
+				if(this.parentBlock.ColorTypeID < colPal.neutralCol.Length-2){
+					this.parentBlock.ColorTypeID++;
 				}else{
-					this.block.ColorTypeID = 0;
+					this.parentBlock.ColorTypeID = 0;
 				}
 
-				this.block.setBaseCol();
+				this.parentBlock.setBaseCol();
 			}
         }
 
@@ -182,18 +188,19 @@ public class BlockFace : MonoBehaviour
 
 	public void ChangeTeam(int to, int from, float slerpCount){
 		if (to == 0 && from == 1) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol[block.ColorTypeID], colPal.teamOneCol, slerpCount);
+			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamOneCol, slerpCount);
 		} else if (to == 2 && from == 1) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol[block.ColorTypeID], colPal.teamTwoCol, slerpCount);
+			gameObject.renderer.material.color = Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamTwoCol, slerpCount);
 		} else if (to == 1 && from == 2) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.teamTwoCol, colPal.neutralCol[block.ColorTypeID], slerpCount);
+			gameObject.renderer.material.color = Color.Lerp (colPal.teamTwoCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount);
 		} else if (to == 1 && from == 0) {
-			gameObject.renderer.material.color = Color.Lerp (colPal.teamOneCol, colPal.neutralCol[block.ColorTypeID], slerpCount);
+			gameObject.renderer.material.color = Color.Lerp (colPal.teamOneCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount);
 		}
 	}
 
-	public void setBaseColor(){
-		gameObject.renderer.material.color = colPal.neutralCol[block.ColorTypeID];
+	public void setBaseColor()
+    {
+		gameObject.renderer.material.color = colPal.neutralCol[parentBlock.ColorTypeID];
 	}
 
 	public void setTeamCol(int i){

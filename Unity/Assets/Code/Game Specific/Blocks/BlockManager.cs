@@ -23,16 +23,22 @@ using System.IO;
 // Create n register
 // Delete n unregister
 
-[ExecuteInEditMode,System.Serializable]
+[System.Serializable]
 public class BlockManager : Singleton<BlockManager>
 {
     #region Fields
 
+    public bool LoadLevelOnReload = false;
+
     public GameObject BlockPrefab;
-    //[HideInInspector]
+    
+    [HideInInspector]
     public List<Block> Blocks;
 
-    public bool LoadLevelOnReload = false;
+    [HideInInspector]
+    public List<string> LevelNames;
+
+    private GameObject levelParent;
 
     [SerializeField]
     private string selectedLevel;
@@ -58,8 +64,34 @@ public class BlockManager : Singleton<BlockManager>
         } 
     }
 
-    [HideInInspector]
-    public List<string> LevelNames;
+    
+
+    #endregion
+
+    public void Start()
+    {
+        Blocks = new List<Block>();
+
+        // Set an empty game object to parent all the blocks too
+        levelParent = GameObject.Find("Level");
+        if (levelParent == null)
+        {
+            levelParent = new GameObject("Level");
+        }
+    }
+
+
+    #region Enable
+
+    public void OnEnable()
+    {
+        if (LoadLevelOnReload && !EditorApplication.isPlaying)
+        {
+            //LevelNames = FindLevelNames();
+            Debug.Log("Enable " + SelectedLevel);
+            BlockManager.LoadLevel(SelectedLevel);
+        }
+    }
 
     #endregion
 
@@ -135,7 +167,7 @@ public class BlockManager : Singleton<BlockManager>
         BlockFace clickedFace = parentBlock.GetFace(clickedFacedID);
         
         // Create new block
-        Block newBlock = CreateBlock();
+        Block newBlock = Instance.CreateBlock();
 
         // Project to find length
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
@@ -167,12 +199,12 @@ public class BlockManager : Singleton<BlockManager>
         }
     }
 
-    private static Block CreateBlock()
+    private Block CreateBlock()
     {
         // Create new block
         GameObject blockGO = GameObject.Instantiate(Instance.BlockPrefab) as GameObject;
         Block block = blockGO.GetComponent<Block>();
-        block.transform.parent = Instance.transform;
+        block.transform.parent = levelParent.transform;
 
         // Find all neighbor faces
 
@@ -233,7 +265,9 @@ public class BlockManager : Singleton<BlockManager>
     public void LoadBlocks(BlockListSO blockData)
     {
         ClearBlocks();
-        Debug.Log("Clear Blocks");
+
+        List<BlockFace> faces = new List<BlockFace>();
+
         // Create and change blocks
         for (int i = 0; i < blockData.Blocks.Count; i++)
         {
@@ -248,7 +282,24 @@ public class BlockManager : Singleton<BlockManager>
             block.ID = i;
             block.ColorTypeID = data.ColorTypeID;
             block.transform.parent = transform;
+
+            // Grid snap positions
+            GridSnap(block.transform);
+
+           // Add ranges for neighbors
+            faces.AddRange(block.Faces);
         }
+
+        Block.SetFaceNeighbors(faces);
+    }
+
+    private void GridSnap(Transform toSnap)
+    {
+        Vector3 roundMe = toSnap.position;
+        roundMe *= 2;
+        Vector3 rounded = new Vector3(Mathf.Round(roundMe.x), Mathf.Round(roundMe.y), Mathf.Round(roundMe.z));
+        // Round the numbers
+        toSnap.position = rounded * 0.5f;
     }
 
     public void ClearBlocks()
@@ -297,6 +348,8 @@ public class BlockManager : Singleton<BlockManager>
 
     #endregion
 
+    #region GetFace
+
     public BlockFace getFace(UnitManager.FaceBlockID ids)
     {
         return Get(ids.BlockID).GetComponent<Block>().GetFace(ids.FaceID);
@@ -307,17 +360,7 @@ public class BlockManager : Singleton<BlockManager>
         return Instance.getFace(ids);
     }
 
-    public void OnEnable()
-    {
-        if (LoadLevelOnReload && !EditorApplication.isPlaying)
-        {
-            //LevelNames = FindLevelNames();
-            Debug.Log("Enable " + SelectedLevel);
-            BlockManager.LoadLevel(SelectedLevel);
-        }
-
-    }
-
+    #endregion
 
     //void OnEnable()
     //{
@@ -335,5 +378,4 @@ public class BlockManager : Singleton<BlockManager>
     //    }
     //}
     //#endif
-
 }

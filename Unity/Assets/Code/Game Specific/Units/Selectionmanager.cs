@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Selectionmanager : Singleton<Selectionmanager>  
+public class SelectionManager : Singleton<SelectionManager>  
 {
     public BasicUnit SelectedUnit;
     
