@@ -27,10 +27,10 @@ public class UnitManager : Singleton<UnitManager>
         management = FindObjectOfType<GameManagement>();
 
         // Set an empty game object to parent all the blocks too
-        unitParent = GameObject.Find("Unit");
+        unitParent = GameObject.Find("Units");
         if (unitParent == null)
         {
-            unitParent = new GameObject("Unit");
+            unitParent = new GameObject("Units");
         }
     }
 
