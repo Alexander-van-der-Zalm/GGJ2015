@@ -35057,7 +35057,7 @@ Transform:
   m_PrefabInternal: {fileID: 1985507606}
   m_GameObject: {fileID: 510139701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6.13999987}
+  m_LocalPosition: {x: 0, y: 0, z: -9.89000034}
   m_LocalScale: {x: .829391599, y: .829391658, z: .829391658}
   m_Children:
   - {fileID: 1537684569}
@@ -50788,13 +50788,12 @@ MonoBehaviour:
   - Basic Level Sphere.asset
   - Level 1.asset
   - Level 2.asset
-  - Level 3.asset
   - Level.asset
   - Midas 1.asset
   - World 1 - Shuriken.asset
   - World 2 - Pyramid.asset
   levelParent: {fileID: 1881491803}
-  selectedLevel: Level 3.asset
+  selectedLevel: World 1 - Shuriken.asset
   DrawGizmos: 0
 --- !u!114 &738797017
 MonoBehaviour:
@@ -143103,7 +143102,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422890, guid: c7172cc61cf68b5428524c699002718c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -6.13999987
+      value: -9.89000034
       objectReference: {fileID: 0}
     - target: {fileID: 422890, guid: c7172cc61cf68b5428524c699002718c, type: 2}
       propertyPath: m_LocalRotation.x
@@ -143123,7 +143122,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422890, guid: c7172cc61cf68b5428524c699002718c, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11422888, guid: c7172cc61cf68b5428524c699002718c, type: 2}
       propertyPath: target

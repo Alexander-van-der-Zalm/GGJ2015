@@ -33,7 +33,6 @@ public class UnitManager : Singleton<UnitManager>
     void Awake()
     {
         management = FindObjectOfType<GameManagement>();
-        Debug.Log(management.gameObject.name);
         // Set an empty game object to parent all the blocks too
         unitParent = GameObject.Find("Units");
         if (unitParent == null)

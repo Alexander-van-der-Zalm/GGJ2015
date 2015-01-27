@@ -52,7 +52,7 @@ public class Block : MonoBehaviour
 
 	void Start()
     {
-        if (this.Type == BlockData.BlockType.Unit) 
+        if (this.Type == BlockData.BlockType.Unit || this.Type == BlockData.BlockType.player) 
         {
 			this.RespawnUnit();
 		}
@@ -187,7 +187,7 @@ public class Block : MonoBehaviour
     #endregion
 
     public void RespawnUnit(){
-		if (Type == BlockData.BlockType.Unit) {
+		if (Type == BlockData.BlockType.Unit || Type == BlockData.BlockType.player) {
 			UnitManager.Create (ID, SpawnFaceID, TeamID);
 			creature.team = TeamID;
 		}
