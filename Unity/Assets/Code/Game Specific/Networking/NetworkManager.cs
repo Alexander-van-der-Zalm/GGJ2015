@@ -18,7 +18,7 @@ public class NetworkManager : MonoBehaviour
     public bool OfflineMode = false;
 
     private RoomOptions roomOptions;
-    private BlockManager mgr;
+    private GameManagement mgr;
     private bool createdRoom = false;
 
     private PhotonView photonView;
@@ -42,6 +42,7 @@ public class NetworkManager : MonoBehaviour
         else
         {
             PhotonNetwork.offlineMode = true;
+            UnitManager.Instance.RespawnAllUnits();
         }
 	}
 
@@ -52,7 +53,9 @@ public class NetworkManager : MonoBehaviour
             GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
         }
         else
+        {
             GUILayout.Label("OfflineMode");
+        }
     }
 
     #endregion
@@ -62,7 +65,7 @@ public class NetworkManager : MonoBehaviour
     void OnJoinedLobby()
     {
         // Set mgr
-        mgr = BlockManager.Instance;
+        mgr = GetComponent<GameManagement>() as GameManagement;
 
         // Join random room
         PhotonNetwork.JoinRandomRoom();
@@ -107,6 +110,8 @@ public class NetworkManager : MonoBehaviour
             UnitManager.Instance.team = 2;
             photonView.RPC("RequestLevelName", PhotonTargets.Others);
         }
+
+        UnitManager.Instance.RespawnAllUnits();
     }
 
     void OnPhotonRandomJoinFailed()
@@ -129,7 +134,7 @@ public class NetworkManager : MonoBehaviour
     [RPC]
     private void RequestLevelName()
     {
-        photonView.RPC("SetLevelName", PhotonTargets.All, mgr.SelectedLevel);
+        photonView.RPC("SetLevelName", PhotonTargets.All, mgr.BlockMgr.SelectedLevel);
         Debug.Log("Request level data RPC");
     }
 
@@ -140,6 +145,6 @@ public class NetworkManager : MonoBehaviour
         
         // ADD some GUI stuff during loading
         //mgr.BlockPrefab = blockPrefab;
-        mgr.loadLevel(levelName);
+        mgr.BlockMgr.loadLevel(levelName);
     }
 }

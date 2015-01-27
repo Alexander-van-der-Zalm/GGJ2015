@@ -52,10 +52,10 @@ public class Block : MonoBehaviour
 
 	void Start()
     {
-        if (this.Type == BlockData.BlockType.Unit || this.Type == BlockData.BlockType.player) 
-        {
-			this.RespawnUnit();
-		}
+        //if (this.Type == BlockData.BlockType.Unit || this.Type == BlockData.BlockType.player) 
+        //{
+        //    this.RespawnUnit();
+        //}
 	}
 	
 	public BlockFace GetFace(int blockFaceID)

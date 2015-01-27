@@ -195,6 +195,18 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
+    #region Respawn
+
+    public void RespawnAllUnits()
+    {
+        foreach(Block block in bm.Blocks)
+        {
+            block.RespawnUnit();
+        }
+    }
+
+    #endregion
+
     [System.Serializable]
     public struct FaceBlockID
     {
