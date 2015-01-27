@@ -169,17 +169,23 @@ public class BlockManager : Singleton<BlockManager>
         // Create new block
         Block newBlock = Instance.CreateBlock();
 
+        // Set palette
+        Colorpallet plt = Instance.GetComponent<Colorpallet>();
+        newBlock.Init(plt);
+        
         // Project to find length
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
-        // Translate length * normal
-        Vector3 roundMe = parentBlock.transform.position + clickedFace.Normal * blockScale;
-        //newBlock.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
-        //Vector3 roundMe = 
-        roundMe *=2;
+        Instance.GridSnap(newBlock.transform);
 
-        Vector3 rounded = new Vector3(Mathf.Round(roundMe.x), Mathf.Round(roundMe.y), Mathf.Round(roundMe.z));
-        // Round the numbers
-        newBlock.transform.position = rounded*0.5f;
+        //// Translate length * normal
+        //Vector3 roundMe = parentBlock.transform.position + clickedFace.Normal * blockScale;
+        ////newBlock.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
+        ////Vector3 roundMe = 
+        //roundMe *=2;
+
+        //Vector3 rounded = new Vector3(Mathf.Round(roundMe.x), Mathf.Round(roundMe.y), Mathf.Round(roundMe.z));
+        //// Round the numbers
+        //newBlock.transform.position = rounded*0.5f;
 
         // Redo ID's
         Instance.RedoID();
@@ -266,6 +272,8 @@ public class BlockManager : Singleton<BlockManager>
     {
         ClearBlocks();
 
+        Colorpallet plt = GetComponent<Colorpallet>();
+
         List<BlockFace> faces = new List<BlockFace>();
 
         // Create and change blocks
@@ -273,15 +281,23 @@ public class BlockManager : Singleton<BlockManager>
         {
             Block block = CreateBlock();
             BlockData data = blockData.Blocks[i];
+
+            // Load Data
             block.transform.position = data.Position;
             block.transform.localRotation = data.Rot;
             block.transform.localScale = data.Scale;
             block.Type = data.Type;
 			block.SpawnFaceID = data.SpawnFaceID;
-            block.name = "Block "+i;
-            block.ID = i;
             block.ColorTypeID = data.ColorTypeID;
+            block.TeamID = data.Team;
+
+            // Set up in scene
+            block.name = "Block " + i;
+            block.ID = i;
             block.transform.parent = levelParent.transform;
+
+            // Set color
+            block.Init(plt);
 
             // Grid snap positions
             GridSnap(block.transform);
@@ -333,7 +349,8 @@ public class BlockManager : Singleton<BlockManager>
                 Rot = Blocks[i].transform.localRotation, 
                 Type = Blocks[i].Type,
                 ColorTypeID = Blocks[i].ColorTypeID,
-				SpawnFaceID = Blocks[i].SpawnFaceID
+				SpawnFaceID = Blocks[i].SpawnFaceID,
+                Team = Blocks[i].TeamID
             });
         }
 

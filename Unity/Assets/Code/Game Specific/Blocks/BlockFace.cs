@@ -29,6 +29,8 @@ public class BlockFace : MonoBehaviour
 
     private Transform tr;
 
+    private Mesh mesh;
+
     #endregion
 
     #region Properties
@@ -37,11 +39,11 @@ public class BlockFace : MonoBehaviour
 
     public Block Block { get { return parentBlock; } set { parentBlock = value; } }
 
-	void Start()
+	void Awake()
     {
-		colPal = GetComponent<Colorpallet> ();
+		//colPal = GetComponent<Colorpallet> ();
+        mesh = GetComponent<MeshFilter>().mesh;
         parentBlock = transform.parent.GetComponent<Block>();
-		setBaseColor ();
 	}
 
     // Change this to mesh rotation
@@ -102,11 +104,11 @@ public class BlockFace : MonoBehaviour
 			{
 				// Set Team Spawn
 				this.parentBlock.Type = BlockData.BlockType.player;
-				if(this.parentBlock.team == 0){
-					this.parentBlock.team = 2;
+				if(this.parentBlock.TeamID == 0){
+					this.parentBlock.TeamID = 2;
 					this.parentBlock.setTeamCol(2);
 				}else{
-					this.parentBlock.team = 0;
+					this.parentBlock.TeamID = 0;
 					this.parentBlock.setTeamCol(0);
 				}
 			}
@@ -150,13 +152,16 @@ public class BlockFace : MonoBehaviour
                 Debug.Log("Remove block " + Block.ID);
                 BlockManager.Remove(Block.ID);
             }
-			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)){
-				if(this.parentBlock.ColorTypeID < colPal.neutralCol.Length-2){
+			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+				if(this.parentBlock.ColorTypeID < colPal.neutralCol.Length-2)
+                {
 					this.parentBlock.ColorTypeID++;
-				}else{
+				}
+                else
+                {
 					this.parentBlock.ColorTypeID = 0;
 				}
-
 				this.parentBlock.setBaseCol();
 			}
         }
@@ -167,7 +172,7 @@ public class BlockFace : MonoBehaviour
 
 	#region Changing colors
 
-	public void ChangeTeamColor(int to, int from, float slerpCount)
+    public void ChangeTeamColor(int to, int from, float slerpCount)
     {
 		if (to == 0 && from == 1) 
 			SetColor(Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamOneCol, slerpCount));
@@ -187,7 +192,31 @@ public class BlockFace : MonoBehaviour
     private void SetColor(Color newColor)
     {
         // Sets all the colors of the vertices
-        colPal.SetVertexColor(newColor);
+        SetVertexColor(newColor);
+    }
+
+    public void SetVertexColor(Color color)
+    {
+        if(mesh == null)
+        {
+            #if UNITY_EDITOR
+                //Only do this in the editor
+                MeshFilter mf = GetComponent<MeshFilter>();   //a better way of getting the meshfilter using Generics
+                Mesh meshCopy = Mesh.Instantiate(mf.sharedMesh) as Mesh;  //make a deep copy
+                mesh = mf.mesh = meshCopy;                    //Assign the copy to the meshes
+            #else
+                 //do this in play mode
+                 mesh = GetComponent<MeshFilter>().mesh;
+            #endif
+        }
+
+        int count = mesh.vertexCount;
+        Color[] newColors = new Color[count];
+        for (int i = 0; i < count; i++)
+        {
+            newColors[i] = color;
+        }
+        mesh.colors = newColors;
     }
 
 	public void setTeamCol(int i)

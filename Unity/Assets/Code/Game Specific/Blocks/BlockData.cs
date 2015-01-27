@@ -16,4 +16,5 @@ public class BlockData
     public BlockType Type;
 	public int SpawnFaceID;
     public int ColorTypeID;
+    public int Team;
 }

@@ -175,7 +175,7 @@ public class UnitManager : Singleton<UnitManager>
 		Block block = bm.get(blockID);
 		BlockFace face = block.GetFace(blockFaceID);
 
-		if(block.team != SelectionManager.Instance.SelectedUnit.team && !SelectionManager.Instance.SelectedUnit.capping){
+		if(block.TeamID != SelectionManager.Instance.SelectedUnit.team && !SelectionManager.Instance.SelectedUnit.capping){
 			block.StartCapture(SelectionManager.Instance.SelectedUnit);
 			SelectionManager.Instance.SelectedUnit.capping = true;
 		}

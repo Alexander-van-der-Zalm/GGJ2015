@@ -47,7 +47,12 @@ public class NetworkManager : MonoBehaviour
 
     void OnGUI()
     {
-        GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
+        if (!OfflineMode)
+        {
+            GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
+        }
+        else
+            GUILayout.Label("OfflineMode");
     }
 
     #endregion

@@ -21,11 +21,16 @@ public class Block : MonoBehaviour
     [SerializeField]
     private int colorTypeID;
 
+    public Colorpallet ColorPallete;
+
     public int ColorTypeID { get { return colorTypeID; } set { colorTypeID = value; } }
 
 	public bool occupied = false;
 
-	public int team = 1;
+    /// <summary>
+    /// Team 0 = player 1, team 1 = neutral, team2 = player 2
+    /// </summary>
+	public int TeamID = 1;
 
 	public int possesion = 0;
 
@@ -45,8 +50,10 @@ public class Block : MonoBehaviour
 
     #endregion
 
-	void Start(){
-		if (this.Type == BlockData.BlockType.Unit) {
+	void Start()
+    {
+        if (this.Type == BlockData.BlockType.Unit) 
+        {
 			this.RespawnUnit();
 		}
 	}
@@ -99,39 +106,39 @@ public class Block : MonoBehaviour
 
 	IEnumerator CaptureTick(BasicUnit basic){
 		if (possesion == 0) {
-			team = 1;
+			TeamID = 1;
 			if(BlockData.BlockType.Unit == Type){
-				this.creature.team = team;
+				this.creature.team = TeamID;
 			}
 		}
-		if (basic.team < team) {
+		if (basic.team < TeamID) {
 			possesion -= 1;
-			if(team == 1){
-				ChangeTeam(basic.team, team, (float)Mathf.Abs(possesion)/10);
-			}else if(team == 2){
-				ChangeTeam(team, 1, (float)Mathf.Abs(possesion)/10);
+			if(TeamID == 1){
+				ChangeTeam(basic.team, TeamID, (float)Mathf.Abs(possesion)/10);
+			}else if(TeamID == 2){
+				ChangeTeam(TeamID, 1, (float)Mathf.Abs(possesion)/10);
 			}
 			if(possesion == -possesionCap){
-				team = basic.team;
+				TeamID = basic.team;
 				if(BlockData.BlockType.Unit == Type){
-					this.creature.team = team;
+					this.creature.team = TeamID;
 				}
 				basic.capping = false;
 			}
 			yield return new WaitForSeconds(possesionTime);
 			StartCoroutine(CaptureTick(basic));
 		}
-		if (basic.team > team) {
+		if (basic.team > TeamID) {
 			possesion += 1;
-			if(team == 1){
-				ChangeTeam(basic.team, team, (float)Mathf.Abs(possesion)/10);
-			}else if(team == 0){
-				ChangeTeam(team, 1, (float)Mathf.Abs(possesion)/10);
+			if(TeamID == 1){
+				ChangeTeam(basic.team, TeamID, (float)Mathf.Abs(possesion)/10);
+			}else if(TeamID == 0){
+				ChangeTeam(TeamID, 1, (float)Mathf.Abs(possesion)/10);
 			}
 			if (possesion == possesionCap) {
-				team = basic.team;
+				TeamID = basic.team;
 				if(BlockData.BlockType.Unit == Type){
-					this.creature.team = team;
+					this.creature.team = TeamID;
 				}
 				basic.capping = false;
 			}
@@ -140,14 +147,18 @@ public class Block : MonoBehaviour
 		}
 	}
 
-	public void ChangeTeam(int from, int to, float slerpCount){
-		foreach (BlockFace face in Faces) {
+	public void ChangeTeam(int from, int to, float slerpCount)
+    {
+		foreach (BlockFace face in Faces) 
+        {
 			face.ChangeTeamColor (from, to, slerpCount);
 		}
 	}
 
-	public void setBaseCol(){
-		foreach (BlockFace face in Faces) {
+    public void setBaseCol()
+    {
+		foreach (BlockFace face in Faces) 
+        {
 			face.setBaseColor();
 		}
 	}
@@ -177,8 +188,8 @@ public class Block : MonoBehaviour
 
     public void RespawnUnit(){
 		if (Type == BlockData.BlockType.Unit) {
-			UnitManager.Create (ID, SpawnFaceID, team);
-			creature.team = team;
+			UnitManager.Create (ID, SpawnFaceID, TeamID);
+			creature.team = TeamID;
 		}
 	}
 
@@ -271,4 +282,40 @@ public class Block : MonoBehaviour
     }
 
     #endregion
+
+    internal void SetColor(Colorpallet clrPallet)
+    {
+        SetPallette(clrPallet);
+        
+        if(TeamID == 1)
+        {
+            setBaseCol();
+        }
+        else
+        {
+            setTeamCol(TeamID);
+        }
+    }
+
+    private void SetPallette(Colorpallet clrPallet)
+    {
+        foreach (BlockFace face in Faces)
+        {
+            face.colPal = clrPallet;
+        }
+    }
+
+    private void SetParent()
+    {
+        foreach (BlockFace face in Faces)
+        {
+            face.Block = this;
+        }
+    }
+
+    internal void Init(Colorpallet plt)
+    {
+        SetParent();
+        SetColor(plt);
+    }
 }

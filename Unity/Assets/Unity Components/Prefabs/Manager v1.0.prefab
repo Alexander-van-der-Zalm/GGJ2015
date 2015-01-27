@@ -15,6 +15,7 @@ GameObject:
   - 114: {fileID: 11400094}
   - 114: {fileID: 11473274}
   - 114: {fileID: 11421534}
+  - 114: {fileID: 11469436}
   m_Layer: 0
   m_Name: Manager v1.0
   m_TagString: manager
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadLevelOnReload: 0
-  BlockPrefab: {fileID: 100024, guid: bf74fcc8e870bd8438cc379608b8d120, type: 2}
+  BlockPrefab: {fileID: 131910, guid: 143ed5e65db42444c9797e54eff23cb9, type: 2}
   Blocks: []
   LevelNames:
   - Basic Level Disc.asset
@@ -72,6 +73,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedUnit: {fileID: 0}
+--- !u!114 &11469436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b44a4137a0a96d47bb91b8e7c5062bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neutralCol:
+  - {r: .152941182, g: .486274511, b: .0705882385, a: 1}
+  - {r: .247058824, g: .513725519, b: .117647059, a: 1}
+  - {r: .337254912, g: .611764729, b: .117647059, a: 1}
+  - {r: .866666675, g: .866666675, b: .866666675, a: 1}
+  teamOneCol: {r: .631372571, g: .105882354, b: .105882354, a: 1}
+  teamTwoCol: {r: .145098045, g: .384313732, b: .580392182, a: 1}
 --- !u!114 &11473274
 MonoBehaviour:
   m_ObjectHideFlags: 1
