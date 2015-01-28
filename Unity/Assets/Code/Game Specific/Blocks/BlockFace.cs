@@ -78,7 +78,7 @@ public class BlockFace : MonoBehaviour
             if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
             {
                 // New block
-                Debug.Log("Create new block");
+                Debug.Log("Create new block: [" + Block.ID + "," + ID+ "]");
                 BlockManager.Add(Block.ID, ID);
             }
             else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))

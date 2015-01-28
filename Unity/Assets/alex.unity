@@ -175,7 +175,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11489764, guid: 7473f5f8b00f40d4e99f11509e79f59f, type: 2}
       propertyPath: OfflineMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7473f5f8b00f40d4e99f11509e79f59f, type: 2}
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df12594170e9804b88de0111a58820e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OfflineMode: 0
+  OfflineMode: 1
 --- !u!114 &738797015
 MonoBehaviour:
   m_ObjectHideFlags: 0

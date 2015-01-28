@@ -165,7 +165,9 @@ public class BlockManager : Singleton<BlockManager>
     {
         Block parentBlock = BlockManager.Get(blockID);
         BlockFace clickedFace = parentBlock.GetFace(clickedFacedID);
-        
+
+        Debug.Log("Get " + parentBlock.ID);
+
         // Create new block
         Block newBlock = Instance.CreateBlock();
 
@@ -175,6 +177,8 @@ public class BlockManager : Singleton<BlockManager>
         
         // Project to find length
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
+
+        newBlock.transform.position = parentBlock.transform.position + clickedFace.Normal * blockScale;
         Instance.GridSnap(newBlock.transform);
 
         //// Translate length * normal
@@ -192,7 +196,7 @@ public class BlockManager : Singleton<BlockManager>
 
         // Redo Neighbors for faces and blocks
         List<BlockFace> neighborFaces = Block.FindBlockNeighborFaces(Instance.Blocks, newBlock.ID);
-        Debug.Log(neighborFaces.Count);
+        //Debug.Log(neighborFaces.Count);
         Block.SetFaceNeighbors(neighborFaces);
     }
 
