@@ -156,7 +156,7 @@ public class UnitManager : Singleton<UnitManager>
         // Check if the move is legal
         BlockFace dest = bm.getFace(destination);
         BlockFace orig = bm.getFace(origin);
-        Debug.Log("Move");
+        //Debug.Log("Move");
 
         if(!dest.neighbors.Where(n => n == orig).Any())
         {
