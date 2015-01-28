@@ -186,9 +186,18 @@ public class Block : MonoBehaviour
 
     #endregion
 
-    public void RespawnUnit(){
-		if (Type == BlockData.BlockType.Unit || Type == BlockData.BlockType.player) {
-			UnitManager.Create (ID, SpawnFaceID, TeamID);
+    public void RespawnUnit()
+    {
+		if (Type == BlockData.BlockType.Unit || Type == BlockData.BlockType.player) 
+        {
+			// Remove existing spawn
+            if(creature != null)
+            {
+                GameObject.DestroyImmediate(creature);
+            }
+            
+            // Create a new one
+            UnitManager.Create (ID, SpawnFaceID, TeamID);
 			creature.team = TeamID;
 		}
 	}

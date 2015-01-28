@@ -111,6 +111,7 @@ public class NetworkManager : MonoBehaviour
             photonView.RPC("RequestLevelName", PhotonTargets.Others);
         }
 
+        // Change this to start game when both players are ready
         UnitManager.Instance.RespawnAllUnits();
     }
 

@@ -116,6 +116,8 @@ public class UnitManager : Singleton<UnitManager>
         unit.CurrentFace = face;
         unit.transform.parent = unitParent.transform;
 
+        Debug.Log("Face: " + face.name);
+        
         block.creature = unit;
         Register(unit);
 

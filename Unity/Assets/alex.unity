@@ -143132,6 +143132,10 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 738797020}
+    - target: {fileID: 11422890, guid: c7172cc61cf68b5428524c699002718c, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7172cc61cf68b5428524c699002718c, type: 2}
   m_RootGameObject: {fileID: 510139701}
