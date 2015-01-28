@@ -5,13 +5,24 @@ using System.Linq;
 
 public class UnitManager : Singleton<UnitManager>
 {
+    #region Custom Struct
+
+    [System.Serializable]
+    public struct FaceBlockID
+    {
+        public int FaceID;
+        public int BlockID;
+    }
+
+    #endregion
+
     #region Fields
 
     public int team = 1;
     
     public List<GameObject> UnitPrefabs;
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<BasicUnit> Units;
 
     private GameManagement management;
@@ -126,9 +137,9 @@ public class UnitManager : Singleton<UnitManager>
         
         
         block.creature = unit;
-        Register(unit);
+        //Register(unit);
 
-        Debug.Log("Face: " + face.name + " Unit on block: " + block.creature.name);
+        //Debug.Log("Block: " + block.name + " Face: " + face.name + " Unit on block: " + block.creature.name);
 
         //Create(position, rotation, version, block);
     }
@@ -137,6 +148,15 @@ public class UnitManager : Singleton<UnitManager>
     {
         UnRegister(unit);
         GameObject.Destroy(unit.gameObject);
+    }
+
+    public void DeleteAll()
+    {
+        // Delete current children
+        var children = new List<GameObject>();
+        foreach (Transform child in unitParent.transform)
+            children.Add(child.gameObject);
+        children.ForEach(child => DestroyImmediate(child));
     }
 
     #endregion
@@ -175,19 +195,27 @@ public class UnitManager : Singleton<UnitManager>
             return;
         }
 
+        if(dest.Block != orig.Block && dest.Block.Faces.Where(f => f.HasUnit).Any())
+        {
+            Debug.Log("Blocked");
+            return;
+        }
+
         unit.MoveUnit(destination.BlockID, destination.FaceID);
 
-		ColorBlock (destination.BlockID, destination.FaceID);
+        ColorBlock(destination.BlockID, destination.FaceID, unit);
     }
 
-	public void ColorBlock(int blockID, int blockFaceID){
+	public void ColorBlock(int blockID, int blockFaceID, BasicUnit unit)
+    {
 
 		Block block = bm.get(blockID);
 		BlockFace face = block.GetFace(blockFaceID);
 
-		if(block.TeamID != SelectionManager.Instance.SelectedUnit.team && !SelectionManager.Instance.SelectedUnit.capping){
-			block.StartCapture(SelectionManager.Instance.SelectedUnit);
-			SelectionManager.Instance.SelectedUnit.capping = true;
+        if (block.TeamID != unit.team && !unit.capping)
+        {
+            block.StartCapture(unit);
+            unit.capping = true;
 		}
 	}
 
@@ -210,6 +238,10 @@ public class UnitManager : Singleton<UnitManager>
 
     public void RespawnAllUnits()
     {
+        DeleteAll();
+
+        Debug.Log("Respawn block count: " + bm.Blocks.Count);
+
         foreach(Block block in bm.Blocks)
         {
             block.RespawnUnit();
@@ -218,10 +250,5 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    [System.Serializable]
-    public struct FaceBlockID
-    {
-        public int FaceID;
-        public int BlockID;
-    }
+    
 }

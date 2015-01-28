@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class BasicUnit : MonoBehaviour
 {
+    #region Fields
+
     public BlockFace CurrentFace;
     private Transform tr;
 
@@ -22,22 +24,30 @@ public class BasicUnit : MonoBehaviour
     [SerializeField]
     private int id;
 
+    #endregion
+
+    #region Properties
+
     public int ID { get { return id; } set { id = value; } }
 
-    public Color MaterialColor 
-    { 
+    public Color MaterialColor
+    {
         get { return GetComponent<MeshFilter>().mesh.colors.First(); }
         set
         {
             MeshFilter filter = GetComponent<MeshFilter>();
             Color[] colors = filter.mesh.colors;
-            for(int i = 0; i < colors.Length;i++)
+            for (int i = 0; i < colors.Length; i++)
             {
                 colors[i] = value;
             }
             filter.mesh.colors = colors;
         }
     }
+
+    #endregion
+
+    #region Enable Disable
 
     public void OnEnable()
     {
@@ -48,22 +58,27 @@ public class BasicUnit : MonoBehaviour
     }
 
 
-    public void OnDestroy()
+    public void OnDisable()
     {
         UnitManager.UnRegister(this);
     }
+
+    #endregion
+
+    #region Surface select
 
     public void OnMouseOver()
     {
         // Left click
         if (Input.GetMouseButtonDown(0))
         {
-			if(this.team == UnitManager.Instance.team){
+			if(this.team == UnitManager.Instance.team)
+            {
 				Debug.Log("This.team");
 				Debug.Log(this.team);
 				Debug.Log("Unitmanager");
 				Debug.Log(UnitManager.Instance.team);
-            // Select
+
             	SelectionManager.SelectionChanged(this);
 			}
         }// Right mouse button
@@ -77,17 +92,22 @@ public class BasicUnit : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region Move Unit
+
     public void MoveUnit(int blockID,int blockFaceID)
     {
         // Update face state both faces
         // Change face  
         if(CurrentFace!=null)
             CurrentFace.HasUnit = false; 
-        // Change to destination and walk
-
+       
 		Block bl = BlockManager.Get (blockID);
 		CurrentFace = bl.GetFace (blockFaceID);
 		CurrentFace.HasUnit = true;
+
+        // Change to destination and jump
 
         if (anim != null)
 		    anim.SetBool ("Jump", true); 
@@ -116,8 +136,10 @@ public class BasicUnit : MonoBehaviour
 		
 		// Rotate
 	}
-	
-	void FixedUpdate()
+
+    #endregion
+
+    void FixedUpdate()
     {
 		if(anim != null)
             anim.SetBool("Jump", false);
@@ -125,9 +147,23 @@ public class BasicUnit : MonoBehaviour
 		float step = 0.5f * Time.deltaTime;
 
 
-		if (CurrentFace != null) {
+		if (CurrentFace != null) 
+        {
 			transform.position = Vector3.MoveTowards (gameObject.transform.position, CurrentFace.transform.position, step);
 		}
 	}
 
+    internal void Selectable(bool selectable)
+    {
+        BoxCollider collider = GetComponent<BoxCollider>();
+
+        if(selectable)
+        {
+            collider.enabled = true;
+        }
+        else
+        {
+            collider.enabled = false;
+        }
+    }
 }
