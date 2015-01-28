@@ -193,12 +193,14 @@ public class Block : MonoBehaviour
 			// Remove existing spawn
             if(creature != null)
             {
-                GameObject.DestroyImmediate(creature);
+                Debug.Log("Destroy old");
+                GameObject.DestroyImmediate(creature.gameObject);
             }
             
             // Create a new one
             UnitManager.Create (ID, SpawnFaceID, TeamID);
 			creature.team = TeamID;
+
 		}
 	}
 

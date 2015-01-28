@@ -18,7 +18,7 @@ public class GameManagement : MonoBehaviour
     public SelectionManager SelectionMgr;
 
     // Use this for initialization
-	void Start () 
+	void Awake () 
     {        
         BlockMgr = GetComponent<BlockManager>();
         UnitMgr = GetComponent<UnitManager>();

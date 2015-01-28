@@ -33,6 +33,7 @@ public class UnitManager : Singleton<UnitManager>
     void Awake()
     {
         management = FindObjectOfType<GameManagement>();
+
         // Set an empty game object to parent all the blocks too
         unitParent = GameObject.Find("Units");
         if (unitParent == null)
@@ -69,6 +70,12 @@ public class UnitManager : Singleton<UnitManager>
 
     public static void UnRegister(BasicUnit unit)
     {
+        if(instance == null)
+        {
+            Debug.Log("Unit Manager already inactive");
+            return;
+        }
+        
         Instance.Units.Remove(unit);
 
         Instance.RedoIDs();
@@ -116,10 +123,12 @@ public class UnitManager : Singleton<UnitManager>
         unit.CurrentFace = face;
         unit.transform.parent = unitParent.transform;
 
-        Debug.Log("Face: " + face.name);
+        
         
         block.creature = unit;
         Register(unit);
+
+        Debug.Log("Face: " + face.name + " Unit on block: " + block.creature.name);
 
         //Create(position, rotation, version, block);
     }
