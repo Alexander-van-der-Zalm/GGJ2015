@@ -195,6 +195,12 @@ public class UnitManager : Singleton<UnitManager>
             return;
         }
 
+        if(dest.Block != orig.Block && dest.Block.Faces.Where(f => f.HasUnit).Any())
+        {
+            Debug.Log("Blocked");
+            return;
+        }
+
         unit.MoveUnit(destination.BlockID, destination.FaceID);
 
         ColorBlock(destination.BlockID, destination.FaceID, unit);
