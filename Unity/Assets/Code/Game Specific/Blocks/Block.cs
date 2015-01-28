@@ -100,27 +100,37 @@ public class Block : MonoBehaviour
     //    }
     //}
 
-	public void StartCapture(BasicUnit basic){
+	public void StartCapture(BasicUnit basic)
+    {
 		StartCoroutine(CaptureTick(basic));
 	}
 
-	IEnumerator CaptureTick(BasicUnit basic){
-		if (possesion == 0) {
+	IEnumerator CaptureTick(BasicUnit basic)
+    {
+		if (possesion == 0) 
+        {
 			TeamID = 1;
-			if(BlockData.BlockType.Unit == Type){
+			if(BlockData.BlockType.Unit == Type)
+            {
 				this.creature.team = TeamID;
 			}
 		}
-		if (basic.team < TeamID) {
+		if (basic.team < TeamID) 
+        {
 			possesion -= 1;
-			if(TeamID == 1){
+			if(TeamID == 1)
+            {
 				ChangeTeam(basic.team, TeamID, (float)Mathf.Abs(possesion)/10);
-			}else if(TeamID == 2){
+			}
+            else if(TeamID == 2)
+            {
 				ChangeTeam(TeamID, 1, (float)Mathf.Abs(possesion)/10);
 			}
-			if(possesion == -possesionCap){
+			if(possesion == -possesionCap)
+            {
 				TeamID = basic.team;
-				if(BlockData.BlockType.Unit == Type){
+				if(BlockData.BlockType.Unit == Type)
+                {
 					this.creature.team = TeamID;
 				}
 				basic.capping = false;
@@ -128,16 +138,22 @@ public class Block : MonoBehaviour
 			yield return new WaitForSeconds(possesionTime);
 			StartCoroutine(CaptureTick(basic));
 		}
-		if (basic.team > TeamID) {
+		if (basic.team > TeamID) 
+        {
 			possesion += 1;
-			if(TeamID == 1){
+			if(TeamID == 1)
+            {
 				ChangeTeam(basic.team, TeamID, (float)Mathf.Abs(possesion)/10);
-			}else if(TeamID == 0){
+			}
+            else if(TeamID == 0)
+            {
 				ChangeTeam(TeamID, 1, (float)Mathf.Abs(possesion)/10);
 			}
-			if (possesion == possesionCap) {
+			if (possesion == possesionCap) 
+            {
 				TeamID = basic.team;
-				if(BlockData.BlockType.Unit == Type){
+				if(BlockData.BlockType.Unit == Type)
+                {
 					this.creature.team = TeamID;
 				}
 				basic.capping = false;

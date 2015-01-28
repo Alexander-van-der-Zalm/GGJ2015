@@ -2,18 +2,9 @@
 using System.Collections;
 
 [RequireComponent(typeof(PhotonView))]
-public class NetworkManager : MonoBehaviour 
+public class NetworkManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class ServerInfo
-    {
-        //Think what is needed
-
-        // Level (for loading)
-        // SpawnedUnits
-        
-        // Waiting for other player
-    }
+    #region Fields
 
     public bool OfflineMode = false;
 
@@ -22,6 +13,8 @@ public class NetworkManager : MonoBehaviour
     private bool createdRoom = false;
 
     private PhotonView photonView;
+
+    #endregion
 
     #region Start & GUI label
 
@@ -112,7 +105,7 @@ public class NetworkManager : MonoBehaviour
         }
 
         // Change this to start game when both players are ready
-        UnitManager.Instance.RespawnAllUnits();
+        
     }
 
     void OnPhotonRandomJoinFailed()

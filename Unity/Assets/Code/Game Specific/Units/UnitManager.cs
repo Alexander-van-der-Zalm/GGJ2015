@@ -197,17 +197,19 @@ public class UnitManager : Singleton<UnitManager>
 
         unit.MoveUnit(destination.BlockID, destination.FaceID);
 
-		ColorBlock (destination.BlockID, destination.FaceID);
+        ColorBlock(destination.BlockID, destination.FaceID, unit);
     }
 
-	public void ColorBlock(int blockID, int blockFaceID){
+	public void ColorBlock(int blockID, int blockFaceID, BasicUnit unit)
+    {
 
 		Block block = bm.get(blockID);
 		BlockFace face = block.GetFace(blockFaceID);
 
-		if(block.TeamID != SelectionManager.Instance.SelectedUnit.team && !SelectionManager.Instance.SelectedUnit.capping){
-			block.StartCapture(SelectionManager.Instance.SelectedUnit);
-			SelectionManager.Instance.SelectedUnit.capping = true;
+        if (block.TeamID != unit.team && !unit.capping)
+        {
+            block.StartCapture(unit);
+            unit.capping = true;
 		}
 	}
 
@@ -230,6 +232,8 @@ public class UnitManager : Singleton<UnitManager>
 
     public void RespawnAllUnits()
     {
+        DeleteAll();
+        
         foreach(Block block in bm.Blocks)
         {
             block.RespawnUnit();
