@@ -218,7 +218,6 @@ public class Block : MonoBehaviour
             // Create a new one
             UnitManager.Create (ID, SpawnFaceID, TeamID);
 			creature.team = TeamID;
-
 		}
 	}
 

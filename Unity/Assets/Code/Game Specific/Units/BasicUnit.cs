@@ -58,7 +58,7 @@ public class BasicUnit : MonoBehaviour
     }
 
 
-    public void OnDestroy()
+    public void OnDisable()
     {
         UnitManager.UnRegister(this);
     }

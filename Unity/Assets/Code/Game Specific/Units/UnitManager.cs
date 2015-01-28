@@ -22,7 +22,7 @@ public class UnitManager : Singleton<UnitManager>
     
     public List<GameObject> UnitPrefabs;
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<BasicUnit> Units;
 
     private GameManagement management;
@@ -137,9 +137,9 @@ public class UnitManager : Singleton<UnitManager>
         
         
         block.creature = unit;
-        Register(unit);
+        //Register(unit);
 
-        Debug.Log("Block: " + block.name + " Face: " + face.name + " Unit on block: " + block.creature.name);
+        //Debug.Log("Block: " + block.name + " Face: " + face.name + " Unit on block: " + block.creature.name);
 
         //Create(position, rotation, version, block);
     }
