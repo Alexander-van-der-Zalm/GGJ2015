@@ -25,7 +25,7 @@ public class BlockFace : MonoBehaviour
 
     public bool HasUnit;
 
-	public Colorpallet colPal;
+	public ColorPallet colPal;
 
     private Transform tr;
 
@@ -88,10 +88,9 @@ public class BlockFace : MonoBehaviour
             }
 			else if (Input.GetKey(KeyCode.Q))
 			{
-				// Set Normal 
+				// Set Normal and loop over versions
 				this.parentBlock.Type = BlockData.BlockType.Normal;
-                this.parentBlock.ColorTypeID = (parentBlock.ColorTypeID+1)%3;
-                Debug.Log(parentBlock.ColorTypeID);
+                this.parentBlock.ColorTypeID = (parentBlock.ColorTypeID + 1) % BlockManager.Instance.Pallet.NeutralColor.Length;
 				this.parentBlock.setBaseCol();
 			}
 			else if (Input.GetKey(KeyCode.W))
@@ -155,7 +154,7 @@ public class BlockFace : MonoBehaviour
             }
 			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-				if(this.parentBlock.ColorTypeID < colPal.neutralCol.Length-2)
+				if(this.parentBlock.ColorTypeID < colPal.NeutralColor.Length-2)
                 {
 					this.parentBlock.ColorTypeID++;
 				}
@@ -175,19 +174,19 @@ public class BlockFace : MonoBehaviour
 
     public void ChangeTeamColor(int to, int from, float slerpCount)
     {
-		if (to == 0 && from == 1) 
-			SetColor(Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamOneCol, slerpCount));
-		 else if (to == 2 && from == 1) 
-			SetColor(Color.Lerp (colPal.neutralCol[parentBlock.ColorTypeID], colPal.teamTwoCol, slerpCount));
-		else if (to == 1 && from == 2) 
-			SetColor(Color.Lerp (colPal.teamTwoCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount));
-		else if (to == 1 && from == 0) 
-			SetColor(Color.Lerp (colPal.teamOneCol, colPal.neutralCol[parentBlock.ColorTypeID], slerpCount));
+		if (to == 0 && from == 1)
+            SetColor(Color.Lerp(colPal.NeutralColor[parentBlock.ColorTypeID], colPal.TeamOneColor, slerpCount));
+		 else if (to == 2 && from == 1)
+            SetColor(Color.Lerp(colPal.NeutralColor[parentBlock.ColorTypeID], colPal.TeamTwoColor, slerpCount));
+		else if (to == 1 && from == 2)
+            SetColor(Color.Lerp(colPal.TeamTwoColor, colPal.NeutralColor[parentBlock.ColorTypeID], slerpCount));
+		else if (to == 1 && from == 0)
+            SetColor(Color.Lerp(colPal.TeamOneColor, colPal.NeutralColor[parentBlock.ColorTypeID], slerpCount));
 	}
 
 	public void setBaseColor()
     {
-        SetColor(colPal.neutralCol[parentBlock.ColorTypeID]);
+        SetColor(colPal.NeutralColor[parentBlock.ColorTypeID]);
 	}
 
     private void SetColor(Color newColor)
@@ -222,8 +221,8 @@ public class BlockFace : MonoBehaviour
 
 	public void setTeamCol(int i)
     {
-        if (i == 0) SetColor(colPal.teamOneCol);
-		if (i == 2) SetColor(colPal.teamTwoCol);
+        if (i == 0) SetColor(colPal.TeamOneColor);
+        if (i == 2) SetColor(colPal.TeamTwoColor);
 	}
 
 	#endregion Materials

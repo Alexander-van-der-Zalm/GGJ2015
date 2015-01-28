@@ -208,7 +208,6 @@ public class UnitManager : Singleton<UnitManager>
 
 	public void ColorBlock(int blockID, int blockFaceID, BasicUnit unit)
     {
-
 		Block block = bm.get(blockID);
 		BlockFace face = block.GetFace(blockFaceID);
 

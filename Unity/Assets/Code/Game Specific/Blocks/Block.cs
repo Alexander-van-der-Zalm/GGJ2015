@@ -21,7 +21,7 @@ public class Block : MonoBehaviour
     [SerializeField]
     private int colorTypeID;
 
-    public Colorpallet ColorPallete;
+    public ColorPallet ColorPallete;
 
     public int ColorTypeID { get { return colorTypeID; } set { colorTypeID = value; } }
 
@@ -311,7 +311,7 @@ public class Block : MonoBehaviour
 
     #endregion
 
-    internal void SetColor(Colorpallet clrPallet)
+    internal void SetColor(ColorPallet clrPallet)
     {
         SetPallette(clrPallet);
         
@@ -325,7 +325,7 @@ public class Block : MonoBehaviour
         }
     }
 
-    private void SetPallette(Colorpallet clrPallet)
+    private void SetPallette(ColorPallet clrPallet)
     {
         foreach (BlockFace face in Faces)
         {
@@ -341,7 +341,7 @@ public class Block : MonoBehaviour
         }
     }
 
-    internal void Init(Colorpallet plt)
+    internal void Init(ColorPallet plt)
     {
         SetParent();
         SetColor(plt);

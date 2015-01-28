@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Colorpallet : MonoBehaviour {
-
-	public Color[] neutralCol;
-	public Color teamOneCol;
-	public Color teamTwoCol;    
+public class ColorPallet : EasyScriptableObject<ColorPallet> 
+{
+	public Color[] NeutralColor;
+    //public Color[] SpawnColor;
+	public Color TeamOneColor;
+    public Color TeamTwoColor;    
 }

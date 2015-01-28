@@ -31,7 +31,19 @@ public class BlockManagerEditor : EditorPlus
         }
             
         EditorGUILayout.EndHorizontal();
-        
+
+        EditorGUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Create New Pallet"))
+        {
+            ScriptableObjectHelper.SaveAssetAutoNaming(ColorPallet.Create(), "Assets/Levels");
+        }
+        if (GUILayout.Button("ChangeColor"))
+        {
+            BlockManager.Instance.UpdateColor();
+        }
+
+        EditorGUILayout.EndHorizontal();
         
         base.OnInspectorGUI();
         

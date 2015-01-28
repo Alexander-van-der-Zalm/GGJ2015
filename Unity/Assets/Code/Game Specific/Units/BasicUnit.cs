@@ -74,10 +74,10 @@ public class BasicUnit : MonoBehaviour
         {
 			if(this.team == UnitManager.Instance.team)
             {
-				Debug.Log("This.team");
-				Debug.Log(this.team);
-				Debug.Log("Unitmanager");
-				Debug.Log(UnitManager.Instance.team);
+                //Debug.Log("This.team");
+                //Debug.Log(this.team);
+                //Debug.Log("Unitmanager");
+                //Debug.Log(UnitManager.Instance.team);
 
             	SelectionManager.SelectionChanged(this);
 			}

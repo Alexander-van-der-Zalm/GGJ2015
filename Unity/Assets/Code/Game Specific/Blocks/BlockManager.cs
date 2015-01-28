@@ -28,6 +28,8 @@ public class BlockManager : Singleton<BlockManager>
 {
     #region Fields
 
+    public ColorPallet Pallet;
+
     public bool LoadLevelOnReload = false;
 
     public GameObject BlockPrefab;
@@ -79,7 +81,6 @@ public class BlockManager : Singleton<BlockManager>
             levelParent = new GameObject("Level");
         }
     }
-
 
     #region Enable
 
@@ -172,8 +173,8 @@ public class BlockManager : Singleton<BlockManager>
         Block newBlock = Instance.CreateBlock();
 
         // Set palette
-        Colorpallet plt = Instance.GetComponent<Colorpallet>();
-        newBlock.Init(plt);
+        //ColorPallet plt = Instance.GetComponent<ColorPallet>();
+        newBlock.Init(Instance.Pallet);
         
         // Project to find length
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
@@ -282,7 +283,7 @@ public class BlockManager : Singleton<BlockManager>
     {
         ClearBlocks();
 
-        Colorpallet plt = GetComponent<Colorpallet>();
+        ColorPallet plt = Pallet;
 
         List<BlockFace> faces = new List<BlockFace>();
 
@@ -374,6 +375,14 @@ public class BlockManager : Singleton<BlockManager>
     }
 
     #endregion
+
+    public void UpdateColor()
+    {
+        foreach (Transform child in levelParent.transform)
+        {
+            child.GetComponent<Block>().Init(Pallet);
+        }
+    }
 
     #region GetFace
 
