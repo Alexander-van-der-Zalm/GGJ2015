@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf291bf04d0656428cacd51f8a84454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 738797020}
   speed: 5
   mouseSpeedX: 0
   mouseSpeedY: 0
@@ -440,6 +440,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11477760, guid: c7cc457f393363146a3f089acc2eb9ef, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 738797020}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7cc457f393363146a3f089acc2eb9ef, type: 2}
   m_RootGameObject: {fileID: 259558173}
