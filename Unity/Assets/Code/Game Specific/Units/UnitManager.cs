@@ -233,7 +233,9 @@ public class UnitManager : Singleton<UnitManager>
     public void RespawnAllUnits()
     {
         DeleteAll();
-        
+
+        Debug.Log("Respawn block count: " + bm.Blocks.Count);
+
         foreach(Block block in bm.Blocks)
         {
             block.RespawnUnit();

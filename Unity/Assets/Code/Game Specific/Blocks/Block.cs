@@ -88,11 +88,13 @@ public class Block : MonoBehaviour
 
     }
 
-	void Update(){
-		if (Input.GetKey (KeyCode.P)) {
-			this.RespawnUnit ();
-		}
-	}
+    //void Update()
+    //{
+    //    if (Input.GetKey (KeyCode.P)) 
+    //    {
+    //        this.RespawnUnit ();
+    //    }
+    //}
 
     //public void ChangeBlock(int index){
     //    foreach (BlockFace face in Faces) {

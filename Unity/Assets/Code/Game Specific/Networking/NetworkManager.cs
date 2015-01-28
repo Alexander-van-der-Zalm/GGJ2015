@@ -70,6 +70,16 @@ public class NetworkManager : MonoBehaviour
 
     #endregion
 
+    public void LoadLevel()
+    {
+
+    }
+
+    public void StartMatch()
+    {
+
+    }
+
 
     // Client
     // (X) Join room
@@ -128,8 +138,10 @@ public class NetworkManager : MonoBehaviour
     [RPC]
     private void RequestLevelName()
     {
-        photonView.RPC("SetLevelName", PhotonTargets.All, mgr.BlockMgr.SelectedLevel);
         Debug.Log("Request level data RPC");
+        photonView.RPC("SetLevelName", PhotonTargets.All, mgr.BlockMgr.SelectedLevel);
+
+        UnitManager.Instance.RespawnAllUnits();
     }
 
     [RPC]

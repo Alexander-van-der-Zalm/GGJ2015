@@ -94,6 +94,8 @@ public class BasicUnit : MonoBehaviour
 
     #endregion
 
+    #region Move Unit
+
     public void MoveUnit(int blockID,int blockFaceID)
     {
         // Update face state both faces
@@ -134,8 +136,10 @@ public class BasicUnit : MonoBehaviour
 		
 		// Rotate
 	}
-	
-	void FixedUpdate()
+
+    #endregion
+
+    void FixedUpdate()
     {
 		if(anim != null)
             anim.SetBool("Jump", false);
@@ -143,7 +147,8 @@ public class BasicUnit : MonoBehaviour
 		float step = 0.5f * Time.deltaTime;
 
 
-		if (CurrentFace != null) {
+		if (CurrentFace != null) 
+        {
 			transform.position = Vector3.MoveTowards (gameObject.transform.position, CurrentFace.transform.position, step);
 		}
 	}

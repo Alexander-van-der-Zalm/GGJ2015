@@ -253,8 +253,8 @@ public class BlockManager : Singleton<BlockManager>
         // Read asset
         LoadBlocks(blockData);
 
-        // Respawn Units
-        UnitManager.Instance.RespawnAllUnits();
+        //// Respawn Units
+        //UnitManager.Instance.RespawnAllUnits();
     }
 
     public static void LoadLevel(string levelName)
