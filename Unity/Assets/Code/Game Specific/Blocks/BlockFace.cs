@@ -90,7 +90,8 @@ public class BlockFace : MonoBehaviour
 			{
 				// Set Normal 
 				this.parentBlock.Type = BlockData.BlockType.Normal;
-				this.parentBlock.ColorTypeID = 0;
+                this.parentBlock.ColorTypeID = (parentBlock.ColorTypeID+1)%3;
+                Debug.Log(parentBlock.ColorTypeID);
 				this.parentBlock.setBaseCol();
 			}
 			else if (Input.GetKey(KeyCode.W))
