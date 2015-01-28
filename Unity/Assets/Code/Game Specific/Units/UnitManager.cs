@@ -5,6 +5,17 @@ using System.Linq;
 
 public class UnitManager : Singleton<UnitManager>
 {
+    #region Custom Struct
+
+    [System.Serializable]
+    public struct FaceBlockID
+    {
+        public int FaceID;
+        public int BlockID;
+    }
+
+    #endregion
+
     #region Fields
 
     public int team = 1;
@@ -128,7 +139,7 @@ public class UnitManager : Singleton<UnitManager>
         block.creature = unit;
         Register(unit);
 
-        Debug.Log("Face: " + face.name + " Unit on block: " + block.creature.name);
+        Debug.Log("Block: " + block.name + " Face: " + face.name + " Unit on block: " + block.creature.name);
 
         //Create(position, rotation, version, block);
     }
@@ -137,6 +148,15 @@ public class UnitManager : Singleton<UnitManager>
     {
         UnRegister(unit);
         GameObject.Destroy(unit.gameObject);
+    }
+
+    public void DeleteAll()
+    {
+        // Delete current children
+        var children = new List<GameObject>();
+        foreach (Transform child in unitParent.transform)
+            children.Add(child.gameObject);
+        children.ForEach(child => DestroyImmediate(child));
     }
 
     #endregion
@@ -218,10 +238,5 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    [System.Serializable]
-    public struct FaceBlockID
-    {
-        public int FaceID;
-        public int BlockID;
-    }
+    
 }

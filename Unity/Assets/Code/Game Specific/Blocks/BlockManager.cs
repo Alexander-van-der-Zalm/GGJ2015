@@ -235,7 +235,7 @@ public class BlockManager : Singleton<BlockManager>
 
     public void loadLevel(string levelName)
     {
-        
+        // Check if level is in the asset file
         if(!LevelNames.Contains(levelName))
         {
             Debug.Log("Level does not exist: " + levelName);
@@ -243,6 +243,9 @@ public class BlockManager : Singleton<BlockManager>
         }
         Debug.Log("Load: " + levelName);
         Instance.SelectedLevel = levelName;
+
+        // Delete old units
+        UnitManager.Instance.DeleteAll();
 
         // Get the asset
         BlockListSO blockData = GetLevelData(levelName);
