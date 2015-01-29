@@ -101,7 +101,7 @@ public class NetworkManager : MonoBehaviour
 
     void OnJoinedRoom()
     {
-        Debug.Log("Joined the room");
+        Debug.Log("Joined the room id: " +  PhotonNetwork.player.ID);
 
         // Set Player info
         if(createdRoom)
