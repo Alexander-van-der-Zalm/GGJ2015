@@ -114,15 +114,15 @@ public class Block : MonoBehaviour
 			TeamID = 1;
 			if(BlockData.BlockType.Unit == Type)
             {
-				this.creature.team = TeamID;
+				this.creature.Team = TeamID;
 			}
 		}
-		if (basic.team < TeamID) 
+		if (basic.Team < TeamID) 
         {
 			possesion -= 1;
 			if(TeamID == 1)
             {
-				ChangeTeam(basic.team, TeamID, (float)Mathf.Abs(possesion)/10);
+				ChangeTeam(basic.Team, TeamID, (float)Mathf.Abs(possesion)/10);
 			}
             else if(TeamID == 2)
             {
@@ -130,22 +130,22 @@ public class Block : MonoBehaviour
 			}
 			if(possesion == -possesionCap)
             {
-				TeamID = basic.team;
+				TeamID = basic.Team;
 				if(BlockData.BlockType.Unit == Type)
                 {
-					this.creature.team = TeamID;
+					this.creature.Team = TeamID;
 				}
-				basic.capping = false;
+				basic.Capping = false;
 			}
 			yield return new WaitForSeconds(possesionTime);
 			StartCoroutine(CaptureTick(basic));
 		}
-		if (basic.team > TeamID) 
+		if (basic.Team > TeamID) 
         {
 			possesion += 1;
 			if(TeamID == 1)
             {
-				ChangeTeam(basic.team, TeamID, (float)Mathf.Abs(possesion)/10);
+				ChangeTeam(basic.Team, TeamID, (float)Mathf.Abs(possesion)/10);
 			}
             else if(TeamID == 0)
             {
@@ -153,12 +153,12 @@ public class Block : MonoBehaviour
 			}
 			if (possesion == possesionCap) 
             {
-				TeamID = basic.team;
+				TeamID = basic.Team;
 				if(BlockData.BlockType.Unit == Type)
                 {
-					this.creature.team = TeamID;
+					this.creature.Team = TeamID;
 				}
-				basic.capping = false;
+				basic.Capping = false;
 			}
 			yield return new WaitForSeconds (possesionTime);
 			StartCoroutine (CaptureTick (basic));
@@ -217,7 +217,7 @@ public class Block : MonoBehaviour
             
             // Create a new one
             UnitManager.Create (ID, SpawnFaceID, TeamID);
-			creature.team = TeamID;
+			creature.Team = TeamID;
 		}
 	}
 

@@ -30,20 +30,21 @@ public class BlockManager : Singleton<BlockManager>
 
     public ColorPallet Pallet;
 
+    public GameObject BlockPrefab;
+
     public bool LoadLevelOnReload = false;
 
-    public GameObject BlockPrefab;
+    [SerializeField]
+    private string selectedLevel;
     
-    //[HideInInspector]
+    [HideInInspector]
     public List<Block> Blocks;
 
     [HideInInspector]
     public List<string> LevelNames;
 
+    [HideInInspector]
     public GameObject levelParent;
-
-    [SerializeField]
-    private string selectedLevel;
 
     private string sla = "CurrentLevel";
 
@@ -66,7 +67,7 @@ public class BlockManager : Singleton<BlockManager>
         } 
     }
 
-    public bool DrawGizmos = false;
+    //public bool DrawGizmos = false;
 
     #endregion
 

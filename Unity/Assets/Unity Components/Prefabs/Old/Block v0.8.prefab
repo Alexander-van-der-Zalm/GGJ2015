@@ -1353,8 +1353,9 @@ MonoBehaviour:
   SpawnFaceID: 0
   Neighbors: []
   colorTypeID: 0
+  ColorPallete: {fileID: 0}
   occupied: 0
-  team: 1
+  TeamID: 1
   possesion: 0
   possesionTime: .200000003
   possesionCap: 10

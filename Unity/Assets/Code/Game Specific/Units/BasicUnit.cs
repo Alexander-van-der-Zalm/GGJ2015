@@ -10,14 +10,13 @@ public class BasicUnit : MonoBehaviour
     public BlockFace CurrentFace;
     private Transform tr;
 
-    public Color SelectedTint;
-    public Color NormalTint;
+	public int Team;
 
-	public int team;
+    //public int CreatureType;
 
-	public int CreatureType;
+    public ConquestRules.CaptureMethod CaptureState;
 
-	public bool capping = false;
+	public bool Capping = false;
 
 	public Animator anim;
 
@@ -30,20 +29,20 @@ public class BasicUnit : MonoBehaviour
 
     public int ID { get { return id; } set { id = value; } }
 
-    public Color MaterialColor
-    {
-        get { return GetComponent<MeshFilter>().mesh.colors.First(); }
-        set
-        {
-            MeshFilter filter = GetComponent<MeshFilter>();
-            Color[] colors = filter.mesh.colors;
-            for (int i = 0; i < colors.Length; i++)
-            {
-                colors[i] = value;
-            }
-            filter.mesh.colors = colors;
-        }
-    }
+    //public Color MaterialColor
+    //{
+    //    get { return GetComponent<MeshFilter>().mesh.colors.First(); }
+    //    set
+    //    {
+    //        MeshFilter filter = GetComponent<MeshFilter>();
+    //        Color[] colors = filter.mesh.colors;
+    //        for (int i = 0; i < colors.Length; i++)
+    //        {
+    //            colors[i] = value;
+    //        }
+    //        filter.mesh.colors = colors;
+    //    }
+    //}
 
     #endregion
 
@@ -72,7 +71,7 @@ public class BasicUnit : MonoBehaviour
         // Left click
         if (Input.GetMouseButtonDown(0))
         {
-			if(this.team == UnitManager.Instance.team)
+			if(this.Team == UnitManager.Instance.team)
             {
                 //Debug.Log("This.team");
                 //Debug.Log(this.team);

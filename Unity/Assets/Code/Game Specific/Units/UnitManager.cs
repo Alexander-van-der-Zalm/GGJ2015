@@ -22,7 +22,7 @@ public class UnitManager : Singleton<UnitManager>
     
     public List<GameObject> UnitPrefabs;
 
-    //[HideInInspector]
+    [HideInInspector]
     public List<BasicUnit> Units;
 
     private GameManagement management;
@@ -130,7 +130,7 @@ public class UnitManager : Singleton<UnitManager>
         // Create
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;
         BasicUnit unit = newUnit.GetComponent<BasicUnit>();
-        unit.team = unitTeam;
+        unit.Team = unitTeam;
         unit.CurrentFace = face;
         unit.transform.parent = unitParent.transform;
 
@@ -211,10 +211,10 @@ public class UnitManager : Singleton<UnitManager>
 		Block block = bm.get(blockID);
 		BlockFace face = block.GetFace(blockFaceID);
 
-        if (block.TeamID != unit.team && !unit.capping)
+        if (block.TeamID != unit.Team && !unit.Capping)
         {
             block.StartCapture(unit);
-            unit.capping = true;
+            unit.Capping = true;
 		}
 	}
 
@@ -248,6 +248,4 @@ public class UnitManager : Singleton<UnitManager>
     }
 
     #endregion
-
-    
 }

@@ -16,6 +16,9 @@ public class GameManagement : MonoBehaviour
     public InputManager InputMgr;
     [HideInInspector]
     public SelectionManager SelectionMgr;
+    [HideInInspector]
+    public Rules Rules;
+
 
     // Use this for initialization
 	void Awake () 
@@ -25,5 +28,6 @@ public class GameManagement : MonoBehaviour
         NetworkMgr = GetComponent<NetworkManager>();
         InputMgr = GetComponent<InputManager>();
         SelectionMgr = GetComponent<SelectionManager>();
+        Rules = GetComponent<Rules>();
 	}
 }

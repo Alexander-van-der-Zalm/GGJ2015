@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
                 BasicUnit unit = management.UnitMgr.Units[i];
 
                 //Debug.Log(GetHotKey(unitNr) + " unit " + unit.team + " me " + management.UnitMgr.team + " count - " + management.UnitMgr.Units.Count);
-                if(management.UnitMgr.team == unit.team)
+                if(management.UnitMgr.team == unit.Team)
                 {
                     SelectionManager.SelectionChanged(unit);
                 }
