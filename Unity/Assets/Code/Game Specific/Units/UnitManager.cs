@@ -130,7 +130,7 @@ public class UnitManager : Singleton<UnitManager>
         // Create
         GameObject newUnit = GameObject.Instantiate(UnitPrefabs[version], position, rotation) as GameObject;
         BasicUnit unit = newUnit.GetComponent<BasicUnit>();
-        unit.Team = unitTeam;
+        unit.TeamID = unitTeam;
         unit.CurrentFace = face;
         unit.transform.parent = unitParent.transform;
 
@@ -211,7 +211,7 @@ public class UnitManager : Singleton<UnitManager>
 		Block block = bm.get(blockID);
 		BlockFace face = block.GetFace(blockFaceID);
 
-        if (block.TeamID != unit.Team && !unit.Capping)
+        if (block.TeamID != unit.TeamID && !unit.Capping)
         {
             block.StartCapture(unit);
             unit.Capping = true;

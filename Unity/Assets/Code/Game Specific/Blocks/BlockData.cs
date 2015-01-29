@@ -7,8 +7,8 @@ public class BlockData
     public enum BlockType
     {
         Normal,
-        Unit,
-		player
+        UnitSpawn,
+		PlayerSpawn
     }
     
     public Vector3 Scale,Position;

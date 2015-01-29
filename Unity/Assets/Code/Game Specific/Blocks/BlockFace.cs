@@ -22,7 +22,7 @@ public class BlockFace : MonoBehaviour
     [HideInInspector]
 	public ColorPallet ColorPallet;
 
-    
+    public OwnershipInfo OwnerInfo;
 
     [SerializeField]
     private int id;
@@ -97,14 +97,14 @@ public class BlockFace : MonoBehaviour
 			else if (Input.GetKey(KeyCode.W))
 			{
 				// Set Neutral Spawn
-				this.parentBlock.Type = BlockData.BlockType.Unit;
+				this.parentBlock.Type = BlockData.BlockType.UnitSpawn;
 				this.parentBlock.ColorTypeID = 3;
 				this.parentBlock.setBaseCol();
 			}
 			else if (Input.GetKey(KeyCode.E))
 			{
 				// Set Team Spawn
-				this.parentBlock.Type = BlockData.BlockType.player;
+				this.parentBlock.Type = BlockData.BlockType.PlayerSpawn;
 				if(this.parentBlock.TeamID == 0){
 					this.parentBlock.TeamID = 2;
 					this.parentBlock.setTeamCol(2);
@@ -172,6 +172,27 @@ public class BlockFace : MonoBehaviour
     #endregion
 
 	#region Changing colors
+
+    public void ChangeTeamColor()
+    {
+        int ct = OwnerInfo.ContestantTeamID;
+        int own = OwnerInfo.TeamID;
+        float t = OwnerInfo.Progress;
+
+        // No Need to change colors if not changed
+        if(ct == own)
+            return;
+
+        // If now neutral
+        if (own == 0)
+        {
+            SetColor(Color.Lerp(ColorPallet.NeutralColor[TextureId], ColorPallet.PlayerTeamColors[ct], t));
+        } // or contetant is neutral
+        else if (OwnerInfo.ContestantTeamID == 0)
+            SetColor(Color.Lerp(ColorPallet.PlayerTeamColors[own], ColorPallet.NeutralColor[TextureId], t));
+        else // both players
+            SetColor(Color.Lerp(ColorPallet.PlayerTeamColors[own], ColorPallet.PlayerTeamColors[ct], t));
+    }
 
     public void ChangeTeamColor(int to, int from, float slerpCount)
     {

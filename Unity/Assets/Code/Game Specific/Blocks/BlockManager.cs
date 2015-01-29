@@ -397,6 +397,11 @@ public class BlockManager : Singleton<BlockManager>
         return Instance.getFace(ids);
     }
 
+    internal static BlockFace GetFace(int blockID, int faceID)
+    {
+        return Instance.getFace(new UnitManager.FaceBlockID(){ BlockID = blockID, FaceID = faceID});
+    }
+
     #endregion
 
     //void OnEnable()

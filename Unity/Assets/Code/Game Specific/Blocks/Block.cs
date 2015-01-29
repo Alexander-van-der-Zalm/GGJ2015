@@ -27,10 +27,12 @@ public class Block : MonoBehaviour
 
 	public bool occupied = false;
 
+    public OwnershipInfo OwnerInfo;
+
     /// <summary>
     /// Team 0 = player 1, team 1 = neutral, team2 = player 2
     /// </summary>
-	public int TeamID = 1;
+    public int TeamID { get { return OwnerInfo.TeamID; } set { OwnerInfo.TeamID = value; } }
 
 	public int possesion = 0;
 
@@ -50,15 +52,25 @@ public class Block : MonoBehaviour
 
     #endregion
 
-	void Start()
+    #region Start
+
+    void Start()
     {
         //if (this.Type == BlockData.BlockType.Unit || this.Type == BlockData.BlockType.player) 
         //{
         //    this.RespawnUnit();
         //}
 	}
-	
-	public BlockFace GetFace(int blockFaceID)
+
+    #endregion
+
+    #region OwnerInfo
+
+    
+
+    #endregion
+
+    public BlockFace GetFace(int blockFaceID)
     {
         return Faces.Where(f => f.ID == blockFaceID).First();
     }
@@ -112,17 +124,17 @@ public class Block : MonoBehaviour
 		if (possesion == 0) 
         {
 			TeamID = 1;
-			if(BlockData.BlockType.Unit == Type)
+			if(BlockData.BlockType.UnitSpawn == Type)
             {
-				this.creature.Team = TeamID;
+				this.creature.TeamID = TeamID;
 			}
 		}
-		if (basic.Team < TeamID) 
+		if (basic.TeamID < TeamID) 
         {
 			possesion -= 1;
 			if(TeamID == 1)
             {
-				ChangeTeam(basic.Team, TeamID, (float)Mathf.Abs(possesion)/10);
+				ChangeTeam(basic.TeamID, TeamID, (float)Mathf.Abs(possesion)/10);
 			}
             else if(TeamID == 2)
             {
@@ -130,22 +142,22 @@ public class Block : MonoBehaviour
 			}
 			if(possesion == -possesionCap)
             {
-				TeamID = basic.Team;
-				if(BlockData.BlockType.Unit == Type)
+				TeamID = basic.TeamID;
+				if(BlockData.BlockType.UnitSpawn == Type)
                 {
-					this.creature.Team = TeamID;
+					this.creature.TeamID = TeamID;
 				}
 				basic.Capping = false;
 			}
 			yield return new WaitForSeconds(possesionTime);
 			StartCoroutine(CaptureTick(basic));
 		}
-		if (basic.Team > TeamID) 
+		if (basic.TeamID > TeamID) 
         {
 			possesion += 1;
 			if(TeamID == 1)
             {
-				ChangeTeam(basic.Team, TeamID, (float)Mathf.Abs(possesion)/10);
+				ChangeTeam(basic.TeamID, TeamID, (float)Mathf.Abs(possesion)/10);
 			}
             else if(TeamID == 0)
             {
@@ -153,10 +165,10 @@ public class Block : MonoBehaviour
 			}
 			if (possesion == possesionCap) 
             {
-				TeamID = basic.Team;
-				if(BlockData.BlockType.Unit == Type)
+				TeamID = basic.TeamID;
+				if(BlockData.BlockType.UnitSpawn == Type)
                 {
-					this.creature.Team = TeamID;
+					this.creature.TeamID = TeamID;
 				}
 				basic.Capping = false;
 			}
@@ -206,7 +218,7 @@ public class Block : MonoBehaviour
 
     public void RespawnUnit()
     {
-		if (Type == BlockData.BlockType.Unit || Type == BlockData.BlockType.player) 
+		if (Type == BlockData.BlockType.UnitSpawn || Type == BlockData.BlockType.PlayerSpawn) 
         {
 			// Remove existing spawn
             if(creature != null)
@@ -217,7 +229,7 @@ public class Block : MonoBehaviour
             
             // Create a new one
             UnitManager.Create (ID, SpawnFaceID, TeamID);
-			creature.Team = TeamID;
+			creature.TeamID = TeamID;
 		}
 	}
 

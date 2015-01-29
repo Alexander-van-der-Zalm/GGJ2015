@@ -13,6 +13,7 @@ public class MovementRules
     }
 
     public MoveDuringCapture CaptureFace,CaptureNode;
+    public float SpeedInFacePerSecond = 1.0f;
 
     public static bool CanMove()
     {

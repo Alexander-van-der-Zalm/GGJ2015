@@ -10,7 +10,7 @@ public class BasicUnit : MonoBehaviour
     public BlockFace CurrentFace;
     private Transform tr;
 
-	public int Team;
+	public int TeamID;
 
     //public int CreatureType;
 
@@ -74,7 +74,7 @@ public class BasicUnit : MonoBehaviour
         // Left click
         if (Input.GetMouseButtonDown(0))
         {
-			if(this.Team == UnitManager.Instance.team)
+			if(this.TeamID == UnitManager.Instance.team)
             {
                 //Debug.Log("This.team");
                 //Debug.Log(this.team);
