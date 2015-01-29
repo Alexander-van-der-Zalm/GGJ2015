@@ -189,7 +189,7 @@ public class UnitManager : Singleton<UnitManager>
         BlockFace orig = bm.getFace(origin);
         //Debug.Log("Move");
 
-        if(!dest.neighbors.Where(n => n == orig).Any())
+        if(!dest.Neighbors.Where(n => n == orig).Any())
         {
             Debug.Log("Illegal Move");
             return;

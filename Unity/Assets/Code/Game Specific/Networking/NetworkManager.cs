@@ -31,10 +31,12 @@ public class NetworkManager : MonoBehaviour
             PhotonNetwork.ConnectUsingSettings("0.1");
             Debug.Log("Connecting");
             roomOptions = new RoomOptions() { maxPlayers = 2, isVisible = true, isOpen = true };
+            Debug.Log(PhotonNetwork.player.ID);
         }
         else
         {
             PhotonNetwork.offlineMode = true;
+            Debug.Log(PhotonNetwork.player);
             UnitManager.Instance.RespawnAllUnits();
         }
 	}

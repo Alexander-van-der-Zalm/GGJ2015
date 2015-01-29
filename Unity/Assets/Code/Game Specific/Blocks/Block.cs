@@ -229,7 +229,7 @@ public class Block : MonoBehaviour
         {
             BlockFace current = input[i];
             float minDistance = float.MaxValue;
-            current.neighbors = new List<BlockFace>();
+            current.Neighbors = new List<BlockFace>();
 
             // Find mindistance
             for (int j = 0; j < input.Count; j++)
@@ -255,7 +255,7 @@ public class Block : MonoBehaviour
 
                 if(dist <= minDistance)
                 {
-                    current.neighbors.Add(other);
+                    current.Neighbors.Add(other);
                 }
             }
         }
@@ -329,7 +329,7 @@ public class Block : MonoBehaviour
     {
         foreach (BlockFace face in Faces)
         {
-            face.colPal = clrPallet;
+            face.ColorPallet = clrPallet;
         }
     }
 

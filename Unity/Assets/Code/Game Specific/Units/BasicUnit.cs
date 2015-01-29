@@ -23,6 +23,9 @@ public class BasicUnit : MonoBehaviour
     [SerializeField]
     private int id;
 
+    //public IEnumerator FaceCapture;
+    //public IEnumerator 
+
     #endregion
 
     #region Properties
