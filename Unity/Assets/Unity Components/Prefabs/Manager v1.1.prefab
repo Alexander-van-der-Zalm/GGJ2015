@@ -46,13 +46,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665e207b8b02c0944872979d138652d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NetworkRules:
+    MaxPlayers: 0
   ConquestRules:
     ConnectionRequirement: 0
     OnFace: 0
     OnNoMovement: 0
+    FaceCaptureTimers:
+      CaptureTime: 0
+      AnimationTime: 0
+    NodeCaptureTimers:
+      CaptureTime: 0
+      AnimationTime: 0
   MovementRules:
     CaptureFace: 0
     CaptureNode: 0
+    SpeedInFacePerSecond: 1
 --- !u!114 &11464806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,15 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721e40e715074ab4a862eb29b8c7b453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pallet: {fileID: 11400000, guid: 9a9a9d2ab29f4ca4ea9517f9ca570a22, type: 2}
+  Pallet: {fileID: 11400000, guid: 712ae9e1d7801b447ad445d6cc08aeca, type: 2}
   BlockPrefab: {fileID: 131910, guid: 143ed5e65db42444c9797e54eff23cb9, type: 2}
   LoadLevelOnReload: 0
   selectedLevel: World 1 - Shuriken.asset
   Blocks: []
   LevelNames:
+  - AlexPallette.asset
   - Basic Level Disc.asset
   - Basic Level Sphere.asset
-  - ColorPallet.asset
   - Level 1.asset
   - Level 2.asset
   - Level.asset
