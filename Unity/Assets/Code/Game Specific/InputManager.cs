@@ -154,7 +154,7 @@ public class InputManager : MonoBehaviour
         if (SelectionManager.SelectedUnit == null)
             return;
 
-        MovementRules.MovementClick(face, SelectionManager.SelectedUnit);
+        GameManagement.Rules.MovementRules.MovementClick(face, SelectionManager.SelectedUnit);
     }
 
     #endregion

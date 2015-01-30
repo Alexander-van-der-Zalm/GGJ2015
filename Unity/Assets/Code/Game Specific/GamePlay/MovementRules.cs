@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public class MovementRules
@@ -13,12 +14,20 @@ public class MovementRules
         NoMovement
     }
 
+    public enum MovementMethodEnum
+    {
+        OneFace
+    }
+
     #endregion
 
     #region Fields
 
-    public MoveDuringCapture CaptureFace,CaptureNode;
+    public MovementMethodEnum MovementMethod;
     public float SpeedInFacePerSecond = 1.0f;
+
+    public MoveDuringCapture CaptureFace,CaptureNode;
+    
 
     #endregion
 
@@ -41,9 +50,22 @@ public class MovementRules
 
     #endregion
 
-    public bool CanMove(BlockFace face, BasicUnit unit)
+    public bool CanMove(BlockFace dest, BasicUnit unit)
     {
-        throw new System.NotImplementedException();
+        // Check if neighboring
+        if (!dest.Neighbors.Where(n => n == unit.CurrentFace).Any())
+        {
+            Debug.Log("Illegal Move");
+            return false;
+        }
+
+        if (dest.Block != unit.CurrentFace.Block && dest.Block.Faces.Where(f => f.HasUnit).Any())
+        {
+            Debug.Log("Blocked");
+            return false;
+        }
+
+        return true;
     }
 
     public void SendMoveOrder(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
@@ -62,32 +84,23 @@ public class MovementRules
     [RPC]
     public void MoveUnit(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
     {
-        FaceBlockID destination = new FaceBlockID() { FaceID = destFaceID, BlockID = destBlockID };
-        FaceBlockID origin = new FaceBlockID() { FaceID = originFaceID, BlockID = originBlockID };
+        UnitManager.FaceBlockID destination = new UnitManager.FaceBlockID() { FaceID = destFaceID, BlockID = destBlockID };
+        UnitManager.FaceBlockID origin = new UnitManager.FaceBlockID() { FaceID = originFaceID, BlockID = originBlockID };
 
-        BasicUnit unit = get(unitID);
+        BasicUnit unit = GameManagement.Unit.GetUnit(unitID);
+        BlockFace dest = GameManagement.Block.getFace(destination);
 
         // Check if the move is legal
-        BlockFace dest = bm.getFace(destination);
-        BlockFace orig = bm.getFace(origin);
-        //Debug.Log("Move");
-
-        // Check if neighboring
-        if (!dest.Neighbors.Where(n => n == orig).Any())
-        {
-            Debug.Log("Illegal Move");
+        if (!CanMove(dest, unit))
             return;
-        }
 
-        if (dest.Block != orig.Block && dest.Block.Faces.Where(f => f.HasUnit).Any())
-        {
-            Debug.Log("Blocked");
-            return;
-        }
+        Debug.Log("Move 2.0");
 
         unit.MoveUnit(destination.BlockID, destination.FaceID);
 
-        ColorBlock(destination.BlockID, destination.FaceID, unit);
+        // Capture Block
+        GameManagement.Rules.ConquestRules.OnFace(unit);
+        //ColorBlock(destination.BlockID, destination.FaceID, unit);
     }
 
     

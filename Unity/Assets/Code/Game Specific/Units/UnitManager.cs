@@ -57,7 +57,7 @@ public class UnitManager : Singleton<UnitManager>
 
     #region Get, reg & unreg & id's
 
-    public BasicUnit get(int ID)
+    public BasicUnit GetUnit(int ID)
     {
         //return Units.Where(b => b.ID == ID).First();
         for (int i = 0; i < Units.Count; i++)
@@ -69,7 +69,7 @@ public class UnitManager : Singleton<UnitManager>
 
     public static BasicUnit Get(int ID)
     {
-        return Instance.get(ID);
+        return Instance.GetUnit(ID);
     }
 
     public static void Register(BasicUnit unit)
