@@ -89,8 +89,8 @@ public class ConquestRules
     #region Fields
 
     public ConnectedRequirement ConnectionRequirement;
-    public CaptureMethod OnFace;
-    public CaptureMethod OnNoMovement;
+    public CaptureMethod OnFaceCaptureMethod;
+    public CaptureMethod OnNoMovementCaptureMethod;
 
     public CaptureTimes FaceCaptureTimers;
     public CaptureTimes NodeCaptureTimers;
@@ -142,8 +142,109 @@ public class ConquestRules
 
     #endregion
 
+    #region Capture Hookups
+
+    /// <summary>
+    /// Sends out an RPC network call to all the 
+    /// </summary>
+    public void OnFace(BasicUnit unit)
+    {
+        // Check if allowed, possible
+        if (EarlyRejectCapture(unit, OnFaceCaptureMethod))
+            return;
+
+        // Do the RPC call
+        if(PhotonNetwork.offlineMode)
+        {
+            StartCaptureRPC(unit.ID, (int)OnFaceCaptureMethod);
+        }
+        else
+        {
+            GameManagement.Photon.RPC("StartCaptureRPC", PhotonTargets.All, unit.ID, (int)OnFaceCaptureMethod);
+        }
+    }
+
+    /// <summary>
+    /// If the unit is not moving check if it can capture
+    /// </summary>
+    public void OnNoMovement(BasicUnit unit)
+    {
+        // Check if allowed, possible
+        if (EarlyRejectCapture(unit, OnFaceCaptureMethod))
+            return;
+
+        // Do the RPC call
+        if (PhotonNetwork.offlineMode)
+        {
+            StartCaptureRPC(unit.ID, (int)OnNoMovementCaptureMethod);
+        }
+        else
+        {
+            GameManagement.Photon.RPC("StartCaptureRPC", PhotonTargets.All, unit.ID, (int)OnNoMovementCaptureMethod);
+        }
+    }
+
+
+    #region Early Reject
+
+
+    private bool EarlyRejectCapture(BasicUnit unit, CaptureMethod OnFaceCaptureMethod)
+    {
+        // Let only the owner of the units send the RPC's
+        if (unit.TeamID != PhotonNetwork.player.ID)
+            return true;
+
+        // Check if already the owner
+        if (EarlyReject(unit, OnFaceCaptureMethod))
+            return true;
+
+        // Check if the unit can capture based on the current rules
+        if (!CanQonquer(unit))
+        {
+            Debug.Log("Cannot Capture");
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /// <summary>
+    /// Returns true if the capture is not necessary (already owned)
+    /// </summary>
+    private bool EarlyReject(BasicUnit unit, CaptureMethod captureMethod)
+    {
+        // Returns t
+        switch (captureMethod)
+        {
+            case CaptureMethod.CaptureFace:
+                return EarlyFaceCaptureReject(unit);
+            case CaptureMethod.CaptureNode:
+                return EarlyNodeCaptureReject(unit);
+            case CaptureMethod.None:
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool EarlyNodeCaptureReject(BasicUnit unit)
+    {
+        return unit.TeamID == unit.CurrentFace.Block.TeamID;
+    }
+
+    private bool EarlyFaceCaptureReject(BasicUnit unit)
+    {
+        return unit.TeamID == unit.CurrentFace.TeamID;
+    }
+
+    #endregion
+
+
+    #endregion
+
     #region CaptureMethods
-    
+
     /// <summary>
     /// Called over network when a capture starts (Face does currentFace of unit, Node does current block face per face)
     /// </summary>
@@ -172,23 +273,21 @@ public class ConquestRules
 
     #region Face Capture 
 
-    /// <summary>
-    /// Starts FaceCaptureCoRoutine
-    /// </summary>
-    /// <param name="unit"></param>
-    /// <param name="face"></param>
-    private void FaceCapture(BasicUnit unit, BlockFace face)
-    {
-        unit.StartCoroutine(FaceCaptureCR(unit,face));
-    }
-
     [RPC]
     public void StartFaceCaptureRPC(int unitID, int BlockID, int faceID)
     {
         BasicUnit unit = UnitManager.Get(unitID);
         BlockFace face = BlockManager.GetFace(BlockID, faceID);
 
-        unit.StartCoroutine(FaceCaptureCR(unit, face));
+        FaceCapture(unit, face);
+    }
+
+    /// <summary>
+    /// Starts FaceCaptureCoRoutine
+    /// </summary>
+    private void FaceCapture(BasicUnit unit, BlockFace face)
+    {
+        unit.StartCoroutine(FaceCaptureCR(unit,face));
     }
     
     private IEnumerator FaceCaptureCR(BasicUnit unit, BlockFace face)
@@ -209,12 +308,14 @@ public class ConquestRules
         face.OwnerInfo.Progress = 0;
         // TODO animation swap
 
+        unit.Capping = true;
+
         float captureStep = 1 / FaceCaptureTimers.CaptureTime;
 
         // Start progress
         while (face.OwnerInfo.Progress < 1)
         {
-            if(face.OwnerInfo.InterruptCapture)
+            if(!unit.Capping)
             {
                 Debug.Log("Capture interrupted");
                 face.OwnerInfo.InterruptCapture = false;
@@ -229,6 +330,7 @@ public class ConquestRules
 
         // Captured
         Debug.Log("Captured");
+        unit.Capping = false;
         face.OwnerInfo.Reset();
         face.OwnerInfo.TeamID = unit.TeamID;
         face.ChangeTeamColor();

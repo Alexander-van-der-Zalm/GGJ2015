@@ -3,7 +3,9 @@ using System.Collections;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
-    public BasicUnit SelectedUnit;
+    public static BasicUnit SelectedUnit { get { return Instance.selectedUnit; } set { Instance.selectedUnit = value; } }
+
+    private BasicUnit selectedUnit;
 
     // Handle Mouse Clicks Logic
 
@@ -12,7 +14,7 @@ public class SelectionManager : Singleton<SelectionManager>
 
     internal static void SelectionChanged(BasicUnit basicUnit)
     {
-        BasicUnit oldSelection = Instance.SelectedUnit;
+        BasicUnit oldSelection = SelectedUnit;
         
         // Change previous selected UI
 
@@ -27,11 +29,11 @@ public class SelectionManager : Singleton<SelectionManager>
         
 
         // Set new unit
-        Instance.SelectedUnit = basicUnit;
+        SelectedUnit = basicUnit;
         basicUnit.Selectable(false);
 
         // Change camera perspective
-        (Camera.main.GetComponent<Camera_Rotation>()).rotateToUnit(Instance.SelectedUnit.transform);
+        (Camera.main.GetComponent<Camera_Rotation>()).rotateToUnit(SelectedUnit.transform);
 
         // Change UI
         

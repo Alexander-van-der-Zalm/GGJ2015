@@ -2,7 +2,8 @@
 using System.Collections;
 
 [System.Serializable]
-public class NetworkRules  
+public class RoomRules  
 {
     public int MaxPlayers;
+    public bool BuildMode;
 }

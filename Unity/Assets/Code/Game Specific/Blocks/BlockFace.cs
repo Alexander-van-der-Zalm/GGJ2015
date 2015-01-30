@@ -38,6 +38,8 @@ public class BlockFace : MonoBehaviour
 
     public int ID { get { return id; } set { id = value; } }
 
+    public int TeamID { get { return OwnerInfo.TeamID; } set { OwnerInfo.TeamID = value;  } }
+
     public Block Block { get { return parentBlock; } set { parentBlock = value; } }
 
 	void Awake()
@@ -76,97 +78,12 @@ public class BlockFace : MonoBehaviour
         // Left click
         if(Input.GetMouseButtonDown(0))
         {
-            if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
-            {
-                // New block
-                Debug.Log("Create new block: [" + Block.ID + "," + ID+ "]");
-                BlockManager.Add(Block.ID, ID);
-            }
-            else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
-            {
-                // Create Unit
-                UnitManager.Create(Block.ID, ID, 1);
-            }
-			else if (Input.GetKey(KeyCode.Q))
-			{
-				// Set Normal and loop over versions
-				this.parentBlock.Type = BlockData.BlockType.Normal;
-                this.parentBlock.ColorTypeID = (parentBlock.ColorTypeID + 1) % BlockManager.Instance.Pallet.NeutralColor.Length;
-				this.parentBlock.setBaseCol();
-			}
-			else if (Input.GetKey(KeyCode.W))
-			{
-				// Set Neutral Spawn
-				this.parentBlock.Type = BlockData.BlockType.UnitSpawn;
-				this.parentBlock.ColorTypeID = 3;
-				this.parentBlock.setBaseCol();
-			}
-			else if (Input.GetKey(KeyCode.E))
-			{
-				// Set Team Spawn
-				this.parentBlock.Type = BlockData.BlockType.PlayerSpawn;
-				if(this.parentBlock.TeamID == 0){
-					this.parentBlock.TeamID = 2;
-					this.parentBlock.setTeamCol(2);
-				}else{
-					this.parentBlock.TeamID = 0;
-					this.parentBlock.setTeamCol(0);
-				}
-			}
-			else if (Input.GetKey(KeyCode.R))
-			{
-				//Set Spawn face
-				this.parentBlock.SpawnFaceID = this.ID;
-			}
-			else
-			{
-				//SelectionManager Stuff
-                if (SelectionManager.Instance.SelectedUnit != null)
-                {
-                    // Reimplement FacePing 
-                   // (GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
-
-                    BasicUnit unit = SelectionManager.Instance.SelectedUnit;
-                    if (!unit.Capping)
-                    {
-						// Pass along the destination, the origin and the unitID
-                        UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, 
-                        SelectionManager.Instance.SelectedUnit.ID,
-                        new UnitManager.FaceBlockID() 
-                        { 
-                            FaceID = (unit.CurrentFace != null) ? unit.CurrentFace.ID : ID,
-                            BlockID = (unit.CurrentFace != null) ? unit.CurrentFace.Block.ID : Block.ID
-                        });
-					}
-
-                    //UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
-                    //Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
-
-                }
-					
-            }
+            GameManagement.Input.LefClickOnFace(this);
         }// Right mouse button
         else if(Input.GetMouseButtonDown(1))
         {
-            if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
-            {
-                Debug.Log("Remove block " + Block.ID);
-                BlockManager.Remove(Block.ID);
-            }
-			else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-            {
-				if(this.parentBlock.ColorTypeID < ColorPallet.NeutralColor.Length-2)
-                {
-					this.parentBlock.ColorTypeID++;
-				}
-                else
-                {
-					this.parentBlock.ColorTypeID = 0;
-				}
-				this.parentBlock.setBaseCol();
-			}
+            GameManagement.Input.RightClickOnFace(this);
         }
-
     }
 
     #endregion

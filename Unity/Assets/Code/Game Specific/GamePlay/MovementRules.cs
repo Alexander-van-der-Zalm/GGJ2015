@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class MovementRules 
+public class MovementRules
 {
+    #region Enums
 
     public enum MoveDuringCapture
     {
@@ -12,8 +13,14 @@ public class MovementRules
         NoMovement
     }
 
+    #endregion
+
+    #region Fields
+
     public MoveDuringCapture CaptureFace,CaptureNode;
     public float SpeedInFacePerSecond = 1.0f;
+
+    #endregion
 
     public static bool CanMove()
     {

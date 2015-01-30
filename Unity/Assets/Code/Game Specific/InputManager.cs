@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InputManager : MonoBehaviour 
+public class InputManager : MonoBehaviour
 {
+    #region  Field & Start
+
     private GameManagement management;
 
     void Awake()
@@ -10,8 +12,11 @@ public class InputManager : MonoBehaviour
         management = GetComponent<GameManagement>();
     }
 
+    #endregion
 
-	// Update is called once per frame
+    #region Update & Global Key Presses
+
+    // Update is called once per frame
 	void Update ()
     {
         HandleSaveAndLoad();
@@ -70,8 +75,6 @@ public class InputManager : MonoBehaviour
         return KeyCode.Alpha0;
     }
 
-
-
     private void RestartGame()
     {
 
@@ -89,4 +92,136 @@ public class InputManager : MonoBehaviour
             BlockManager.SaveLevel();
         }
     }
+
+    #endregion
+
+    #region Clicked on Face
+
+    #region Click Entries (Left & Right)
+
+    public void LefClickOnFace(BlockFace face)
+    {
+        FacePing(face);
+        
+        if(GameManagement.Rules.RoomRules.BuildMode)
+        {
+            HandleBuildLeftClick(face);
+        }
+        else
+        {
+            HandleMovementClick(face);
+        }
+    }
+
+    public void RightClickOnFace(BlockFace face)
+    {
+        // Remove block
+        if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
+        {
+            BlockManager.Remove(face.Block.ID);
+        } // Change color
+        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            if (face.Block.ColorTypeID < face.ColorPallet.NeutralColor.Length - 2)
+                face.Block.ColorTypeID++;
+            else
+                face.Block.ColorTypeID = 0;
+
+            face.Block.setBaseCol();
+        }
+    }
+
+    #endregion
+
+    #region FacePing
+
+    /// <summary>
+    /// Spawns an effect on click
+    /// </summary>
+    private void FacePing(BlockFace face)
+    {
+        // Reimplement FacePing 
+        // (GameObject.FindGameObjectWithTag("manager").GetComponent<Face_Ping>()).ping(this.transform);
+    }
+
+    #endregion
+
+    #region HandleMovement
+
+    private void HandleMovementClick(BlockFace face)
+    {
+        // No need to move if there is no unit selected
+        if (SelectionManager.SelectedUnit == null)
+            return;
+        
+        BasicUnit unit = SelectionManager.SelectedUnit;
+
+        if (!unit.Capping)
+        {
+            // Pass along the destination, the origin and the unitID
+            int originFaceID = (unit.CurrentFace != null) ? unit.CurrentFace.ID : face.ID;
+            int originBlockID = (unit.CurrentFace != null) ? unit.CurrentFace.Block.ID : face.Block.ID;
+
+            UnitManager.LocalMoveOrder(face.ID, face.Block.ID, SelectionManager.SelectedUnit.ID, originFaceID, originBlockID);
+        }
+
+        //UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
+        //Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+    }
+
+    #endregion
+
+    #region Handle Build Clicks (Left & Right
+
+    private void HandleBuildLeftClick(BlockFace face)
+    {
+        // New block
+        if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
+        {
+            Debug.Log("Create new block: [" + face.Block.ID + "," + face.ID + "]");
+            BlockManager.Add(face.Block.ID, face.ID);
+        }// Create Unit
+        else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+        {
+            UnitManager.Create(face.Block.ID, face.ID, 1);
+        }// Set Texture ID and loop over versions
+        else if (Input.GetKey(KeyCode.Q))
+        {
+
+            face.Block.Type = BlockData.BlockType.Normal;
+            face.Block.ColorTypeID = (face.Block.ColorTypeID + 1) % BlockManager.Instance.Pallet.NeutralColor.Length;
+            face.Block.setBaseCol();
+        } // Set Neutral Spawn
+        else if (Input.GetKey(KeyCode.W))
+        {
+            face.Block.Type = BlockData.BlockType.UnitSpawn;
+            face.Block.ColorTypeID = 3;
+            face.Block.setBaseCol();
+        }// Set Team Spawn 
+        else if (Input.GetKey(KeyCode.E))
+        {
+            face.Block.Type = BlockData.BlockType.PlayerSpawn;
+            if (face.Block.TeamID == 0)
+            {
+                face.Block.TeamID = 2;
+                face.Block.setTeamCol(2);
+            }
+            else
+            {
+                face.Block.TeamID = 0;
+                face.Block.setTeamCol(0);
+            }
+        } //Set Spawn face
+        else if (Input.GetKey(KeyCode.R))
+        {
+            face.Block.SpawnFaceID = face.ID;
+        } // Move unit
+    }
+
+
+    
+
+    #endregion
+
+    #endregion
 }

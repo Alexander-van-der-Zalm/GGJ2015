@@ -163,16 +163,16 @@ public class UnitManager : Singleton<UnitManager>
 
     #region RPC Move section
 
-    public static void LocalMoveOrder(FaceBlockID destination, int unitID, FaceBlockID origin)
+    public static void LocalMoveOrder(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
     {
         if (PhotonNetwork.offlineMode)
         {
-            Instance.MoveUnit(destination.FaceID, destination.BlockID, unitID, origin.FaceID, origin.BlockID);
+            Instance.MoveUnit(destFaceID, destBlockID, unitID, originFaceID, originBlockID);
         }
         else
         {
             // Do the RPC call
-            (Instance.GetComponent<PhotonView>()).RPC("MoveUnit", PhotonTargets.All, destination.FaceID, destination.BlockID, unitID, origin.FaceID, origin.BlockID);
+            (Instance.GetComponent<PhotonView>()).RPC("MoveUnit", PhotonTargets.All, destFaceID, destBlockID, unitID, originFaceID, originBlockID);
         }
     }
 
@@ -189,6 +189,7 @@ public class UnitManager : Singleton<UnitManager>
         BlockFace orig = bm.getFace(origin);
         //Debug.Log("Move");
 
+        // Check if neighboring
         if(!dest.Neighbors.Where(n => n == orig).Any())
         {
             Debug.Log("Illegal Move");
