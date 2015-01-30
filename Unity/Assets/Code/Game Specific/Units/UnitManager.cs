@@ -163,49 +163,7 @@ public class UnitManager : Singleton<UnitManager>
 
     #region RPC Move section
 
-    public static void LocalMoveOrder(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
-    {
-        if (PhotonNetwork.offlineMode)
-        {
-            Instance.MoveUnit(destFaceID, destBlockID, unitID, originFaceID, originBlockID);
-        }
-        else
-        {
-            // Do the RPC call
-            (Instance.GetComponent<PhotonView>()).RPC("MoveUnit", PhotonTargets.All, destFaceID, destBlockID, unitID, originFaceID, originBlockID);
-        }
-    }
-
-    [RPC]
-    public void MoveUnit(int destFaceID, int destBlockID, int unitID, int originFaceID, int originBlockID)
-    {
-        FaceBlockID destination = new FaceBlockID() { FaceID = destFaceID, BlockID = destBlockID };
-        FaceBlockID origin = new FaceBlockID() { FaceID = originFaceID, BlockID = originBlockID };
-
-        BasicUnit unit = get(unitID);
-
-        // Check if the move is legal
-        BlockFace dest = bm.getFace(destination);
-        BlockFace orig = bm.getFace(origin);
-        //Debug.Log("Move");
-
-        // Check if neighboring
-        if(!dest.Neighbors.Where(n => n == orig).Any())
-        {
-            Debug.Log("Illegal Move");
-            return;
-        }
-
-        if(dest.Block != orig.Block && dest.Block.Faces.Where(f => f.HasUnit).Any())
-        {
-            Debug.Log("Blocked");
-            return;
-        }
-
-        unit.MoveUnit(destination.BlockID, destination.FaceID);
-
-        ColorBlock(destination.BlockID, destination.FaceID, unit);
-    }
+    
 
 	public void ColorBlock(int blockID, int blockFaceID, BasicUnit unit)
     {
