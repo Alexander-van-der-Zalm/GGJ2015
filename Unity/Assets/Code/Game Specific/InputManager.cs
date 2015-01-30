@@ -153,20 +153,8 @@ public class InputManager : MonoBehaviour
         // No need to move if there is no unit selected
         if (SelectionManager.SelectedUnit == null)
             return;
-        
-        BasicUnit unit = SelectionManager.SelectedUnit;
 
-        if (!unit.Capping)
-        {
-            // Pass along the destination, the origin and the unitID
-            int originFaceID = (unit.CurrentFace != null) ? unit.CurrentFace.ID : face.ID;
-            int originBlockID = (unit.CurrentFace != null) ? unit.CurrentFace.Block.ID : face.Block.ID;
-
-            UnitManager.LocalMoveOrder(face.ID, face.Block.ID, SelectionManager.SelectedUnit.ID, originFaceID, originBlockID);
-        }
-
-        //UnitManager.LocalMoveOrder(new UnitManager.FaceBlockID() { FaceID = ID, BlockID = Block.ID }, Selectionmanager.Instance.SelectedUnit.ID, new UnitManager.FaceBlockID());
-        //Selectionmanager.Instance.SelectedUnit.MoveUnit(Block.ID, ID);
+        MovementRules.MovementClick(face, SelectionManager.SelectedUnit);
     }
 
     #endregion
