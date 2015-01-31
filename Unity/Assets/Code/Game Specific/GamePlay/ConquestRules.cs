@@ -8,21 +8,36 @@ using System.Collections.Generic;
 [System.Serializable]
 public class OwnershipInfo
 {
+    #region Fields
+
     public int ContestantTeamID;
     public int TeamID;
 
-    public bool InterruptCapture = false;
+    //public bool InterruptCapture = false;
+
+    public Coroutine CaptureCoRoutine;
 
     [Range(0.0f, 1.0f),SerializeField]
     private float progress;
 
+    #endregion
+
+    #region Properties
+
+    public bool CaptureInProgress { get { return CaptureCoRoutine != null; } }
+
     public float Progress { get { return progress; } set { progress = Mathf.Clamp(value, 0, 1); } }
+
+    #endregion
+
+    #region Reset
 
     public void Reset()
     {
         ContestantTeamID = 0;
         TeamID = 0;
         Progress = 0;
+        CaptureCoRoutine = null;
     }
 
     public static void ResetAll(Block block)
@@ -53,6 +68,8 @@ public class OwnershipInfo
         OwnershipInfo.ResetAll(block);
         OwnershipInfo.SetAllOwnerID(block, id);
     }
+
+    #endregion
 }
 
 #endregion
@@ -66,9 +83,13 @@ public class ConquestRules
     {
         None,
         NodeConnectedSameTeam,
+        NodeContestedSameTeam,
         NodeConnectedTeamBase,
+        NodeContestedTeamBase,
         FaceConnectedSameTeam,
-        FaceConnectedTeamBase
+        FaceContestedSameTeam,
+        FaceConnectedTeamBase,
+        FaceContestedTeamBase
     }
 
     public enum CaptureMethod
@@ -103,7 +124,7 @@ public class ConquestRules
     /// <summary>
     /// Check if the unit can conquer the current face/node
     /// </summary>
-    public bool CanQonquer(BasicUnit unit)
+    public bool CanQonquer(BlockFace face, int teamID)
     {
         switch (ConnectionRequirement)
         {
@@ -111,13 +132,19 @@ public class ConquestRules
                 return true;
 
             case ConnectedRequirement.NodeConnectedSameTeam:
-                return CanConquerBlockConnectedSameTeam(unit);
+                return CanConquerBlockConnectedSameTeam(face.Block, teamID);
+
+            case ConnectedRequirement.NodeContestedSameTeam:
+                return CanConquerBlockContestedSameTeam(face.Block, teamID);
 
             case ConnectedRequirement.NodeConnectedTeamBase:
                 throw new System.NotImplementedException();
 
             case ConnectedRequirement.FaceConnectedSameTeam:
-                return CanConquerFaceConnectedSameTeam(unit);
+                return CanConquerFaceConnectedSameTeam(face, teamID);
+
+            case ConnectedRequirement.FaceContestedSameTeam:
+                return CanConquerFaceContestedSameTeam(face, teamID);
 
             case ConnectedRequirement.FaceConnectedTeamBase:
                 throw new System.NotImplementedException();
@@ -125,20 +152,34 @@ public class ConquestRules
         throw new System.NotImplementedException();
     }
 
+    
+
+    
+
     /// <summary>
     /// Returns true if any of the units current block neighbor is of the same team
     /// </summary>
-    private bool CanConquerBlockConnectedSameTeam(BasicUnit unit)
+    private bool CanConquerBlockConnectedSameTeam(Block block, int teamID)
     {
-        return unit.CurrentFace.Block.Neighbors.Where(b => b.OwnerInfo.TeamID == unit.TeamID).Any();
+        return block.Neighbors.Where(b => b.OwnerInfo.TeamID == teamID).Any();
+    }
+
+    private bool CanConquerBlockContestedSameTeam(Block block, int teamID)
+    {
+        return block.Neighbors.Where(b => b.OwnerInfo.TeamID == teamID || b.OwnerInfo.ContestantTeamID == teamID).Any();
     }
 
     /// <summary>
     /// Returns true if any of the units current face neighbor is of the same team
     /// </summary>
-    private bool CanConquerFaceConnectedSameTeam(BasicUnit unit)
+    private bool CanConquerFaceConnectedSameTeam(BlockFace face, int teamID)
     {
-        return unit.CurrentFace.Neighbors.Where(f => f.OwnerInfo.TeamID == unit.TeamID).Any();
+        return face.Neighbors.Where(f => f.OwnerInfo.TeamID == teamID).Any();
+    }
+
+    private bool CanConquerFaceContestedSameTeam(BlockFace face, int teamID)
+    {
+        return face.Neighbors.Where(f => f.OwnerInfo.TeamID == teamID || f.OwnerInfo.ContestantTeamID == teamID).Any();
     }
 
     #endregion
@@ -200,7 +241,7 @@ public class ConquestRules
             return true;
 
         // Check if the unit can capture based on the current rules
-        if (!CanQonquer(unit))
+        if (!CanQonquer(unit.CurrentFace, unit.TeamID))
         {
             Debug.Log("Cannot Capture");
             return true;
@@ -290,7 +331,14 @@ public class ConquestRules
     /// </summary>
     private void FaceCapture(BasicUnit unit, BlockFace face)
     {
-        unit.StartCoroutine(FaceCaptureCR(unit,face));
+        if (face.OwnerInfo.CaptureInProgress)
+        {
+            face.StopCoroutine(face.OwnerInfo.CaptureCoRoutine);
+            Debug.Log("Stopping previous capture");
+        }
+            
+
+        face.OwnerInfo.CaptureCoRoutine = face.StartCoroutine(FaceCaptureCR(unit,face));
     }
     
     private IEnumerator FaceCaptureCR(BasicUnit unit, BlockFace face)
@@ -301,8 +349,8 @@ public class ConquestRules
         if(face.OwnerInfo.Progress > 0 && face.OwnerInfo.ContestantTeamID != unit.TeamID)
         {
             // Can be changed to save unit to info and/or coroutine to info
-            Debug.Log("Already contested - 1 step of waiting for coroutines to stop");
-            face.OwnerInfo.InterruptCapture = true;
+            Debug.Log("Already contested - do nothing for now");
+            //face.OwnerInfo.InterruptCapture = true;
             yield return null;
         }
 
@@ -313,6 +361,7 @@ public class ConquestRules
         face.OwnerInfo.Progress = 0;
         // TODO animation swap
 
+        // Still needed???
         unit.Capping = true;
 
         //float startTime = Time.realtimeSinceStartup;
@@ -322,14 +371,13 @@ public class ConquestRules
         while (face.OwnerInfo.Progress < 1)
         {
             // Check captureCondition still true
-            
-            if(face.OwnerInfo.InterruptCapture)
+            if(!CanQonquer(face,unit.TeamID)) // Change to stopCoroutine
             {
-                Debug.Log("Capture interrupted");
-                face.OwnerInfo.InterruptCapture = false;
+                Debug.Log("Capture criteria not valid anymore");
+                face.OwnerInfo.CaptureCoRoutine = null;
+                //face.OwnerInfo.InterruptCapture = false;
                 yield break;
             }
-            
 
             // continue capture
             face.OwnerInfo.Progress += Time.deltaTime * captureStep;
@@ -337,17 +385,20 @@ public class ConquestRules
             //float capTime = Time.realtimeSinceStartup - startTime;
             //Debug.Log(face.OwnerInfo.Progress + " " + capTime + " max: " + FaceCaptureTimers.CaptureTime);
 
-
+            // Update vertex color
             face.ChangeContestedTeamColor();
             yield return null;
         }
 
         // Captured
         Debug.Log("Captured");
-        unit.Capping = false;
+        // Reset info
         face.OwnerInfo.Reset();
+
+        // Set new info
         face.OwnerInfo.TeamID = unit.TeamID;
         face.SetTeamColor();
+        
     }
 
     #endregion
