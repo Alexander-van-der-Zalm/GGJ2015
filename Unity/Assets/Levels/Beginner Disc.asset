@@ -44,7 +44,7 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 0}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 9
     ColorTypeID: 0
     Team: 0
   - Scale: {x: 1, y: 1, z: 1}
@@ -86,7 +86,7 @@ MonoBehaviour:
     Position: {x: 1, y: -2, z: -1}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 9
     ColorTypeID: 0
     Team: 1
   - Scale: {x: 1, y: 1, z: 1}
@@ -177,7 +177,7 @@ MonoBehaviour:
     Position: {x: 1.5, y: 0, z: 1.5}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 9
     ColorTypeID: 1
     Team: 0
   - Scale: {x: 1, y: 1, z: 1}
@@ -198,7 +198,7 @@ MonoBehaviour:
     Position: {x: -1.5, y: 0, z: -1.5}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 5
     ColorTypeID: 0
     Team: 0
   - Scale: {x: 1, y: 1, z: 1}
@@ -226,7 +226,7 @@ MonoBehaviour:
     Position: {x: -1, y: 2, z: 1}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     Type: 1
-    SpawnFaceID: 0
+    SpawnFaceID: 5
     ColorTypeID: 0
     Team: 2
   - Scale: {x: 1, y: 1, z: 1}
