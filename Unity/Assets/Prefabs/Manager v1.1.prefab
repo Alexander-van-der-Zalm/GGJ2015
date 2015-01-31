@@ -47,18 +47,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomRules:
-    MaxPlayers: 0
+    MaxPlayers: 2
     BuildMode: 0
   ConquestRules:
-    ConnectionRequirement: 0
-    OnFaceCaptureMethod: 2
-    OnNoMovementCaptureMethod: 0
+    ConnectionRequirement: 6
+    OnFaceCaptureMethod: 1
+    OnNoMovementCaptureMethod: 1
     FaceCaptureTimers:
       CaptureTime: 2
       AnimationTime: 2
     NodeCaptureTimers:
-      CaptureTime: 6
-      AnimationTime: 6
+      CaptureTime: 4
+      AnimationTime: 4
   MovementRules:
     MovementMethod: 0
     SpeedInFacePerSecond: 1

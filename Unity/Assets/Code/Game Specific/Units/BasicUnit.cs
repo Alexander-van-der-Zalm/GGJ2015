@@ -16,7 +16,9 @@ public class BasicUnit : MonoBehaviour
 
     public ConquestRules.CaptureMethod CaptureState;
 
-	public bool Capping = false;
+    private bool capping = false;
+
+    public bool Capping { get { return capping; } set { capping = value; } }
 
 	public Animator anim;
 

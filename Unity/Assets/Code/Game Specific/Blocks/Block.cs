@@ -111,7 +111,7 @@ public class Block : MonoBehaviour
     {
         foreach (BlockFace face in Faces)
         {
-            face.ChangeContestedTeamColor();
+            face.RedrawContestedTeamColor();
         }
     }
 
