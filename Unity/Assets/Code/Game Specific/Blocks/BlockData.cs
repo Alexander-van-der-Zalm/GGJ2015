@@ -8,7 +8,7 @@ public class BlockData
     {
         Normal,
         UnitSpawn,
-		PlayerSpawn
+		StartSpawn
     }
     
     public Vector3 Scale,Position;

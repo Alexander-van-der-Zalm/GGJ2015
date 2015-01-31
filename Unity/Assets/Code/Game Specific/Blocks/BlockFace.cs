@@ -19,8 +19,8 @@ public class BlockFace : MonoBehaviour
     [HideInInspector]
     public List<BlockFace> Neighbors;
 
-    [HideInInspector]
-	public ColorPallet ColorPallet;
+    //[HideInInspector]
+    public ColorPalette ColorPallet { get { return GameManagement.Block.Pallet; } }
 
     public OwnershipInfo OwnerInfo;
 
@@ -88,45 +88,42 @@ public class BlockFace : MonoBehaviour
 
     #endregion
 
-	#region Changing colors
+	#region Team Color Set
 
-    public void ChangeTeamColor()
+    public void ChangeContestedTeamColor()
     {
-        int ct = OwnerInfo.ContestantTeamID;
-        int own = OwnerInfo.TeamID;
-        float t = OwnerInfo.Progress;
+        //int ct = OwnerInfo.ContestantTeamID;
+        //int own = OwnerInfo.TeamID;
+        //float t = OwnerInfo.Progress;
 
         // No Need to change colors if not changed
-        if(ct == own)
+        if (OwnerInfo.ContestantTeamID == OwnerInfo.TeamID)
             return;
 
-        // If now neutral
-        if (own == 0)
-        {
-            SetColor(Color.Lerp(ColorPallet.NeutralColor[TextureId], ColorPallet.PlayerTeamColors[ct], t));
-        } // or contetant is neutral
-        else if (OwnerInfo.ContestantTeamID == 0)
-            SetColor(Color.Lerp(ColorPallet.PlayerTeamColors[own], ColorPallet.NeutralColor[TextureId], t));
-        else // both players
-            SetColor(Color.Lerp(ColorPallet.PlayerTeamColors[own], ColorPallet.PlayerTeamColors[ct], t));
+        // Lerp color by progress
+        SetColor(Color.Lerp(ColorPallet.GetPaletteColor(this, OwnerInfo.ContestantTeamID),
+                            ColorPallet.GetPaletteColor(this, OwnerInfo.TeamID),
+                            OwnerInfo.Progress));
+
+        //// If now neutral
+        //if (own == 0)
+        //{
+        //    SetColor(Color.Lerp(ColorPallet.NeutralColor[TextureId], ColorPallet.PlayerTeamColors[ct], t));
+        //} // or contetant is neutral
+        //else if (OwnerInfo.ContestantTeamID == 0)
+        //    SetColor(Color.Lerp(ColorPallet.PlayerTeamColors[own], ColorPallet.NeutralColor[TextureId], t));
+        //else // both players
+        //    SetColor(Color.Lerp(ColorPallet.PlayerTeamColors[own], ColorPallet.PlayerTeamColors[ct], t));
     }
 
-    public void ChangeTeamColor(int to, int from, float slerpCount)
+    public void SetTeamColor()
     {
-		if (to == 0 && from == 1)
-            SetColor(Color.Lerp(ColorPallet.NeutralColor[parentBlock.ColorTypeID], ColorPallet.TeamOneColor, slerpCount));
-		 else if (to == 2 && from == 1)
-            SetColor(Color.Lerp(ColorPallet.NeutralColor[parentBlock.ColorTypeID], ColorPallet.TeamTwoColor, slerpCount));
-		else if (to == 1 && from == 2)
-            SetColor(Color.Lerp(ColorPallet.TeamTwoColor, ColorPallet.NeutralColor[parentBlock.ColorTypeID], slerpCount));
-		else if (to == 1 && from == 0)
-            SetColor(Color.Lerp(ColorPallet.TeamOneColor, ColorPallet.NeutralColor[parentBlock.ColorTypeID], slerpCount));
-	}
+        SetColor(ColorPallet.GetPaletteColor(this, OwnerInfo.TeamID));
+    }
 
-	public void setBaseColor()
-    {
-        SetColor(ColorPallet.NeutralColor[parentBlock.ColorTypeID]);
-	}
+    #endregion
+
+    #region Set (Vertex) Color
 
     private void SetColor(Color newColor)
     {
@@ -158,13 +155,7 @@ public class BlockFace : MonoBehaviour
         mesh.colors = newColors;
     }
 
-	public void setTeamCol(int i)
-    {
-        if (i == 0) SetColor(ColorPallet.TeamOneColor);
-        if (i == 2) SetColor(ColorPallet.TeamTwoColor);
-	}
-
-	#endregion Materials
+    #endregion
 
     #region Gizmos
 

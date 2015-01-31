@@ -36,11 +36,15 @@ public class BlockManagerEditor : EditorPlus
 
         if (GUILayout.Button("Create New Pallet"))
         {
-            ScriptableObjectHelper.SaveAssetAutoNaming(ColorPallet.Create(), "Assets/Levels");
+            ColorPalette pal = ColorPalette.Create();
+            pal.Init();
+            ScriptableObjectHelper.SaveAssetAutoNaming(pal, "Assets/ColorPalletes");
+            Selection.activeObject = pal;
+
         }
         if (GUILayout.Button("ChangeColor"))
         {
-            BlockManager.Instance.UpdateColor();
+            GameManagement.Block.SetTeamColor();
         }
 
         EditorGUILayout.EndHorizontal();

@@ -28,7 +28,7 @@ public class BlockManager : Singleton<BlockManager>
 {
     #region Fields
 
-    public ColorPallet Pallet;
+    public ColorPalette Pallet;
 
     public GameObject BlockPrefab;
 
@@ -175,7 +175,7 @@ public class BlockManager : Singleton<BlockManager>
 
         // Set palette
         //ColorPallet plt = Instance.GetComponent<ColorPallet>();
-        newBlock.Init(Instance.Pallet);
+        newBlock.Init(0);
         
         // Project to find length
         float blockScale = Vector3.Dot(clickedFace.Normal,clickedFace.transform.localPosition)*2;
@@ -284,7 +284,7 @@ public class BlockManager : Singleton<BlockManager>
     {
         ClearBlocks();
 
-        ColorPallet plt = Pallet;
+        ColorPalette plt = Pallet;
 
         List<BlockFace> faces = new List<BlockFace>();
 
@@ -300,7 +300,7 @@ public class BlockManager : Singleton<BlockManager>
             block.transform.localScale = data.Scale;
             block.Type = data.Type;
 			block.SpawnFaceID = data.SpawnFaceID;
-            block.ColorTypeID = data.ColorTypeID;
+            block.ColorID = data.ColorTypeID;
             block.TeamID = data.Team;
 
             // Set up in scene
@@ -309,7 +309,7 @@ public class BlockManager : Singleton<BlockManager>
             block.transform.parent = levelParent.transform;
 
             // Set color
-            block.Init(plt);
+            block.Init(data.Team);
 
             // Grid snap positions
             GridSnap(block.transform);
@@ -360,7 +360,7 @@ public class BlockManager : Singleton<BlockManager>
                 Scale = Blocks[i].transform.localScale, 
                 Rot = Blocks[i].transform.localRotation, 
                 Type = Blocks[i].Type,
-                ColorTypeID = Blocks[i].ColorTypeID,
+                ColorTypeID = Blocks[i].ColorID,
 				SpawnFaceID = Blocks[i].SpawnFaceID,
                 Team = Blocks[i].TeamID
             });
@@ -377,11 +377,11 @@ public class BlockManager : Singleton<BlockManager>
 
     #endregion
 
-    public void UpdateColor()
+    public void SetTeamColor()
     {
         foreach (Transform child in levelParent.transform)
         {
-            child.GetComponent<Block>().Init(Pallet);
+            child.GetComponent<Block>().SetCurrentTeamColor();
         }
     }
 

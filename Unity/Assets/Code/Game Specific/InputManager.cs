@@ -122,12 +122,7 @@ public class InputManager : MonoBehaviour
         } // Change color
         else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            if (face.Block.ColorTypeID < face.ColorPallet.NeutralColor.Length - 2)
-                face.Block.ColorTypeID++;
-            else
-                face.Block.ColorTypeID = 0;
-
-            face.Block.setBaseCol();
+            LevelBuildingCommands.ChangeTone(face);
         }
     }
 
@@ -166,8 +161,7 @@ public class InputManager : MonoBehaviour
         // New block
         if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
         {
-            Debug.Log("Create new block: [" + face.Block.ID + "," + face.ID + "]");
-            BlockManager.Add(face.Block.ID, face.ID);
+            LevelBuildingCommands.AddBlock(face);
         }// Create Unit
         else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
         {
@@ -175,39 +169,21 @@ public class InputManager : MonoBehaviour
         }// Set Texture ID and loop over versions
         else if (Input.GetKey(KeyCode.Q))
         {
-
-            face.Block.Type = BlockData.BlockType.Normal;
-            face.Block.ColorTypeID = (face.Block.ColorTypeID + 1) % BlockManager.Instance.Pallet.NeutralColor.Length;
-            face.Block.setBaseCol();
-        } // Set Neutral Spawn
+            LevelBuildingCommands.ChangeBlockToNormal(face);
+        } // Set Unit Spawn
         else if (Input.GetKey(KeyCode.W))
         {
-            face.Block.Type = BlockData.BlockType.UnitSpawn;
-            face.Block.ColorTypeID = 3;
-            face.Block.setBaseCol();
+            LevelBuildingCommands.ChangeBlockToUnitSpawn(face);
         }// Set Team Spawn 
         else if (Input.GetKey(KeyCode.E))
         {
-            face.Block.Type = BlockData.BlockType.PlayerSpawn;
-            if (face.Block.TeamID == 0)
-            {
-                face.Block.TeamID = 2;
-                face.Block.setTeamCol(2);
-            }
-            else
-            {
-                face.Block.TeamID = 0;
-                face.Block.setTeamCol(0);
-            }
+            LevelBuildingCommands.ChangeBlockToStartSpawn(face);
         } //Set Spawn face
         else if (Input.GetKey(KeyCode.R))
         {
-            face.Block.SpawnFaceID = face.ID;
-        } // Move unit
+            LevelBuildingCommands.ChangeSpawnFace(face);
+        }
     }
-
-
-    
 
     #endregion
 

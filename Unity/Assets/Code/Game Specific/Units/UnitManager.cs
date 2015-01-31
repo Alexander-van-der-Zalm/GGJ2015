@@ -161,21 +161,19 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region RPC Move section
+    #region RPC Move section (Moved to MovementRules)
 
-    
+    //public void ColorBlock(int blockID, int blockFaceID, BasicUnit unit)
+    //{
+    //    Block block = bm.get(blockID);
+    //    BlockFace face = block.GetFace(blockFaceID);
 
-	public void ColorBlock(int blockID, int blockFaceID, BasicUnit unit)
-    {
-		Block block = bm.get(blockID);
-		BlockFace face = block.GetFace(blockFaceID);
-
-        if (block.TeamID != unit.TeamID && !unit.Capping)
-        {
-            block.StartCapture(unit);
-            unit.Capping = true;
-		}
-	}
+    //    if (block.TeamID != unit.TeamID && !unit.Capping)
+    //    {
+    //        block.StartCapture(unit);
+    //        unit.Capping = true;
+    //    }
+    //}
 
     //public void MoveUnit(FaceBlockID destination, int unitID, FaceBlockID origin)
     //{

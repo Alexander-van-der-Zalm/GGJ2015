@@ -324,7 +324,7 @@ public class ConquestRules
 
             // continue capture
             face.OwnerInfo.Progress += captureStep;
-            face.ChangeTeamColor();
+            face.ChangeContestedTeamColor();
             yield return null;
         }
 
@@ -333,7 +333,7 @@ public class ConquestRules
         unit.Capping = false;
         face.OwnerInfo.Reset();
         face.OwnerInfo.TeamID = unit.TeamID;
-        face.ChangeTeamColor();
+        face.ChangeContestedTeamColor();
     }
 
     #endregion

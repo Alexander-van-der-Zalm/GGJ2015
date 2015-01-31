@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ColorPalette
+  m_EditorClassIdentifier: Assembly-CSharp::ColorPalette
+  MaxTones: 3
+  TeamPalettes:
+  - NormalBlockColor:
+    - {r: .158953309, g: .772058845, b: .158953309, a: 1}
+    - {r: .172469735, g: .808823526, b: .172469735, a: 1}
+    - {r: .254108965, g: .735294104, b: .254108965, a: 1}
+    UnitSpawnBlockColor: {r: .764705896, g: .764705896, b: .764705896, a: 1}
+    StartSpawnBlockSpawnColor: {r: .769031107, g: .933823526, b: .769031107, a: 1}
+  - NormalBlockColor:
+    - {r: .154411763, g: .154411763, b: .875, a: 1}
+    - {r: .248702392, g: .248702392, b: .845588207, a: 1}
+    - {r: .212153986, g: .212153986, b: .801470578, a: 1}
+    UnitSpawnBlockColor: {r: .407277256, g: .407277256, b: .683823526, a: 1}
+    StartSpawnBlockSpawnColor: {r: .321691155, g: .321691155, b: .875, a: 1}
+  - NormalBlockColor:
+    - {r: .889705896, g: .235510394, b: .235510394, a: 1}
+    - {r: .91911763, g: .256812304, b: .256812304, a: 1}
+    - {r: .727941155, g: .192690313, b: .192690313, a: 1}
+    UnitSpawnBlockColor: {r: .889705896, g: .497188598, b: .497188598, a: 1}
+    StartSpawnBlockSpawnColor: {r: .948529422, g: .278979212, b: .278979212, a: 1}
