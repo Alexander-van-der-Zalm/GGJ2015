@@ -52,7 +52,7 @@ MonoBehaviour:
   ConquestRules:
     ConnectionRequirement: 6
     OnFaceCaptureMethod: 1
-    OnNoMovementCaptureMethod: 1
+    OnNoMovementCaptureMethod: 0
     FaceCaptureTimers:
       CaptureTime: 2
       AnimationTime: 2
@@ -109,10 +109,13 @@ MonoBehaviour:
   LevelNames:
   - Basic Level Disc.asset
   - Basic Level Sphere.asset
+  - Beginner Disc.asset
+  - Chevrons.asset
   - Level 1.asset
   - Level 2.asset
   - Level.asset
   - Midas 1.asset
+  - Under and Over.asset
   - World 1 - Shuriken.asset
   - World 2 - Pyramid.asset
   levelParent: {fileID: 0}

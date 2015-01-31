@@ -94,17 +94,11 @@ public class MovementRules
         if (!CanMove(dest, unit))
             return;
 
-        Debug.Log("Move 2.0");
-
         unit.MoveUnit(destination.BlockID, destination.FaceID);
 
-        // Capture Block
+        // Try to capture the block
         GameManagement.Rules.ConquestRules.OnFace(unit);
-        //ColorBlock(destination.BlockID, destination.FaceID, unit);
     }
-
-    
-
 
     public static void HighLightPossibleFaces(List<BlockFace> Faces)
     {

@@ -475,8 +475,6 @@ public class ConquestRules
                 Debug.Log("Capture criteria not valid anymore");
                 block.OwnerInfo.CaptureCoRoutine = null;
 
-                // Stop all face CR's
-
                 yield break;
             }
 
