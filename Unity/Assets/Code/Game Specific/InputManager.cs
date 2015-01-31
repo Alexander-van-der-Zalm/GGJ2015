@@ -162,6 +162,10 @@ public class InputManager : MonoBehaviour
         if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
         {
             LevelBuildingCommands.AddBlock(face);
+        }
+        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            LevelBuildingCommands.ChangeTeam(face);
         }// Create Unit
         else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
         {

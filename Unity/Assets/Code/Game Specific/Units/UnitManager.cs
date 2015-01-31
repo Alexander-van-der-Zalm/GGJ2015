@@ -83,7 +83,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         if(instance == null)
         {
-            Debug.Log("Unit Manager already inactive");
+            //Debug.Log("Unit Manager already inactive");
             return;
         }
         

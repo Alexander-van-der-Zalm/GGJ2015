@@ -63,14 +63,6 @@ public class Block : MonoBehaviour
         SetCurrentTeamColor();
     }
 
-    //void Start()
-    //{
-    //    //if (this.Type == BlockData.BlockType.Unit || this.Type == BlockData.BlockType.player) 
-    //    //{
-    //    //    this.RespawnUnit();
-    //    //}
-    //}
-
     #endregion
 
     #region GetFace
@@ -133,6 +125,16 @@ public class Block : MonoBehaviour
         }
     }
 
+
+    public void SetTeamIDAllFaces(int newTeamID)
+    {
+        TeamID = newTeamID;
+        foreach (BlockFace face in Faces)
+        {
+            face.OwnerInfo = new OwnershipInfo();
+            face.TeamID = newTeamID;
+        }
+    }
     
 
     #endregion

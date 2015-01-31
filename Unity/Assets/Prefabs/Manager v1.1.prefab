@@ -54,8 +54,8 @@ MonoBehaviour:
     OnFaceCaptureMethod: 2
     OnNoMovementCaptureMethod: 0
     FaceCaptureTimers:
-      CaptureTime: .5
-      AnimationTime: .5
+      CaptureTime: 2
+      AnimationTime: 2
     NodeCaptureTimers:
       CaptureTime: 6
       AnimationTime: 6
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cee1c0db74cde44b4471d49e4b85bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
+  team: 0
   UnitPrefabs:
   - {fileID: 100000, guid: 113d7458fffd1bb48bd847502b15c928, type: 2}
   Units: []
