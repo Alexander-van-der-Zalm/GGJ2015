@@ -19,8 +19,8 @@ public class OwnershipInfo
 
     public void Reset()
     {
-        ContestantTeamID = -1;
-        TeamID = -1;
+        ContestantTeamID = 0;
+        TeamID = 0;
         Progress = 0;
     }
 
@@ -191,7 +191,7 @@ public class ConquestRules
     private bool EarlyRejectCapture(BasicUnit unit, CaptureMethod OnFaceCaptureMethod)
     {
         // Let only the owner of the units send the RPC's
-        if (unit.TeamID != PhotonNetwork.player.ID)
+        if (!PhotonNetwork.offlineMode && unit.TeamID != GameManagement.Unit.team)
             return true;
 
         // Check if already the owner
@@ -333,7 +333,7 @@ public class ConquestRules
         unit.Capping = false;
         face.OwnerInfo.Reset();
         face.OwnerInfo.TeamID = unit.TeamID;
-        face.ChangeContestedTeamColor();
+        face.SetTeamColor();
     }
 
     #endregion

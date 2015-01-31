@@ -84,6 +84,12 @@ public class ColorPalette : EasyScriptableObject<ColorPalette>
 
     public Color GetPaletteColor(Block block, int teamID)
     {
+        if(teamID<0)
+        {
+            Debug.LogError("Error GetPaletteColor Out of Range");
+            return Color.cyan;
+        }
+
         switch (block.Type)
         {
             case BlockData.BlockType.Normal:
