@@ -103634,6 +103634,10 @@ Prefab:
       propertyPath: RoomRules.BuildMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11464804, guid: 540831d6c57f96a4997b3f752a31fe2d, type: 2}
+      propertyPath: ConquestRules.OnNoMovementCaptureMethod
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 540831d6c57f96a4997b3f752a31fe2d, type: 2}
   m_RootGameObject: {fileID: 2072518737}
@@ -152226,7 +152230,7 @@ MonoBehaviour:
   ConquestRules:
     ConnectionRequirement: 0
     OnFaceCaptureMethod: 2
-    OnNoMovementCaptureMethod: 0
+    OnNoMovementCaptureMethod: 1
     FaceCaptureTimers:
       CaptureTime: 2
       AnimationTime: 2

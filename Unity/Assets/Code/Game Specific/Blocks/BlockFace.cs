@@ -101,8 +101,8 @@ public class BlockFace : MonoBehaviour
             return;
 
         // Lerp color by progress
-        SetColor(Color.Lerp(ColorPallet.GetPaletteColor(this, OwnerInfo.ContestantTeamID),
-                            ColorPallet.GetPaletteColor(this, OwnerInfo.TeamID),
+        SetColor(Color.Lerp(ColorPallet.GetPaletteColor(this, OwnerInfo.TeamID),
+                            ColorPallet.GetPaletteColor(this, OwnerInfo.ContestantTeamID),
                             OwnerInfo.Progress));
 
         //// If now neutral
@@ -177,4 +177,10 @@ public class BlockFace : MonoBehaviour
     //}
 
     #endregion
+
+    internal float DistanceToPosUnquared(Vector3 pos)
+    {        
+        Vector3 delta = transform.position - pos;
+        return delta.x * delta.x + delta.y * delta.y + delta.z * delta.z;
+    }
 }

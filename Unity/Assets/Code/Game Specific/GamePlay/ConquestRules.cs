@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
 
 #region OwnerShipInfo Class
 
@@ -262,7 +263,7 @@ public class ConquestRules
         switch(method)
         {
             case CaptureMethod.CaptureNode:// Node
-
+                BlockCapture(unit, unit.CurrentFace.Block);
                 break;
 
             case CaptureMethod.CaptureFace:// Face
@@ -270,6 +271,8 @@ public class ConquestRules
                 break;
         }
     }
+
+    
 
     #region Face Capture 
 
@@ -297,8 +300,10 @@ public class ConquestRules
         // If it was already in progress of being contested
         if(face.OwnerInfo.Progress > 0 && face.OwnerInfo.ContestantTeamID != unit.TeamID)
         {
-            // Do nothing for now
-            Debug.Log("Already contested - ignoring edge case for now");
+            // Can be changed to save unit to info and/or coroutine to info
+            Debug.Log("Already contested - 1 step of waiting for coroutines to stop");
+            face.OwnerInfo.InterruptCapture = true;
+            yield return null;
         }
 
         Debug.Log("Start capping");
@@ -310,21 +315,29 @@ public class ConquestRules
 
         unit.Capping = true;
 
-        // Delta Time plzs
+        //float startTime = Time.realtimeSinceStartup;
         float captureStep = 1 / FaceCaptureTimers.CaptureTime;
 
         // Start progress
         while (face.OwnerInfo.Progress < 1)
         {
-            if(!unit.Capping)
+            // Check captureCondition still true
+            
+            if(face.OwnerInfo.InterruptCapture)
             {
                 Debug.Log("Capture interrupted");
                 face.OwnerInfo.InterruptCapture = false;
                 yield break;
             }
+            
 
             // continue capture
-            face.OwnerInfo.Progress += captureStep;
+            face.OwnerInfo.Progress += Time.deltaTime * captureStep;
+
+            //float capTime = Time.realtimeSinceStartup - startTime;
+            //Debug.Log(face.OwnerInfo.Progress + " " + capTime + " max: " + FaceCaptureTimers.CaptureTime);
+
+
             face.ChangeContestedTeamColor();
             yield return null;
         }
@@ -340,6 +353,30 @@ public class ConquestRules
     #endregion
 
     #region Block/Node Capture
+
+    private void BlockCapture(BasicUnit unit, Block block)
+    {
+        unit.StartCoroutine(BlockCaptureCR(unit, block));
+    }
+
+    private IEnumerator BlockCaptureCR(BasicUnit unit, Block block)
+    {
+        List<BlockFace> faces = block.Faces;
+        
+        // Sort faces
+        faces = faces.OrderBy(f => f.DistanceToPosUnquared(unit.CurrentFace.transform.position)).ToList();
+
+        for (int i = 0; i < faces.Count; i++ )
+        {
+            //Debug.Log("face: " + faces[i].name + " " + faces[i].DistanceToPosUnquared(unit.CurrentFace.transform.position));
+        }
+
+        // Capture face one by one
+
+        // 
+
+        yield return null;
+    }
 
     #endregion
 
