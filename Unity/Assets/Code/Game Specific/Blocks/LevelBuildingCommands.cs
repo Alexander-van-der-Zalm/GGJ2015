@@ -37,8 +37,9 @@ public class LevelBuildingCommands
     public static void ChangeBlockToStartSpawn(BlockFace face)
     {
         face.Block.Type = BlockData.BlockType.StartSpawn;
-        face.Block.TeamID = (face.Block.TeamID + 1) % GameManagement.Block.Pallet.TeamPalettes.Count;
-        face.Block.SetCurrentTeamColor();
+        //face.Block.TeamID = (face.Block.TeamID + 1) % GameManagement.Block.Pallet.TeamPalettes.Count;
+        //face.Block.SetCurrentTeamColor();
+        ChangeTeam(face);
     }
 
     public static void ChangeSpawnFace(BlockFace face)
@@ -49,6 +50,14 @@ public class LevelBuildingCommands
     public static void ChangeTone(BlockFace face)
     {
         face.Block.ColorID = (face.Block.ColorID + 1) % GameManagement.Block.Pallet.MaxTones;
+
+        face.Block.SetCurrentTeamColor();
+    }
+
+    public static void ChangeTeam(BlockFace face)
+    {
+        //int newID = (face.Block.TeamID + 1) % GameManagement.Block.Pallet.TeamPalettes.Count;
+        face.Block.SetTeamIDAllFaces((face.Block.TeamID + 1) % GameManagement.Block.Pallet.TeamPalettes.Count);
 
         face.Block.SetCurrentTeamColor();
     }

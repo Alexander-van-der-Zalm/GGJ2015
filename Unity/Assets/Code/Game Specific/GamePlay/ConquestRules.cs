@@ -310,6 +310,7 @@ public class ConquestRules
 
         unit.Capping = true;
 
+        // Delta Time plzs
         float captureStep = 1 / FaceCaptureTimers.CaptureTime;
 
         // Start progress
