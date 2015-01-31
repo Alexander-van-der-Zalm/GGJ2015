@@ -401,7 +401,7 @@ public class ConquestRules
             //Debug.Log(face.OwnerInfo.Progress + " " + capTime + " max: " + FaceCaptureTimers.CaptureTime);
 
             // Update vertex color
-            face.ChangeContestedTeamColor();
+            face.RedrawContestedTeamColor();
             yield return null;
         }
 
@@ -450,10 +450,18 @@ public class ConquestRules
         block.OwnerInfo.ContestantTeamID = unit.TeamID;
         block.OwnerInfo.Progress = 0; // ??
 
-        // Capture all faces at once
-        for (int i = 0; i < faces.Count; i++ )
+        //// Capture all faces at once
+        //for (int i = 0; i < faces.Count; i++ )
+        //{
+        //    FaceCapture(unit, faces[i], NodeCaptureTimers.CaptureTime, true);
+        //}
+
+        // Set all face info
+        for (int i = 0; i < faces.Count; i++)
         {
-            FaceCapture(unit, faces[i], NodeCaptureTimers.CaptureTime, true);
+            faces[i].OwnerInfo.ContestantTeamID = unit.TeamID;
+            faces[i].OwnerInfo.Progress = 0;
+            faces[i].RedrawContestedTeamColor();
         }
 
         // Maintain progress
@@ -474,6 +482,13 @@ public class ConquestRules
 
             // continue maintaining progres
             block.OwnerInfo.Progress += Time.deltaTime * captureStep;
+
+            // Set progress for all faces
+            for (int i = 0; i < faces.Count; i++)
+            {
+                faces[i].OwnerInfo.Progress = block.OwnerInfo.Progress;
+                faces[i].RedrawContestedTeamColor();
+            }
 
             yield return null;
         }

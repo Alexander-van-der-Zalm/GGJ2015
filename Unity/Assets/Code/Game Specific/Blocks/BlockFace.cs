@@ -90,7 +90,7 @@ public class BlockFace : MonoBehaviour
 
 	#region Team Color Set
 
-    public void ChangeContestedTeamColor()
+    public void RedrawContestedTeamColor()
     {
         //int ct = OwnerInfo.ContestantTeamID;
         //int own = OwnerInfo.TeamID;
