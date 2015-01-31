@@ -212,7 +212,7 @@ public class ConquestRules
     public void OnNoMovement(BasicUnit unit)
     {
         // Check if allowed, possible
-        if (EarlyRejectCapture(unit, OnFaceCaptureMethod))
+        if (EarlyRejectCapture(unit, OnNoMovementCaptureMethod))
             return;
 
         // Do the RPC call
@@ -237,6 +237,7 @@ public class ConquestRules
             return true;
 
         // Check if already the owner
+        // Check if already contesting
         if (EarlyReject(unit, OnFaceCaptureMethod))
             return true;
 
@@ -256,7 +257,7 @@ public class ConquestRules
     /// </summary>
     private bool EarlyReject(BasicUnit unit, CaptureMethod captureMethod)
     {
-        // Returns t
+        // Returns true if already the owner
         switch (captureMethod)
         {
             case CaptureMethod.CaptureFace:
@@ -272,12 +273,21 @@ public class ConquestRules
 
     private bool EarlyNodeCaptureReject(BasicUnit unit)
     {
-        return unit.TeamID == unit.CurrentFace.Block.TeamID;
+        // Check if already the owner
+        if(unit.TeamID == unit.CurrentFace.Block.TeamID)
+            return true;
+
+        Debug.Log("Progress: " + unit.CurrentFace.Block.OwnerInfo.CaptureInProgress.ToString() + " ids: " + unit.TeamID + " | " + unit.CurrentFace.Block.OwnerInfo.ContestantTeamID);
+
+        return unit.CurrentFace.Block.OwnerInfo.CaptureInProgress && unit.TeamID == unit.CurrentFace.Block.OwnerInfo.ContestantTeamID;
     }
 
     private bool EarlyFaceCaptureReject(BasicUnit unit)
     {
-        return unit.TeamID == unit.CurrentFace.TeamID;
+        if (unit.TeamID == unit.CurrentFace.TeamID)
+            return true;
+
+        return unit.CurrentFace.OwnerInfo.CaptureInProgress && unit.TeamID == unit.CurrentFace.OwnerInfo.ContestantTeamID;
     }
 
     #endregion
@@ -293,7 +303,7 @@ public class ConquestRules
     /// <param name="unitID">uniqueID of the unit</param>
     /// <param name="captureMethod">0 = none, 1 = node, 2 = face</param>
     [RPC]
-    public void StartCaptureRPC(int unitID, int captureMethod)
+    private void StartCaptureRPC(int unitID, int captureMethod)
     {
         BasicUnit unit = UnitManager.Get(unitID);
         CaptureMethod method = (CaptureMethod)captureMethod;
@@ -308,40 +318,45 @@ public class ConquestRules
                 break;
 
             case CaptureMethod.CaptureFace:// Face
-                FaceCapture(unit, unit.CurrentFace);
+                FaceCapture(unit, unit.CurrentFace, FaceCaptureTimers.CaptureTime);
                 break;
         }
     }
 
-    
-
     #region Face Capture 
 
     [RPC]
-    public void StartFaceCaptureRPC(int unitID, int BlockID, int faceID)
+    private void StartFaceCaptureRPC(int unitID, int BlockID, int faceID)
     {
         BasicUnit unit = UnitManager.Get(unitID);
         BlockFace face = BlockManager.GetFace(BlockID, faceID);
 
-        FaceCapture(unit, face);
+        Debug.Log("CaptureRPC");
+
+        FaceCapture(unit, face, FaceCaptureTimers.CaptureTime);
     }
 
     /// <summary>
     /// Starts FaceCaptureCoRoutine
     /// </summary>
-    private void FaceCapture(BasicUnit unit, BlockFace face)
+    private void FaceCapture(BasicUnit unit, BlockFace face, float capTime, bool overrideNodeCapture = false)
     {
         if (face.OwnerInfo.CaptureInProgress)
         {
+            if(face.Block.OwnerInfo.CaptureInProgress && !overrideNodeCapture)
+            {
+                Debug.Log("Cancel face capture/cannot override node capture");
+                return;
+            }
+            
             face.StopCoroutine(face.OwnerInfo.CaptureCoRoutine);
             Debug.Log("Stopping previous capture");
         }
-            
 
-        face.OwnerInfo.CaptureCoRoutine = face.StartCoroutine(FaceCaptureCR(unit,face));
+        face.OwnerInfo.CaptureCoRoutine = face.StartCoroutine(FaceCaptureCR(unit, face, capTime));
     }
     
-    private IEnumerator FaceCaptureCR(BasicUnit unit, BlockFace face)
+    private IEnumerator FaceCaptureCR(BasicUnit unit, BlockFace face, float capTime)
     {
         PhotonPlayer player = PhotonNetwork.player;
 
@@ -354,7 +369,7 @@ public class ConquestRules
             yield return null;
         }
 
-        Debug.Log("Start capping");
+        //Debug.Log("Start capping");
 
         // Start capping
         face.OwnerInfo.ContestantTeamID = unit.TeamID;
@@ -365,7 +380,7 @@ public class ConquestRules
         unit.Capping = true;
 
         //float startTime = Time.realtimeSinceStartup;
-        float captureStep = 1 / FaceCaptureTimers.CaptureTime;
+        float captureStep = 1 / capTime;
 
         // Start progress
         while (face.OwnerInfo.Progress < 1)
@@ -391,7 +406,7 @@ public class ConquestRules
         }
 
         // Captured
-        Debug.Log("Captured");
+        //Debug.Log("Captured");
         // Reset info
         face.OwnerInfo.Reset();
 
@@ -407,24 +422,65 @@ public class ConquestRules
 
     private void BlockCapture(BasicUnit unit, Block block)
     {
-        unit.StartCoroutine(BlockCaptureCR(unit, block));
+        if (block.OwnerInfo.CaptureInProgress && block.OwnerInfo.ContestantTeamID != unit.TeamID)
+        {
+            block.StopCoroutine(block.OwnerInfo.CaptureCoRoutine);
+            Debug.Log("Block: Stopping previous capture");
+        }
+        
+        block.OwnerInfo.CaptureCoRoutine = block.StartCoroutine(BlockCaptureCR(unit, block));
     }
 
     private IEnumerator BlockCaptureCR(BasicUnit unit, Block block)
     {
         List<BlockFace> faces = block.Faces;
-        
-        // Sort faces
-        faces = faces.OrderBy(f => f.DistanceToPosUnquared(unit.CurrentFace.transform.position)).ToList();
+        //// Sort faces
+        //faces = faces.OrderBy(f => f.DistanceToPosUnquared(unit.CurrentFace.transform.position)).ToList();
 
-        for (int i = 0; i < faces.Count; i++ )
+        // Do administration of capping
+        if (block.OwnerInfo.Progress > 0 && block.OwnerInfo.ContestantTeamID != unit.TeamID)
         {
-            //Debug.Log("face: " + faces[i].name + " " + faces[i].DistanceToPosUnquared(unit.CurrentFace.transform.position));
+            // Can be changed to save unit to info and/or coroutine to info
+            Debug.Log("Already contested - do nothing for now");
+            //face.OwnerInfo.InterruptCapture = true;
+            yield return null;
         }
 
-        // Capture face one by one
+        // Start capping
+        block.OwnerInfo.ContestantTeamID = unit.TeamID;
+        block.OwnerInfo.Progress = 0; // ??
 
-        // 
+        // Capture all faces at once
+        for (int i = 0; i < faces.Count; i++ )
+        {
+            FaceCapture(unit, faces[i], NodeCaptureTimers.CaptureTime, true);
+        }
+
+        // Maintain progress
+        float captureStep = 1 / NodeCaptureTimers.CaptureTime;
+        BlockFace face = unit.CurrentFace;
+        while (block.OwnerInfo.Progress < 1)
+        {
+            // Check captureCondition still true
+            if (!CanQonquer(face, unit.TeamID)) // Change to stopCoroutine
+            {
+                Debug.Log("Capture criteria not valid anymore");
+                block.OwnerInfo.CaptureCoRoutine = null;
+
+                // Stop all face CR's
+
+                yield break;
+            }
+
+            // continue maintaining progres
+            block.OwnerInfo.Progress += Time.deltaTime * captureStep;
+
+            yield return null;
+        }
+
+
+        // Finished capturing
+        OnFinishedCaptureBlock(unit, block);
 
         yield return null;
     }
@@ -432,4 +488,25 @@ public class ConquestRules
     #endregion
 
     #endregion
+
+    private void OnCaptureFace()
+    {
+        // Check wincondition
+    }
+
+    private void OnFinishedCaptureBlock(BasicUnit unit, Block block)
+    {
+        Debug.Log("Captured Block");
+        block.TeamID = unit.TeamID;
+
+
+        if (block.creature != null)
+        {
+            block.creature.TeamID = unit.TeamID;
+            block.RespawnUnit();
+        }
+         
+        // Check wincondition
+
+    }
 }
